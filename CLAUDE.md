@@ -83,16 +83,17 @@ names; see the file's `note` field.
 
 ## Infra / deployment status
 
-- **GitHub**: `https://github.com/GITZMBE/Geo-quizes.git` (repo was renamed
-  from `Geo-quiz`; local folder and all in-repo references were renamed to
-  match — `geo-quizes` is the canonical slug used in `package.json`, Docker
-  Postgres credentials, etc.)
-- **Database**: Neon Postgres, project `geo-quizes` (id
-  `patient-shape-66081015`, region `aws-eu-central-1`). Connection string is
-  in the local `.env` only (never committed). Initial migration has been
-  applied directly against it.
-- **Netlify**: site `geo-quizes` (account `gitzmbe`) is linked to
-  `GITZMBE/Geo-quizes` on branch `master` for continuous deployment (reusing
+- **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been
+  renamed twice — `Geo-quiz` → `Geo-quizes` → `Geo-quizzes`; local folder and
+  all in-repo references renamed to match each time — `geo-quizzes` is the
+  canonical slug used in `package.json`, Docker Postgres credentials, etc.)
+- **Database**: Neon Postgres, project `geo-quizzes` (id
+  `patient-shape-66081015`, region `aws-eu-central-1` — id and connection
+  hostname are stable across the project's display-name renames). Connection
+  string is in the local `.env` only (never committed). Initial migration has
+  been applied directly against it.
+- **Netlify**: site `geo-quizzes` (account `gitzmbe`) is linked to
+  `GITZMBE/Geo-quizzes` on branch `master` for continuous deployment (reusing
   the account's existing GitHub App installation — linked via the Netlify API
   since local `netlify deploy` can't work on Windows: the Next.js plugin's
   packaging step needs symlinks, which are unprivileged-blocked on Windows).
