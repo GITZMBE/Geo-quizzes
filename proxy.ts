@@ -4,12 +4,18 @@ import { authConfig } from "@/lib/auth.config";
 
 const { auth } = NextAuth(authConfig);
 
+const PUBLIC_PATHS = new Set(["/", "/sign-in", "/sign-up"]);
+
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
-  const isStartPage = req.nextUrl.pathname === "/";
+  const isPublicPath = PUBLIC_PATHS.has(req.nextUrl.pathname);
 
-  if (!isLoggedIn && !isStartPage) {
+  if (!isLoggedIn && !isPublicPath) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
+  }
+
+  if (isLoggedIn && (req.nextUrl.pathname === "/sign-in" || req.nextUrl.pathname === "/sign-up")) {
+    return NextResponse.redirect(new URL("/games", req.nextUrl));
   }
 });
 

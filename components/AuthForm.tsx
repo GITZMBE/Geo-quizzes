@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 
-export function AuthForm() {
-  const [mode, setMode] = useState<"sign-in" | "sign-up">("sign-in");
+export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -37,7 +37,7 @@ export function AuthForm() {
         setSubmitting(false);
         return;
       }
-      window.location.href = "/";
+      window.location.href = "/games";
     } catch {
       setError("Something went wrong — try again");
       setSubmitting(false);
@@ -83,16 +83,12 @@ export function AuthForm() {
         {submitting ? "Please wait..." : mode === "sign-in" ? "Sign in" : "Create account"}
       </button>
 
-      <button
-        type="button"
-        onClick={() => {
-          setError(null);
-          setMode((m) => (m === "sign-in" ? "sign-up" : "sign-in"));
-        }}
-        className="text-sm text-muted-foreground underline hover:text-foreground"
+      <Link
+        href={mode === "sign-in" ? "/sign-up" : "/sign-in"}
+        className="text-center text-sm text-muted-foreground underline hover:text-foreground"
       >
         {mode === "sign-in" ? "Need an account? Sign up" : "Already have an account? Sign in"}
-      </button>
+      </Link>
     </form>
   );
 }

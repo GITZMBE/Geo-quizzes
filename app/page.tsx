@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { auth, signOut } from "@/lib/auth";
-import { AuthForm } from "@/components/AuthForm";
+import { auth } from "@/lib/auth";
 
 export default async function Home() {
   const session = await auth();
@@ -13,33 +12,27 @@ export default async function Home() {
       </p>
 
       {session?.user ? (
-        <div className="flex flex-col items-center gap-4">
-          <p>
-            Signed in as{" "}
-            <span className="font-medium">{session.user.name ?? session.user.email}</span>
-          </p>
+        <Link
+          href="/games"
+          className="rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90"
+        >
+          Play Games
+        </Link>
+      ) : (
+        <div className="flex gap-3">
           <Link
-            href="/games"
+            href="/sign-in"
+            className="rounded-md border border-border px-6 py-3 font-medium hover:border-primary"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/sign-up"
             className="rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90"
           >
-            Play Games
+            Sign up
           </Link>
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <button
-              type="submit"
-              className="text-sm text-muted-foreground underline hover:text-foreground"
-            >
-              Sign out
-            </button>
-          </form>
         </div>
-      ) : (
-        <AuthForm />
       )}
     </main>
   );
