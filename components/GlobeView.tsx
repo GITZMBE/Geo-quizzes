@@ -12,24 +12,40 @@ type GlobeViewProps = {
 // game pages can configure polygons/points/click handlers as needed.
 export function GlobeView({ onReady }: GlobeViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const onReadyRef = useRef(onReady);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    onReadyRef.current = onReady;
+  }, [onReady]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
     let globe: GlobeInstance | undefined;
     let cancelled = false;
 
     import("globe.gl").then(({ default: Globe }) => {
-      if (cancelled || !containerRef.current) return;
-      globe = new Globe(containerRef.current).backgroundColor("rgba(0,0,0,0)");
-      onReady?.(globe);
+      if (cancelled || !container) return;
+      globe = new Globe(container)
+        .backgroundColor("rgba(0,0,0,0)")
+        .width(container.clientWidth)
+        .height(container.clientHeight);
+      onReadyRef.current?.(globe);
     });
+
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      globe?.width(width).height(height);
+    });
+    resizeObserver.observe(container);
 
     return () => {
       cancelled = true;
+      resizeObserver.disconnect();
       globe?._destructor?.();
     };
-  }, [onReady]);
+  }, []);
 
   return <div ref={containerRef} className="h-full w-full" />;
 }

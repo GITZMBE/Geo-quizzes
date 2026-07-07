@@ -1,13 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { GlobeView } from "@/components/GlobeView";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { getGame } from "@/lib/games/registry";
+import { fetchCities, type City } from "@/lib/games/data";
+
+// Recoil hooks in these mode components aren't safe to execute during Next.js's
+// server prerender pass under React 19, so they're loaded client-only.
+const TypeAllMode = dynamic(() => import("./TypeAllMode").then((m) => m.TypeAllMode), {
+  ssr: false,
+});
+const ClickDotMode = dynamic(() => import("./ClickDotMode").then((m) => m.ClickDotMode), {
+  ssr: false,
+});
+const ProximityMode = dynamic(() => import("./ProximityMode").then((m) => m.ProximityMode), {
+  ssr: false,
+});
 
 const game = getGame("sweden-cities")!;
 
 export default function SwedenCitiesPage() {
   const [mode, setMode] = useState(game.modes[0].slug);
+  const [cities, setCities] = useState<City[] | null>(null);
+
+  useEffect(() => {
+    fetchCities(game.dataFile).then(setCities);
+  }, []);
 
   return (
     <main className="flex flex-1 flex-col gap-4 p-8">
@@ -30,26 +48,14 @@ export default function SwedenCitiesPage() {
         ))}
       </div>
 
-      {mode === "type-all" && (
-        // TODO: free-text input, min 5 chars before unambiguous-match autocomplete,
-        // builds a ranked 1-100 list of correctly guessed cities as you go
-        <div className="flex-1 rounded-lg border border-border p-6 text-muted-foreground">
-          Type-them-all mode — coming soon.
-        </div>
-      )}
-
-      {mode === "click-dot" && (
-        // TODO: dots for all 100 cities, one target named, click the matching dot
-        <div className="flex-1 rounded-lg border border-border overflow-hidden">
-          <GlobeView />
-        </div>
-      )}
-
-      {mode === "proximity" && (
-        // TODO: 5 random cities one at a time, click your guess, score by distance to actual point
-        <div className="flex-1 rounded-lg border border-border overflow-hidden">
-          <GlobeView />
-        </div>
+      {!cities ? (
+        <p className="text-muted-foreground">Loading cities...</p>
+      ) : (
+        <>
+          {mode === "type-all" && <TypeAllMode key="type-all" cities={cities} />}
+          {mode === "click-dot" && <ClickDotMode key="click-dot" cities={cities} />}
+          {mode === "proximity" && <ProximityMode key="proximity" cities={cities} />}
+        </>
       )}
     </main>
   );
