@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Leaderboard } from "@/components/Leaderboard";
 import type { CountryFeature } from "@/lib/games/data";
 import { useRoundGame } from "@/lib/games/useRoundGame";
@@ -20,10 +20,20 @@ export function FlagsMode({
     getId: (c) => c.properties.name,
   });
   const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const byName = new Map(countries.map((c) => [c.properties.name, c]));
   const targetCountry = target ? byName.get(target) : undefined;
   const names = countries.map((c) => c.properties.name);
+
+  // The input is disabled during the correct/wrong feedback window, which
+  // forces the browser to blur it — refocus once it re-enables for the
+  // next round instead of leaving the user to click back into it.
+  useEffect(() => {
+    if (!state.lastResult && !state.finished) {
+      inputRef.current?.focus();
+    }
+  }, [state.lastResult, state.finished]);
 
   function guess(answer: string) {
     submitGuess(answer, answer.toLowerCase() === target?.toLowerCase());
@@ -77,6 +87,7 @@ export function FlagsMode({
           )}
 
           <input
+            ref={inputRef}
             value={input}
             onChange={(e) => handleChange(e.target.value)}
             onKeyDown={(e) => {
