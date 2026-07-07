@@ -5,6 +5,9 @@ import Google from "next-auth/providers/google";
 // Used directly by middleware, and extended with the adapter in lib/auth.ts.
 export const authConfig: NextAuthConfig = {
   providers: [Google],
+  // Netlify Functions sit behind a proxy — trust its forwarded host header
+  // rather than only whatever NEXTAUTH_URL/AUTH_URL was set to.
+  trustHost: true,
   session: {
     strategy: "jwt",
   },
