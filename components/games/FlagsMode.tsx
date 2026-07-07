@@ -42,7 +42,11 @@ export function FlagsMode({
 
   function handleChange(value: string) {
     const match = getAutocompleteMatch(value, names);
-    if (match) {
+    // Only auto-submit when the unique match is the actual correct answer —
+    // otherwise a prefix that happens to uniquely identify some other
+    // country would lock in a wrong guess before the user finishes typing
+    // (or notices the mistake). A wrong guess still requires Enter.
+    if (match && target && match.toLowerCase() === target.toLowerCase()) {
       guess(match);
       return;
     }
