@@ -1,47 +1,44 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useGameState } from "@/lib/state/useGameState";
 import { MapView } from "@/components/MapView";
 import { Leaderboard } from "@/components/Leaderboard";
-import { usStatesGameState } from "@/lib/state/gameAtoms";
-import { fetchRegions, type RegionFeature } from "@/lib/games/data";
+import { stockholmGameState } from "@/lib/state/gameAtoms";
+import type { DistrictFeature } from "@/lib/games/data";
 import { shuffle } from "@/lib/games/geo";
 import { submitScore } from "@/lib/games/scores";
 import { getGame } from "@/lib/games/registry";
 
-const game = getGame("us-states")!;
+const game = getGame("stockholm-stadsdelar")!;
 const mode = game.modes[0];
 
-export default function USStatesGame() {
-  const [states, setStates] = useState<RegionFeature[] | null>(null);
-  const [state, setState] = useGameState(usStatesGameState);
+export function StockholmMode({ districts }: { districts: DistrictFeature[] }) {
+  const [state, setState] = useGameState(stockholmGameState);
   const submittedRef = useRef(false);
 
-  // Load state borders + start a fresh shuffled run on mount. Guarded on
-  // `states` (not just the dependency array) — useGameState's setState is a
-  // new function identity every render, so an unguarded effect here would
-  // refetch and reshuffle on every render it causes, one after another,
-  // endlessly changing the current target (this bit Stockholm Districts —
-  // see its fix for the full explanation).
+  // Start a fresh shuffled run once districts arrive — guarded on
+  // `state.order.length` (not just the dependency array), the same pattern
+  // as every other mode's setup effect: useGameState's setState is a new
+  // function identity every render, so an unguarded effect here would
+  // reshuffle on every render it causes, one after another, endlessly
+  // changing the current target.
   useEffect(() => {
-    if (states) return;
-    fetchRegions(game.dataFile).then((features) => {
-      setStates(features);
+    if (state.order.length === 0 && districts.length > 0) {
       setState({
-        order: shuffle(features.map((f) => f.properties.name)),
+        order: shuffle(districts.map((f) => f.properties.name)),
         index: 0,
         score: 0,
         lastClicked: null,
         lastResult: null,
         finished: false,
       });
-    });
-  }, [states, setState]);
+    }
+  }, [districts, state.order.length, setState]);
 
   const target = state.order[state.index];
 
-  function handlePolygonClick(feature: RegionFeature) {
+  function handlePolygonClick(feature: DistrictFeature) {
     const clickedName = feature.properties.name;
     setState((prev) => {
       if (prev.finished || prev.lastResult) return prev;
@@ -84,9 +81,8 @@ export default function USStatesGame() {
 
   function playAgain() {
     submittedRef.current = false;
-    if (!states) return;
     setState({
-      order: shuffle(states.map((f) => f.properties.name)),
+      order: shuffle(districts.map((f) => f.properties.name)),
       index: 0,
       score: 0,
       lastClicked: null,
@@ -96,9 +92,7 @@ export default function USStatesGame() {
   }
 
   return (
-    <main className="flex flex-1 flex-col gap-4 p-8">
-      <h1 className="text-2xl font-bold">{game.name}</h1>
-
+    <>
       {!state.finished ? (
         <>
           <div
@@ -110,38 +104,29 @@ export default function USStatesGame() {
                   : "border-border bg-surface"
             }`}
           >
-            {states ? (
-              <>
-                Click on: <span className="font-bold">{target}</span>
-                <span className="ml-3 text-sm text-muted-foreground">
-                  ({state.index + 1}/{state.order.length}) · Score: {state.score}
-                </span>
-              </>
-            ) : (
-              "Loading map..."
-            )}
+            Click on: <span className="font-bold">{target}</span>
+            <span className="ml-3 text-sm text-muted-foreground">
+              ({state.index + 1}/{state.order.length}) · Score: {state.score}
+            </span>
           </div>
 
           <div className="relative flex-1 rounded-lg border border-border overflow-hidden">
-            {states && (
-              <MapView
-                regionsData={states}
-                projection="albersUsa"
-                stroke={() => "#0f172a"}
-                label={(f) => f.properties.name}
-                fill={(f) => {
-                  const name = f.properties.name;
-                  if (state.lastResult) {
-                    if (name === target) return "rgba(22, 163, 74, 0.75)";
-                    if (name === state.lastClicked && state.lastResult === "wrong") {
-                      return "rgba(220, 38, 38, 0.75)";
-                    }
+            <MapView
+              regionsData={districts}
+              stroke={() => "var(--foreground)"}
+              label={(f) => f.properties.name}
+              fill={(f) => {
+                const name = f.properties.name;
+                if (state.lastResult) {
+                  if (name === target) return "rgba(22, 163, 74, 0.75)";
+                  if (name === state.lastClicked && state.lastResult === "wrong") {
+                    return "rgba(220, 38, 38, 0.75)";
                   }
-                  return "rgba(37, 99, 235, 0.15)";
-                }}
-                onRegionClick={handlePolygonClick}
-              />
-            )}
+                }
+                return "rgba(37, 99, 235, 0.15)";
+              }}
+              onRegionClick={handlePolygonClick}
+            />
           </div>
         </>
       ) : (
@@ -150,7 +135,7 @@ export default function USStatesGame() {
             <p className="text-4xl font-bold">
               {state.score} / {state.order.length}
             </p>
-            <p className="text-muted-foreground">States correctly identified</p>
+            <p className="text-muted-foreground">Districts correctly identified</p>
           </div>
           <button
             onClick={playAgain}
@@ -163,6 +148,6 @@ export default function USStatesGame() {
           </div>
         </div>
       )}
-    </main>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import type { GlobeMethods } from "react-globe.gl";
 import { useGameState } from "@/lib/state/useGameState";
 import { GlobeView } from "@/components/GlobeView";
 import { Leaderboard } from "@/components/Leaderboard";
+import { FullscreenButton } from "@/components/games/FullscreenButton";
 import { worldProximityState } from "@/lib/state/gameAtoms";
 import type { WorldCity } from "@/lib/games/data";
 import { haversineDistanceKm, proximityScore, shuffle } from "@/lib/games/geo";
@@ -24,6 +25,7 @@ type MarkerPoint = { lat: number; lng: number; color: string };
 
 export function WorldProximityMode({ cities }: { cities: WorldCity[] }) {
   const globeRef = useRef<GlobeMethods>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
   const [globeReady, setGlobeReady] = useState(false);
   const [state, setState] = useGameState(worldProximityState);
   const submittedRef = useRef(false);
@@ -154,7 +156,11 @@ export function WorldProximityMode({ cities }: { cities: WorldCity[] }) {
               </div>
             )}
           </div>
-          <div className="relative flex-1 rounded-lg border border-border overflow-hidden">
+          <div
+            ref={mapContainerRef}
+            className="relative flex-1 overflow-hidden rounded-lg border border-border [&:fullscreen]:bg-background"
+          >
+            <FullscreenButton targetRef={mapContainerRef} />
             <GlobeView
               ref={globeRef}
               onGlobeReady={() => setGlobeReady(true)}

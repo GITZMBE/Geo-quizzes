@@ -20,9 +20,23 @@ import ReactGlobe, { type GlobeMethods, type GlobeProps } from "react-globe.gl";
 // — it measures 0 in practice. Absolute positioning resolves against the
 // nearest positioned ancestor's actual box instead, so callers just need
 // `relative` on that wrapper.
+// The globe's zoom floor (three-globe's default OrbitControls.minDistance
+// sits right at the surface) lets the camera get closer than the bundled
+// earth texture (a fixed-resolution raster, no higher-res variant) has
+// detail for — past this distance it stretches blurry across the viewport.
+// Raising the floor keeps zoom useful for gameplay without crossing into
+// that blur.
+const MIN_ZOOM_DISTANCE = 150;
+
 export const GlobeView = forwardRef<GlobeMethods, GlobeProps>(function GlobeView(props, ref) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  // react-globe.gl's own .d.ts types its ref as MutableRefObject rather
+  // than the standard React.Ref shape forwardRef provides; every consumer
+  // here only ever passes a plain useRef(null), so this cast reflects the
+  // actual (narrower) usage safely — and lets this component read the
+  // globe instance back off the same ref it forwards to ReactGlobe.
+  const globeRef = ref as MutableRefObject<GlobeMethods | undefined> | null;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -37,15 +51,17 @@ export const GlobeView = forwardRef<GlobeMethods, GlobeProps>(function GlobeView
     return () => resizeObserver.disconnect();
   }, []);
 
+  function handleGlobeReady() {
+    const controls = globeRef?.current?.controls();
+    if (controls) controls.minDistance = MIN_ZOOM_DISTANCE;
+    props.onGlobeReady?.();
+  }
+
   return (
     <div ref={containerRef} className="absolute inset-0">
       {size.width > 0 && size.height > 0 && (
         <ReactGlobe
-          // react-globe.gl's own .d.ts types its ref as MutableRefObject
-          // rather than the standard React.Ref shape forwardRef provides;
-          // every consumer here only ever passes a plain useRef(null), so
-          // this cast reflects the actual (narrower) usage safely.
-          ref={ref as MutableRefObject<GlobeMethods | undefined> | undefined}
+          ref={globeRef ?? undefined}
           width={size.width}
           height={size.height}
           backgroundColor="rgba(0,0,0,0)"
@@ -55,6 +71,7 @@ export const GlobeView = forwardRef<GlobeMethods, GlobeProps>(function GlobeView
           // its own, so it lives here instead of being repeated 3x.
           globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
           {...props}
+          onGlobeReady={handleGlobeReady}
         />
       )}
     </div>

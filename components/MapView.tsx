@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent, type WheelEvent } from "react";
 import { geoAlbersUsa, geoMercator, geoPath, type GeoPermissibleObjects } from "d3-geo";
 import type { RegionFeature } from "@/lib/games/data";
 
@@ -33,6 +33,26 @@ type MapViewProps<T extends RegionFeature> = {
   label?: (feature: T) => string;
 };
 
+const MIN_SCALE = 1;
+const MAX_SCALE = 10;
+const WHEEL_ZOOM_FACTOR = 1.2;
+const BUTTON_ZOOM_FACTOR = 1.5;
+
+// Below this projected bounding-box size (px, in either dimension), a
+// region's own outline is too small to click reliably at the default zoom
+// level — Vatican City, Singapore, small Pacific/Caribbean island nations,
+// Rhode Island, etc. Rendering a circle marker at its centroid guarantees a
+// clickable target without requiring the player to zoom in first.
+const SMALL_REGION_PX = 10;
+const SMALL_REGION_MARKER_RADIUS = 5;
+
+type Transform = { x: number; y: number; k: number };
+const IDENTITY_TRANSFORM: Transform = { x: 0, y: 0, k: 1 };
+
+function clampScale(k: number) {
+  return Math.min(MAX_SCALE, Math.max(MIN_SCALE, k));
+}
+
 export function MapView<T extends RegionFeature>({
   regionsData,
   projection = "mercator",
@@ -43,6 +63,23 @@ export function MapView<T extends RegionFeature>({
 }: MapViewProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
+  const [transform, setTransform] = useState<Transform>(IDENTITY_TRANSFORM);
+  const dragRef = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number } | null>(
+    null
+  );
+
+  // A previous round's zoom/pan shouldn't carry over onto a different
+  // region set (new game, or a fresh shuffle) — reset whenever the data
+  // identity changes. Adjusting state during render (React's documented
+  // pattern for this — see "you might not need an effect") rather than in
+  // a useEffect, which React 19's stricter lint flags as a
+  // cascading-render risk when setState is called unconditionally in an
+  // effect body.
+  const [prevRegionsData, setPrevRegionsData] = useState(regionsData);
+  if (regionsData !== prevRegionsData) {
+    setPrevRegionsData(regionsData);
+    setTransform(IDENTITY_TRANSFORM);
+  }
 
   useEffect(() => {
     const container = containerRef.current;
@@ -73,34 +110,163 @@ export function MapView<T extends RegionFeature>({
     return geoPath(proj);
   }, [regionsData, size.width, size.height, projection]);
 
+  // Computed once per projection (not on every zoom/pan) so a marker
+  // doesn't disappear just because the user zoomed in past the point
+  // where the polygon itself would technically be clickable.
+  const smallRegions = useMemo(() => {
+    if (!pathFor) return [];
+    return regionsData.flatMap((feature) => {
+      const bounds = pathFor.bounds(feature as unknown as GeoPermissibleObjects);
+      const width = bounds[1][0] - bounds[0][0];
+      const height = bounds[1][1] - bounds[0][1];
+      if (width >= SMALL_REGION_PX || height >= SMALL_REGION_PX) return [];
+      const centroid = pathFor.centroid(feature as unknown as GeoPermissibleObjects);
+      if (Number.isNaN(centroid[0]) || Number.isNaN(centroid[1])) return [];
+      return [{ feature, x: centroid[0], y: centroid[1] }];
+    });
+  }, [pathFor, regionsData]);
+
+  function zoomBy(factor: number, center?: { x: number; y: number }) {
+    setTransform((prev) => {
+      const nextK = clampScale(prev.k * factor);
+      if (nextK === prev.k) return prev;
+      const cx = center?.x ?? size.width / 2;
+      const cy = center?.y ?? size.height / 2;
+      // Keep the point under the cursor (or the container's center, for
+      // button clicks) fixed on screen while scaling.
+      return {
+        k: nextK,
+        x: cx - ((cx - prev.x) / prev.k) * nextK,
+        y: cy - ((cy - prev.y) / prev.k) * nextK,
+      };
+    });
+  }
+
+  function handleWheel(e: WheelEvent<SVGSVGElement>) {
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    zoomBy(e.deltaY < 0 ? WHEEL_ZOOM_FACTOR : 1 / WHEEL_ZOOM_FACTOR, {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  }
+
+  function handlePointerDown(e: PointerEvent<SVGSVGElement>) {
+    if (transform.k <= 1) return;
+    dragRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: transform.x,
+      originY: transform.y,
+    };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function handlePointerMove(e: PointerEvent<SVGSVGElement>) {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== e.pointerId) return;
+    setTransform((prev) => ({
+      ...prev,
+      x: drag.originX + (e.clientX - drag.startX),
+      y: drag.originY + (e.clientY - drag.startY),
+    }));
+  }
+
+  function endDrag(e: PointerEvent<SVGSVGElement>) {
+    if (dragRef.current?.pointerId !== e.pointerId) return;
+    dragRef.current = null;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+  }
+
+  const zoomed = transform.k > 1;
+
   return (
-    <div ref={containerRef} className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0 bg-surface">
       {pathFor && (
-        <svg width={size.width} height={size.height} className="block">
-          {regionsData.map((feature, i) => (
-            <path
-              key={i}
-              d={pathFor(feature as unknown as GeoPermissibleObjects) ?? undefined}
-              fill={fill(feature)}
-              // evenodd, not the SVG default nonzero: a MultiPolygon whose
-              // separate (disjoint, non-nested) rings don't all share the
-              // same winding direction — real-world GeoJSON isn't always
-              // consistent, e.g. Canada's Arctic archipelago — renders
-              // some rings as unfilled "holes" under nonzero. evenodd
-              // fills every disjoint ring regardless of winding; it only
-              // differs from nonzero for genuinely nested rings (holes),
-              // which none of this app's country/region data has.
-              fillRule="evenodd"
-              stroke={stroke(feature)}
-              strokeWidth={1}
-              strokeLinejoin="round"
-              onClick={() => onRegionClick?.(feature)}
-              className={onRegionClick ? "cursor-pointer" : undefined}
+        <>
+          <svg
+            width={size.width}
+            height={size.height}
+            className={zoomed ? "block cursor-grab touch-none active:cursor-grabbing" : "block touch-none"}
+            onWheel={handleWheel}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            onPointerCancel={endDrag}
+          >
+            <g transform={`translate(${transform.x}, ${transform.y}) scale(${transform.k})`}>
+              {regionsData.map((feature, i) => (
+                <path
+                  key={i}
+                  d={pathFor(feature as unknown as GeoPermissibleObjects) ?? undefined}
+                  fill={fill(feature)}
+                  // evenodd, not the SVG default nonzero: a MultiPolygon whose
+                  // separate (disjoint, non-nested) rings don't all share the
+                  // same winding direction — real-world GeoJSON isn't always
+                  // consistent, e.g. Canada's Arctic archipelago — renders
+                  // some rings as unfilled "holes" under nonzero. evenodd
+                  // fills every disjoint ring regardless of winding; it only
+                  // differs from nonzero for genuinely nested rings (holes),
+                  // which none of this app's country/region data has.
+                  fillRule="evenodd"
+                  stroke={stroke(feature)}
+                  strokeWidth={1}
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                  onClick={() => onRegionClick?.(feature)}
+                  className={onRegionClick ? "cursor-pointer" : undefined}
+                >
+                  {label && <title>{label(feature)}</title>}
+                </path>
+              ))}
+              {smallRegions.map(({ feature, x, y }, i) => (
+                <circle
+                  key={`marker-${i}`}
+                  cx={x}
+                  cy={y}
+                  r={SMALL_REGION_MARKER_RADIUS / transform.k}
+                  fill={fill(feature)}
+                  stroke={stroke(feature)}
+                  strokeWidth={1}
+                  vectorEffect="non-scaling-stroke"
+                  onClick={() => onRegionClick?.(feature)}
+                  className={onRegionClick ? "cursor-pointer" : undefined}
+                >
+                  {label && <title>{label(feature)}</title>}
+                </circle>
+              ))}
+            </g>
+          </svg>
+          <div className="pointer-events-none absolute bottom-3 right-3 flex flex-col gap-1">
+            <button
+              type="button"
+              onClick={() => zoomBy(BUTTON_ZOOM_FACTOR)}
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface text-lg font-medium leading-none text-foreground shadow-sm hover:bg-muted"
+              aria-label="Zoom in"
             >
-              {label && <title>{label(feature)}</title>}
-            </path>
-          ))}
-        </svg>
+              +
+            </button>
+            <button
+              type="button"
+              onClick={() => zoomBy(1 / BUTTON_ZOOM_FACTOR)}
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-md border border-border bg-surface text-lg font-medium leading-none text-foreground shadow-sm hover:bg-muted"
+              aria-label="Zoom out"
+            >
+              −
+            </button>
+            {zoomed && (
+              <button
+                type="button"
+                onClick={() => setTransform(IDENTITY_TRANSFORM)}
+                className="pointer-events-auto rounded-md border border-border bg-surface px-2 py-1 text-xs font-medium text-foreground shadow-sm hover:bg-muted"
+              >
+                Reset
+              </button>
+            )}
+          </div>
+        </>
       )}
     </div>
   );

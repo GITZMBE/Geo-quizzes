@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { getGame } from "@/lib/games/registry";
 import { fetchWorldCountries, type WorldCountry } from "@/lib/games/data";
+import { GameShell } from "@/components/games/GameShell";
 
 // Client-only: no map/globe here, but kept consistent with every other
 // game's ssr:false pattern since it sits behind login with no SEO value.
@@ -25,11 +26,9 @@ export default function WorldCountriesPage() {
       <h1 className="text-2xl font-bold">{game.name}</h1>
       <p className="text-muted-foreground">{game.description}</p>
 
-      {!countries ? (
-        <p className="text-muted-foreground">Loading countries...</p>
-      ) : (
-        <TypeAllMode countries={countries} />
-      )}
+      <GameShell game={game} ready={countries !== null}>
+        {() => <TypeAllMode countries={countries!} />}
+      </GameShell>
     </main>
   );
 }

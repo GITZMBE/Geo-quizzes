@@ -49,7 +49,7 @@ export function CountriesMapMode({
               regionsData={countries}
               projection={projection}
               label={(f) => f.properties.name}
-              stroke={() => "#0f172a"}
+              stroke={() => "var(--foreground)"}
               fill={(f) => {
                 const name = f.properties.name;
                 if (state.lastResult) {
