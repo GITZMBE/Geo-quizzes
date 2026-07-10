@@ -78,3 +78,30 @@ export async function fetchCountryRegions(url: string): Promise<CountryFeature[]
   const features = await fetchRegions(url);
   return features as CountryFeature[];
 }
+
+export type RoadType = "motorway" | "riksvag" | "lansvag";
+
+// A road is the first LineString/MultiLineString geometry in this codebase —
+// still plain GeoJSON (no new envelope), so it reuses fetchRegions exactly
+// like CountryFeature above. `properties.name` is set equal to `designation`
+// at data-build time so RoadFeature satisfies RegionFeature's `{name}` shape
+// and every existing getId/label convention (e.g. useRoundGame's
+// `getId: r => r.properties.name`) works unmodified. `roadType` is
+// "lansvag" for both primary (100-499, nationally unique) and secondary
+// (500-2999, county-letter-prefixed in `designation` to stay unique) county
+// roads — the distinction lives in `designation`'s shape, not a separate type.
+export type RoadFeature = RegionFeature & {
+  properties: {
+    name: string;
+    designation: string;
+    roadType: RoadType;
+    fromPlace: string;
+    toPlace: string;
+  };
+  geometry: { type: "LineString" | "MultiLineString"; coordinates: unknown };
+};
+
+export async function fetchRoads(url: string): Promise<RoadFeature[]> {
+  const features = await fetchRegions(url);
+  return features as RoadFeature[];
+}

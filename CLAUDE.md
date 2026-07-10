@@ -99,6 +99,25 @@ and gotchas an agent working in this repo needs to know.
     specifically (`scripts/build-world-countries.js`'s
     `clipToEuropeanRussia`); its capital/flag data is unaffected since
     those don't depend on the polygon extent.
+  - **`MapView` also renders LineString/MultiLineString features (roads),
+    not just Polygon/MultiPolygon** — `d3.geoPath`/`fitSize` are
+    geometry-type-agnostic so this needed no change to path generation
+    itself; a caller just passes `fill={() => "none"}` and the (now
+    per-feature-function) `strokeWidth` prop for a visible line. Two things
+    had to change to make this safe: `strokeWidth` became a
+    `(feature) => number` prop (default `() => 1`, so every existing caller
+    is unaffected) instead of a hardcoded `1`, since a highlighted road
+    needs a thicker stroke than a clickable region's border; and
+    `smallRegions` (the too-small-to-click marker logic) is now gated to
+    only run on `Polygon`/`MultiPolygon` features — it used to assume every
+    feature was one and would compute a nonsense degenerate-ring
+    `area()`/`centroid()` off a LineString's `coordinates` otherwise. There's
+    also a `markers` prop (`{lat, lng, label}[]`) for arbitrary point labels
+    independent of `regionsData` — e.g. a road's two endpoint places —
+    projected via the same d3 projection `pathFor` uses internally (which is
+    why `pathFor`'s `useMemo` is now split into a `proj` memo and a `pathFor
+    = geoPath(proj)` memo chained off it, rather than one combined memo that
+    only ever exposed the wrapped `geoPath`).
 - **Prisma uses `prisma-client-js` with `engineType = "client"`**, output to
   `app/generated/prisma/`. Import from `@/app/generated/prisma`, not
   `@prisma/client` directly. `lib/prisma.ts` constructs the client with

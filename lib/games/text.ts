@@ -10,3 +10,12 @@ export function getAutocompleteMatch(input: string, candidates: string[]): strin
   const matches = candidates.filter((c) => c.toLowerCase().startsWith(lower));
   return matches.length === 1 ? matches[0] : null;
 }
+
+// Road designations ("AB 543", "E4") need looser matching than a plain
+// .toLowerCase() equality check — stripping whitespace entirely (not just
+// collapsing it) means "ab543"/"AB 543"/"AB  543" all count as the same
+// answer, since the space between a county letter and its number isn't
+// meaningful to the player typing it.
+export function normalizeRoadAnswer(input: string): string {
+  return input.toLowerCase().replace(/\s+/g, "");
+}

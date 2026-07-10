@@ -45,3 +45,8 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Cached intermediate fetches for data-build scripts (e.g.
+# scripts/build-swedish-roads-*.js) — real downloaded/derived data, not
+# source, and safe/cheap to refetch.
+/.scratch-*

@@ -29,8 +29,17 @@ type MapViewProps<T extends RegionFeature> = {
   projection?: "mercator" | "albersUsa" | "pacific";
   fill: (feature: T) => string;
   stroke: (feature: T) => string;
+  // Per-feature, mirroring the fill/stroke closure convention — defaults to
+  // the same hardcoded `1` every existing polygon caller already got, so
+  // omitting this prop is a no-op. A roads game passes a thicker value to
+  // make a highlighted route visible against the map.
+  strokeWidth?: (feature: T) => number;
   onRegionClick?: (feature: T) => void;
   label?: (feature: T) => string;
+  // Arbitrary lat/lng point labels, independent of regionsData's feature
+  // type — e.g. a road's two endpoint places. Projected via the same
+  // projection regionsData's paths use, so they always line up.
+  markers?: { lat: number; lng: number; label: string }[];
 };
 
 const MIN_SCALE = 1;
@@ -116,8 +125,10 @@ export function MapView<T extends RegionFeature>({
   projection = "mercator",
   fill,
   stroke,
+  strokeWidth = () => 1,
   onRegionClick,
   label,
+  markers,
 }: MapViewProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -159,28 +170,37 @@ export function MapView<T extends RegionFeature>({
     return () => resizeObserver.disconnect();
   }, []);
 
-  const pathFor = useMemo(() => {
+  // Split into the raw d3 projection and the geoPath wrapping it — markers
+  // (arbitrary lat/lng points, not part of regionsData) need the raw
+  // projection function directly, while feature rendering only ever needed
+  // the geoPath wrapper.
+  const proj = useMemo(() => {
     if (size.width === 0 || size.height === 0) return null;
     const featureCollection = {
       type: "FeatureCollection" as const,
       features: regionsData,
     };
-    const proj =
+    const p =
       projection === "albersUsa"
         ? geoAlbersUsa()
         : projection === "pacific"
           ? geoMercator().rotate([180, 0])
           : geoMercator();
-    proj.fitSize([size.width, size.height], featureCollection as unknown as GeoPermissibleObjects);
-    return geoPath(proj);
+    p.fitSize([size.width, size.height], featureCollection as unknown as GeoPermissibleObjects);
+    return p;
   }, [regionsData, size.width, size.height, projection]);
+
+  const pathFor = useMemo(() => (proj ? geoPath(proj) : null), [proj]);
 
   // Computed once per projection (not on every zoom/pan) so a marker
   // doesn't disappear just because the user zoomed in past the point
-  // where the polygon itself would technically be clickable.
+  // where the polygon itself would technically be clickable. Only
+  // meaningful for area features — a LineString's "area" is always 0 and
+  // its `coordinates` isn't a polygon ring, so this would misinterpret it.
   const smallRegions = useMemo(() => {
     if (!pathFor) return [];
     return regionsData.flatMap((feature) => {
+      if (feature.geometry.type !== "Polygon" && feature.geometry.type !== "MultiPolygon") return [];
       const totalArea = pathFor.area(feature as unknown as GeoPermissibleObjects);
       if (totalArea >= SMALL_REGION_AREA_PX) return [];
 
@@ -329,7 +349,7 @@ export function MapView<T extends RegionFeature>({
                   // which none of this app's country/region data has.
                   fillRule="evenodd"
                   stroke={stroke(feature)}
-                  strokeWidth={1}
+                  strokeWidth={strokeWidth(feature)}
                   strokeLinejoin="round"
                   vectorEffect="non-scaling-stroke"
                   onClick={() => onRegionClick?.(feature)}
@@ -354,6 +374,26 @@ export function MapView<T extends RegionFeature>({
                   {label && <title>{label(feature)}</title>}
                 </circle>
               ))}
+              {markers?.map((m, i) => {
+                if (!proj) return null;
+                const projected = proj([m.lng, m.lat]);
+                if (!projected) return null;
+                const [x, y] = projected;
+                return (
+                  <g key={`marker-${i}`} transform={`translate(${x}, ${y})`}>
+                    <circle r={4 / transform.k} fill="var(--foreground)" vectorEffect="non-scaling-stroke" />
+                    <text
+                      x={8 / transform.k}
+                      y={4 / transform.k}
+                      fontSize={12 / transform.k}
+                      fill="var(--foreground)"
+                      className="pointer-events-none select-none"
+                    >
+                      {m.label}
+                    </text>
+                  </g>
+                );
+              })}
             </g>
           </svg>
           <div className="pointer-events-none absolute bottom-3 right-3 flex flex-col gap-1">

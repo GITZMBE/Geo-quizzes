@@ -121,6 +121,19 @@ export const GAMES: GameDefinition[] = [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
     ],
   },
+  {
+    slug: "swedish-roads",
+    name: "Swedish Roads",
+    description: "A road's route is highlighted on the map — type its route number.",
+    dataFile: "/data/swedish_roads.json",
+    modes: [
+      { slug: "all", name: "All roads", scoreType: "POINTS" },
+      { slug: "motorways", name: "Motorways", scoreType: "POINTS" },
+      { slug: "national-roads", name: "National roads", scoreType: "POINTS" },
+      { slug: "county-roads", name: "County roads", scoreType: "POINTS" },
+      { slug: "county-roads-secondary", name: "Secondary county roads", scoreType: "POINTS" },
+    ],
+  },
 ];
 
 export function getGame(slug: string): GameDefinition | undefined {
