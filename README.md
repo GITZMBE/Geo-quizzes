@@ -19,6 +19,13 @@ Interactive geography quiz app. Sign up with an email and password to play map-b
   - *Type them all* — free recall of the top 100 cities, ranked list as you go.
   - *Click the city* — a city is named, click its dot on the map.
   - *Guess the location* — 5 random cities, click your guess, scored by proximity.
+- **Five Cities Across the World** (`/games/world-cities`) — 5 random of the world's biggest cities, click your guess on the globe, scored by proximity.
+- **US States** (`/games/us-states`) — a state is named, click its outline on the map.
+- **List All Countries** (`/games/world-countries`) — free recall of all 197 sovereign countries.
+- **Countries of Africa/Asia/Europe/North America/South America/Oceania** (`/games/countries-<continent>`) — three modes each: click a country's outline, type its capital, or name it from its flag.
+- **Swedish Roads** (`/games/swedish-roads`) — a road's route is highlighted on the map, type its route number.
+- **Guess the City** (`/games/city-streets`) — only a major city's street network is shown (no labels or borders), type which city it is.
+- **Higher or Lower** (`/games/higher-or-lower`) — two modes (Population, Area): a reference country's value is shown, guess whether the next country's is higher or lower.
 
 Game data lives in `public/data/*.json`. `lib/games/registry.ts` is the source of truth for game/mode slugs used by the UI and the API routes.
 

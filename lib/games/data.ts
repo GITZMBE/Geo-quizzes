@@ -118,3 +118,33 @@ export async function fetchRoads(url: string): Promise<RoadFeature[]> {
   const features = await fetchRegions(url);
   return features as RoadFeature[];
 }
+
+// A city's street network for the "Guess the City" game — same wire format
+// as RoadFeature (plain GeoJSON, LineString/MultiLineString), one feature
+// per city rather than per road. `pattern` documents the city's distinctive
+// layout for maintainers (see scripts/build-city-streets.js) and is never
+// shown to players — showing it would give the answer away.
+export type CityStreetsFeature = RegionFeature & {
+  properties: { name: string; country: string; pattern: string };
+  geometry: { type: "LineString" | "MultiLineString"; coordinates: unknown };
+};
+
+export async function fetchCityStreets(url: string): Promise<CityStreetsFeature[]> {
+  const features = await fetchRegions(url);
+  return features as CityStreetsFeature[];
+}
+
+// Population + area for the "Higher or Lower" game — points format like
+// WorldCountry, but built separately (scripts/build-country-stats.js) since
+// neither figure lives in world_countries.json today and adding them there
+// would risk the 6 continent games that already depend on that file's exact
+// shape.
+export type CountryStat = GamePoint & {
+  population: number;
+  area: number;
+  flagUrl: string;
+};
+
+export async function fetchCountryStats(url: string): Promise<CountryStat[]> {
+  return fetchPoints<CountryStat>(url);
+}

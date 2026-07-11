@@ -118,3 +118,44 @@ export function getRoundState(key: string) {
   }
   return state;
 }
+
+// "Higher or Lower"'s round shape is fundamentally different from
+// RoundGameState above: there's no fixed shuffled order of N items to work
+// through — it's an open-ended streak (reference country on the left, a
+// fresh comparison country on the right each round) that keeps going until
+// the first wrong guess ends it, at which point the streak length is the
+// score. That's why this is a separate state shape/factory rather than
+// another getRoundState instance.
+export type HigherLowerState = {
+  leftId: string | null;
+  rightId: string | null;
+  // Every country shown so far this run (both sides), so the next
+  // right-side draw doesn't repeat one already seen until the pool runs out.
+  seenIds: string[];
+  score: number;
+  lastResult: RoundResult;
+  finished: boolean;
+};
+
+const DEFAULT_HIGHER_LOWER_STATE: HigherLowerState = {
+  leftId: null,
+  rightId: null,
+  seenIds: [],
+  score: 0,
+  lastResult: null,
+  finished: false,
+};
+
+const higherLowerStateCache = new Map<string, ReturnType<typeof atom<HigherLowerState>>>();
+
+// Keyed by `${gameSlug}:${modeSlug}` (population vs. area), same convention
+// as getRoundState, so switching between the two modes and back doesn't
+// lose either one's progress.
+export function getHigherLowerState(key: string) {
+  let state = higherLowerStateCache.get(key);
+  if (!state) {
+    state = atom({ ...DEFAULT_HIGHER_LOWER_STATE });
+    higherLowerStateCache.set(key, state);
+  }
+  return state;
+}

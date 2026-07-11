@@ -1,0 +1,1780 @@
+{
+  "kind": "points",
+  "source": "Population and area from GeoNames countryInfo.txt, cross-referenced by ISO alpha-2 against the existing 197-country list in public/data/world_countries.json (id/name/lat/lng/flagUrl reused from there, not re-derived).",
+  "note": "All 197 countries from world_countries.json had usable population/area data. Dropped: none.",
+  "items": [
+    {
+      "id": "AF",
+      "name": "Afghanistan",
+      "lat": 33.9241695,
+      "lng": 67.6805665,
+      "population": 37172386,
+      "area": 647500,
+      "flagUrl": "https://flagcdn.com/w320/af.png"
+    },
+    {
+      "id": "AL",
+      "name": "Albania",
+      "lat": 41.150732500000004,
+      "lng": 20.1557615,
+      "population": 2866376,
+      "area": 28748,
+      "flagUrl": "https://flagcdn.com/w320/al.png"
+    },
+    {
+      "id": "DZ",
+      "name": "Algeria",
+      "lat": 28.0404055,
+      "lng": 1.6422605,
+      "population": 42228429,
+      "area": 2381740,
+      "flagUrl": "https://flagcdn.com/w320/dz.png"
+    },
+    {
+      "id": "AD",
+      "name": "Andorra",
+      "lat": 42.540088,
+      "lng": 1.5838865,
+      "population": 77006,
+      "area": 468,
+      "flagUrl": "https://flagcdn.com/w320/ad.png"
+    },
+    {
+      "id": "AO",
+      "name": "Angola",
+      "lat": -11.9379885,
+      "lng": 17.894873,
+      "population": 30809762,
+      "area": 1246700,
+      "flagUrl": "https://flagcdn.com/w320/ao.png"
+    },
+    {
+      "id": "AG",
+      "name": "Antigua and Barbuda",
+      "lat": 17.168945,
+      "lng": -61.817285,
+      "population": 96286,
+      "area": 443,
+      "flagUrl": "https://flagcdn.com/w320/ag.png"
+    },
+    {
+      "id": "AR",
+      "name": "Argentina",
+      "lat": -37.07959,
+      "lng": -63.622412499999996,
+      "population": 44494502,
+      "area": 2766890,
+      "flagUrl": "https://flagcdn.com/w320/ar.png"
+    },
+    {
+      "id": "AM",
+      "name": "Armenia",
+      "lat": 40.084375,
+      "lng": 45.0121095,
+      "population": 3090500,
+      "area": 29800,
+      "flagUrl": "https://flagcdn.com/w320/am.png"
+    },
+    {
+      "id": "AU",
+      "name": "Australia",
+      "lat": -24.926416,
+      "lng": 133.40083049999998,
+      "population": 24992369,
+      "area": 7686850,
+      "flagUrl": "https://flagcdn.com/w320/au.png"
+    },
+    {
+      "id": "AT",
+      "name": "Austria",
+      "lat": 47.700415,
+      "lng": 13.335693,
+      "population": 8847037,
+      "area": 83858,
+      "flagUrl": "https://flagcdn.com/w320/at.png"
+    },
+    {
+      "id": "AZ",
+      "name": "Azerbaijan",
+      "lat": 40.1510255,
+      "lng": 47.56709,
+      "population": 10224900,
+      "area": 86600,
+      "flagUrl": "https://flagcdn.com/w320/az.png"
+    },
+    {
+      "id": "BS",
+      "name": "Bahamas",
+      "lat": 23.671387,
+      "lng": -76.010449,
+      "population": 385640,
+      "area": 13940,
+      "flagUrl": "https://flagcdn.com/w320/bs.png"
+    },
+    {
+      "id": "BH",
+      "name": "Bahrain",
+      "lat": 26.023755,
+      "lng": 50.5311035,
+      "population": 1569439,
+      "area": 665,
+      "flagUrl": "https://flagcdn.com/w320/bh.png"
+    },
+    {
+      "id": "BD",
+      "name": "Bangladesh",
+      "lat": 23.681689499999997,
+      "lng": 90.3275395,
+      "population": 161356039,
+      "area": 144000,
+      "flagUrl": "https://flagcdn.com/w320/bd.png"
+    },
+    {
+      "id": "BB",
+      "name": "Barbados",
+      "lat": 13.1899415,
+      "lng": -59.537158500000004,
+      "population": 286641,
+      "area": 431,
+      "flagUrl": "https://flagcdn.com/w320/bb.png"
+    },
+    {
+      "id": "BY",
+      "name": "Belarus",
+      "lat": 53.705420000000004,
+      "lng": 27.9407715,
+      "population": 9485386,
+      "area": 207600,
+      "flagUrl": "https://flagcdn.com/w320/by.png"
+    },
+    {
+      "id": "BE",
+      "name": "Belgium",
+      "lat": 50.501001,
+      "lng": 4.4446775,
+      "population": 11422068,
+      "area": 30510,
+      "flagUrl": "https://flagcdn.com/w320/be.png"
+    },
+    {
+      "id": "BZ",
+      "name": "Belize",
+      "lat": 17.182715,
+      "lng": -88.659033,
+      "population": 383071,
+      "area": 22966,
+      "flagUrl": "https://flagcdn.com/w320/bz.png"
+    },
+    {
+      "id": "BJ",
+      "name": "Benin",
+      "lat": 9.3003175,
+      "lng": 2.298926,
+      "population": 11485048,
+      "area": 112620,
+      "flagUrl": "https://flagcdn.com/w320/bj.png"
+    },
+    {
+      "id": "BT",
+      "name": "Bhutan",
+      "lat": 27.506372499999998,
+      "lng": 90.411084,
+      "population": 754394,
+      "area": 47000,
+      "flagUrl": "https://flagcdn.com/w320/bt.png"
+    },
+    {
+      "id": "BO",
+      "name": "Bolivia",
+      "lat": -16.300781,
+      "lng": -63.5706785,
+      "population": 11353142,
+      "area": 1098580,
+      "flagUrl": "https://flagcdn.com/w320/bo.png"
+    },
+    {
+      "id": "BA",
+      "name": "Bosnia and Herzegovina",
+      "lat": 43.920531999999994,
+      "lng": 17.660204999999998,
+      "population": 3323929,
+      "area": 51129,
+      "flagUrl": "https://flagcdn.com/w320/ba.png"
+    },
+    {
+      "id": "BW",
+      "name": "Botswana",
+      "lat": -22.3226565,
+      "lng": 24.671094,
+      "population": 2254126,
+      "area": 600370,
+      "flagUrl": "https://flagcdn.com/w320/bw.png"
+    },
+    {
+      "id": "BR",
+      "name": "Brazil",
+      "lat": -14.2421145,
+      "lng": -54.40376,
+      "population": 209469333,
+      "area": 8511965,
+      "flagUrl": "https://flagcdn.com/w320/br.png"
+    },
+    {
+      "id": "BN",
+      "name": "Brunei",
+      "lat": 4.5300045,
+      "lng": 114.6953125,
+      "population": 428962,
+      "area": 5770,
+      "flagUrl": "https://flagcdn.com/w320/bn.png"
+    },
+    {
+      "id": "BG",
+      "name": "Bulgaria",
+      "lat": 42.740674,
+      "lng": 25.4646975,
+      "population": 7000039,
+      "area": 110910,
+      "flagUrl": "https://flagcdn.com/w320/bg.png"
+    },
+    {
+      "id": "BF",
+      "name": "Burkina Faso",
+      "lat": 12.251294,
+      "lng": -1.5671875,
+      "population": 19751535,
+      "area": 274200,
+      "flagUrl": "https://flagcdn.com/w320/bf.png"
+    },
+    {
+      "id": "BI",
+      "name": "Burundi",
+      "lat": -3.3844235,
+      "lng": 29.912744,
+      "population": 11175378,
+      "area": 27830,
+      "flagUrl": "https://flagcdn.com/w320/bi.png"
+    },
+    {
+      "id": "CV",
+      "name": "Cabo Verde",
+      "lat": 16.572021,
+      "lng": -24.032715,
+      "population": 543767,
+      "area": 4033,
+      "flagUrl": "https://flagcdn.com/w320/cv.png"
+    },
+    {
+      "id": "KH",
+      "name": "Cambodia",
+      "lat": 12.558154,
+      "lng": 104.962598,
+      "population": 16249798,
+      "area": 181040,
+      "flagUrl": "https://flagcdn.com/w320/kh.png"
+    },
+    {
+      "id": "CM",
+      "name": "Cameroon",
+      "lat": 7.3773685,
+      "lng": 12.3581055,
+      "population": 25216237,
+      "area": 475440,
+      "flagUrl": "https://flagcdn.com/w320/cm.png"
+    },
+    {
+      "id": "CA",
+      "name": "Canada",
+      "lat": 57.7625,
+      "lng": -96.827905,
+      "population": 37058856,
+      "area": 9984670,
+      "flagUrl": "https://flagcdn.com/w320/ca.png"
+    },
+    {
+      "id": "CF",
+      "name": "Central African Republic",
+      "lat": 6.633154,
+      "lng": 20.917236000000003,
+      "population": 4666377,
+      "area": 622984,
+      "flagUrl": "https://flagcdn.com/w320/cf.png"
+    },
+    {
+      "id": "TD",
+      "name": "Chad",
+      "lat": 15.460254,
+      "lng": 18.714257500000002,
+      "population": 15477751,
+      "area": 1284000,
+      "flagUrl": "https://flagcdn.com/w320/td.png"
+    },
+    {
+      "id": "CL",
+      "name": "Chile",
+      "lat": -36.207959,
+      "lng": -71.358447,
+      "population": 18729160,
+      "area": 756950,
+      "flagUrl": "https://flagcdn.com/w320/cl.png"
+    },
+    {
+      "id": "CN",
+      "name": "China",
+      "lat": 36.905127,
+      "lng": 104.179834,
+      "population": 1411778724,
+      "area": 9596960,
+      "flagUrl": "https://flagcdn.com/w320/cn.png"
+    },
+    {
+      "id": "CO",
+      "name": "Colombia",
+      "lat": 4.0981685,
+      "lng": -72.950732,
+      "population": 49648685,
+      "area": 1138910,
+      "flagUrl": "https://flagcdn.com/w320/co.png"
+    },
+    {
+      "id": "KM",
+      "name": "Comoros",
+      "lat": -11.862109,
+      "lng": 43.491504,
+      "population": 832322,
+      "area": 2170,
+      "flagUrl": "https://flagcdn.com/w320/km.png"
+    },
+    {
+      "id": "CR",
+      "name": "Costa Rica",
+      "lat": 9.630053499999999,
+      "lng": -84.235791,
+      "population": 4999441,
+      "area": 51100,
+      "flagUrl": "https://flagcdn.com/w320/cr.png"
+    },
+    {
+      "id": "HR",
+      "name": "Croatia",
+      "lat": 44.520996,
+      "lng": 16.103418,
+      "population": 3871833,
+      "area": 56542,
+      "flagUrl": "https://flagcdn.com/w320/hr.png"
+    },
+    {
+      "id": "CU",
+      "name": "Cuba",
+      "lat": 21.585156,
+      "lng": -79.357422,
+      "population": 11338138,
+      "area": 110860,
+      "flagUrl": "https://flagcdn.com/w320/cu.png"
+    },
+    {
+      "id": "CY",
+      "name": "Cyprus",
+      "lat": 34.871362500000004,
+      "lng": 33.175586,
+      "population": 1189265,
+      "area": 9250,
+      "flagUrl": "https://flagcdn.com/w320/cy.png"
+    },
+    {
+      "id": "CZ",
+      "name": "Czechia",
+      "lat": 49.8028565,
+      "lng": 15.4610355,
+      "population": 10625695,
+      "area": 78866,
+      "flagUrl": "https://flagcdn.com/w320/cz.png"
+    },
+    {
+      "id": "CI",
+      "name": "Côte d'Ivoire",
+      "lat": 7.537694999999999,
+      "lng": -5.5547115,
+      "population": 25069229,
+      "area": 322460,
+      "flagUrl": "https://flagcdn.com/w320/ci.png"
+    },
+    {
+      "id": "CD",
+      "name": "Democratic Republic of the Congo",
+      "lat": -4.07085,
+      "lng": 21.7438475,
+      "population": 84068091,
+      "area": 2345410,
+      "flagUrl": "https://flagcdn.com/w320/cd.png"
+    },
+    {
+      "id": "DK",
+      "name": "Denmark",
+      "lat": 55.956885,
+      "lng": 11.627734,
+      "population": 5797446,
+      "area": 43094,
+      "flagUrl": "https://flagcdn.com/w320/dk.png"
+    },
+    {
+      "id": "DJ",
+      "name": "Djibouti",
+      "lat": 11.824805,
+      "lng": 42.587207,
+      "population": 958920,
+      "area": 23000,
+      "flagUrl": "https://flagcdn.com/w320/dj.png"
+    },
+    {
+      "id": "DM",
+      "name": "Dominica",
+      "lat": 15.4302,
+      "lng": -61.366113,
+      "population": 71625,
+      "area": 754,
+      "flagUrl": "https://flagcdn.com/w320/dm.png"
+    },
+    {
+      "id": "DO",
+      "name": "Dominican Republic",
+      "lat": 18.7747805,
+      "lng": -70.1697755,
+      "population": 10627165,
+      "area": 48730,
+      "flagUrl": "https://flagcdn.com/w320/do.png"
+    },
+    {
+      "id": "EC",
+      "name": "Ecuador",
+      "lat": -2.189258,
+      "lng": -80.962793,
+      "population": 17084357,
+      "area": 283560,
+      "flagUrl": "https://flagcdn.com/w320/ec.png"
+    },
+    {
+      "id": "EG",
+      "name": "Egypt",
+      "lat": 26.824926499999997,
+      "lng": 30.787305,
+      "population": 98423595,
+      "area": 1001450,
+      "flagUrl": "https://flagcdn.com/w320/eg.png"
+    },
+    {
+      "id": "SV",
+      "name": "El Salvador",
+      "lat": 13.797559,
+      "lng": -88.910034,
+      "population": 6420744,
+      "area": 21040,
+      "flagUrl": "https://flagcdn.com/w320/sv.png"
+    },
+    {
+      "id": "GQ",
+      "name": "Equatorial Guinea",
+      "lat": 2.304443,
+      "lng": 9.800781,
+      "population": 1308974,
+      "area": 28051,
+      "flagUrl": "https://flagcdn.com/w320/gq.png"
+    },
+    {
+      "id": "ER",
+      "name": "Eritrea",
+      "lat": 15.20127,
+      "lng": 39.819434,
+      "population": 6209262,
+      "area": 121320,
+      "flagUrl": "https://flagcdn.com/w320/er.png"
+    },
+    {
+      "id": "EE",
+      "name": "Estonia",
+      "lat": 58.5835695,
+      "lng": 25.002783,
+      "population": 1320884,
+      "area": 45226,
+      "flagUrl": "https://flagcdn.com/w320/ee.png"
+    },
+    {
+      "id": "SZ",
+      "name": "eSwatini",
+      "lat": -26.524414,
+      "lng": 31.4509765,
+      "population": 1136191,
+      "area": 17363,
+      "flagUrl": "https://flagcdn.com/w320/sz.png"
+    },
+    {
+      "id": "ET",
+      "name": "Ethiopia",
+      "lat": 9.1541995,
+      "lng": 40.4954105,
+      "population": 109224559,
+      "area": 1127127,
+      "flagUrl": "https://flagcdn.com/w320/et.png"
+    },
+    {
+      "id": "FJ",
+      "name": "Fiji",
+      "lat": -19.15166,
+      "lng": 178.020801,
+      "population": 883483,
+      "area": 18270,
+      "flagUrl": "https://flagcdn.com/w320/fj.png"
+    },
+    {
+      "id": "FI",
+      "name": "Finland",
+      "lat": 64.9440185,
+      "lng": 26.078076,
+      "population": 5518050,
+      "area": 337030,
+      "flagUrl": "https://flagcdn.com/w320/fi.png"
+    },
+    {
+      "id": "FR",
+      "name": "France",
+      "lat": 43.051758,
+      "lng": -1.46084,
+      "population": 66987244,
+      "area": 547030,
+      "flagUrl": "https://flagcdn.com/w320/fr.png"
+    },
+    {
+      "id": "GA",
+      "name": "Gabon",
+      "lat": -0.8083009999999999,
+      "lng": 11.588623,
+      "population": 2119275,
+      "area": 267667,
+      "flagUrl": "https://flagcdn.com/w320/ga.png"
+    },
+    {
+      "id": "GM",
+      "name": "Gambia",
+      "lat": 13.4381345,
+      "lng": -15.325757,
+      "population": 2280102,
+      "area": 11300,
+      "flagUrl": "https://flagcdn.com/w320/gm.png"
+    },
+    {
+      "id": "GE",
+      "name": "Georgia",
+      "lat": 42.319995,
+      "lng": 43.3254395,
+      "population": 3704500,
+      "area": 69700,
+      "flagUrl": "https://flagcdn.com/w320/ge.png"
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "lat": 51.091113500000006,
+      "lng": 10.437061,
+      "population": 82927922,
+      "area": 357021,
+      "flagUrl": "https://flagcdn.com/w320/de.png"
+    },
+    {
+      "id": "GH",
+      "name": "Ghana",
+      "lat": 7.964673,
+      "lng": -1.024292,
+      "population": 29767108,
+      "area": 239460,
+      "flagUrl": "https://flagcdn.com/w320/gh.png"
+    },
+    {
+      "id": "GR",
+      "name": "Greece",
+      "lat": 38.339135999999996,
+      "lng": 24.116553000000003,
+      "population": 10727668,
+      "area": 131940,
+      "flagUrl": "https://flagcdn.com/w320/gr.png"
+    },
+    {
+      "id": "GD",
+      "name": "Grenada",
+      "lat": 12.1227295,
+      "lng": -61.6946045,
+      "population": 111454,
+      "area": 344,
+      "flagUrl": "https://flagcdn.com/w320/gd.png"
+    },
+    {
+      "id": "GT",
+      "name": "Guatemala",
+      "lat": 15.7764645,
+      "lng": -90.231738,
+      "population": 17247807,
+      "area": 108890,
+      "flagUrl": "https://flagcdn.com/w320/gt.png"
+    },
+    {
+      "id": "GN",
+      "name": "Guinea",
+      "lat": 9.977734,
+      "lng": -11.205664,
+      "population": 12414318,
+      "area": 245857,
+      "flagUrl": "https://flagcdn.com/w320/gn.png"
+    },
+    {
+      "id": "GW",
+      "name": "Guinea-Bissau",
+      "lat": 11.8100345,
+      "lng": -15.1926755,
+      "population": 1874309,
+      "area": 36120,
+      "flagUrl": "https://flagcdn.com/w320/gw.png"
+    },
+    {
+      "id": "GY",
+      "name": "Guyana",
+      "lat": 4.8752685,
+      "lng": -58.936816,
+      "population": 779004,
+      "area": 214970,
+      "flagUrl": "https://flagcdn.com/w320/gy.png"
+    },
+    {
+      "id": "HT",
+      "name": "Haiti",
+      "lat": 18.932031,
+      "lng": -73.069141,
+      "population": 11123176,
+      "area": 27750,
+      "flagUrl": "https://flagcdn.com/w320/ht.png"
+    },
+    {
+      "id": "HN",
+      "name": "Honduras",
+      "lat": 14.501709000000002,
+      "lng": -86.26005900000001,
+      "population": 9587522,
+      "area": 112090,
+      "flagUrl": "https://flagcdn.com/w320/hn.png"
+    },
+    {
+      "id": "HU",
+      "name": "Hungary",
+      "lat": 47.15979,
+      "lng": 19.484863,
+      "population": 9768785,
+      "area": 93030,
+      "flagUrl": "https://flagcdn.com/w320/hu.png"
+    },
+    {
+      "id": "IS",
+      "name": "Iceland",
+      "lat": 64.96479450000001,
+      "lng": -19.022681,
+      "population": 353574,
+      "area": 103000,
+      "flagUrl": "https://flagcdn.com/w320/is.png"
+    },
+    {
+      "id": "IN",
+      "name": "India",
+      "lat": 21.787108999999997,
+      "lng": 82.7520995,
+      "population": 1352617328,
+      "area": 3287590,
+      "flagUrl": "https://flagcdn.com/w320/in.png"
+    },
+    {
+      "id": "ID",
+      "name": "Indonesia",
+      "lat": -2.720801,
+      "lng": 118.783301,
+      "population": 267663435,
+      "area": 1919440,
+      "flagUrl": "https://flagcdn.com/w320/id.png"
+    },
+    {
+      "id": "IR",
+      "name": "Iran",
+      "lat": 32.4353275,
+      "lng": 53.664209,
+      "population": 81800269,
+      "area": 1648000,
+      "flagUrl": "https://flagcdn.com/w320/ir.png"
+    },
+    {
+      "id": "IQ",
+      "name": "Iraq",
+      "lat": 33.2177735,
+      "lng": 43.6600095,
+      "population": 38433600,
+      "area": 437072,
+      "flagUrl": "https://flagcdn.com/w320/iq.png"
+    },
+    {
+      "id": "IE",
+      "name": "Ireland",
+      "lat": 53.4169675,
+      "lng": -8.2088135,
+      "population": 4853506,
+      "area": 70280,
+      "flagUrl": "https://flagcdn.com/w320/ie.png"
+    },
+    {
+      "id": "IL",
+      "name": "Israel",
+      "lat": 31.366211,
+      "lng": 35.101172,
+      "population": 8883800,
+      "area": 20770,
+      "flagUrl": "https://flagcdn.com/w320/il.png"
+    },
+    {
+      "id": "IT",
+      "name": "Italy",
+      "lat": 41.8849855,
+      "lng": 12.556787,
+      "population": 60431283,
+      "area": 301230,
+      "flagUrl": "https://flagcdn.com/w320/it.png"
+    },
+    {
+      "id": "JM",
+      "name": "Jamaica",
+      "lat": 18.118579,
+      "lng": -77.2751465,
+      "population": 2934855,
+      "area": 10991,
+      "flagUrl": "https://flagcdn.com/w320/jm.png"
+    },
+    {
+      "id": "JP",
+      "name": "Japan",
+      "lat": 37.52207,
+      "lng": 137.322656,
+      "population": 126529100,
+      "area": 377835,
+      "flagUrl": "https://flagcdn.com/w320/jp.png"
+    },
+    {
+      "id": "JO",
+      "name": "Jordan",
+      "lat": 31.281348,
+      "lng": 37.121776999999994,
+      "population": 9956011,
+      "area": 92300,
+      "flagUrl": "https://flagcdn.com/w320/jo.png"
+    },
+    {
+      "id": "KZ",
+      "name": "Kazakhstan",
+      "lat": 48.004517,
+      "lng": 66.966016,
+      "population": 18276499,
+      "area": 2717300,
+      "flagUrl": "https://flagcdn.com/w320/kz.png"
+    },
+    {
+      "id": "KE",
+      "name": "Kenya",
+      "lat": 0.3999509999999997,
+      "lng": 37.8936035,
+      "population": 51393010,
+      "area": 582650,
+      "flagUrl": "https://flagcdn.com/w320/ke.png"
+    },
+    {
+      "id": "KI",
+      "name": "Kiribati",
+      "lat": -11.441016,
+      "lng": -151.782617,
+      "population": 115847,
+      "area": 811,
+      "flagUrl": "https://flagcdn.com/w320/ki.png"
+    },
+    {
+      "id": "XK",
+      "name": "Kosovo",
+      "lat": 42.5636475,
+      "lng": 20.891211,
+      "population": 1845300,
+      "area": 10908,
+      "flagUrl": "https://flagcdn.com/w320/xk.png"
+    },
+    {
+      "id": "KW",
+      "name": "Kuwait",
+      "lat": 29.3064205,
+      "lng": 47.486962500000004,
+      "population": 4137309,
+      "area": 17820,
+      "flagUrl": "https://flagcdn.com/w320/kw.png"
+    },
+    {
+      "id": "KG",
+      "name": "Kyrgyzstan",
+      "lat": 41.2239505,
+      "lng": 74.7376465,
+      "population": 6315800,
+      "area": 198500,
+      "flagUrl": "https://flagcdn.com/w320/kg.png"
+    },
+    {
+      "id": "LA",
+      "name": "Laos",
+      "lat": 18.295313,
+      "lng": 103.898828,
+      "population": 7061507,
+      "area": 236800,
+      "flagUrl": "https://flagcdn.com/w320/la.png"
+    },
+    {
+      "id": "LV",
+      "name": "Latvia",
+      "lat": 56.8654785,
+      "lng": 24.608496000000002,
+      "population": 1926542,
+      "area": 64589,
+      "flagUrl": "https://flagcdn.com/w320/lv.png"
+    },
+    {
+      "id": "LB",
+      "name": "Lebanon",
+      "lat": 33.8771975,
+      "lng": 35.8467775,
+      "population": 6848925,
+      "area": 10400,
+      "flagUrl": "https://flagcdn.com/w320/lb.png"
+    },
+    {
+      "id": "LS",
+      "name": "Lesotho",
+      "lat": -29.606396500000002,
+      "lng": 28.2238285,
+      "population": 2108132,
+      "area": 30355,
+      "flagUrl": "https://flagcdn.com/w320/ls.png"
+    },
+    {
+      "id": "LR",
+      "name": "Liberia",
+      "lat": 6.444506499999999,
+      "lng": -9.453711,
+      "population": 4818977,
+      "area": 111370,
+      "flagUrl": "https://flagcdn.com/w320/lr.png"
+    },
+    {
+      "id": "LY",
+      "name": "Libya",
+      "lat": 26.3392825,
+      "lng": 17.230370999999998,
+      "population": 6678567,
+      "area": 1759540,
+      "flagUrl": "https://flagcdn.com/w320/ly.png"
+    },
+    {
+      "id": "LI",
+      "name": "Liechtenstein",
+      "lat": 47.1640625,
+      "lng": 9.5450195,
+      "population": 37910,
+      "area": 160,
+      "flagUrl": "https://flagcdn.com/w320/li.png"
+    },
+    {
+      "id": "LT",
+      "name": "Lithuania",
+      "lat": 55.152075499999995,
+      "lng": 23.910888999999997,
+      "population": 2789533,
+      "area": 65200,
+      "flagUrl": "https://flagcdn.com/w320/lt.png"
+    },
+    {
+      "id": "LU",
+      "name": "Luxembourg",
+      "lat": 49.806323,
+      "lng": 6.1061525,
+      "population": 607728,
+      "area": 2586,
+      "flagUrl": "https://flagcdn.com/w320/lu.png"
+    },
+    {
+      "id": "MG",
+      "name": "Madagascar",
+      "lat": -18.825049,
+      "lng": 46.8737795,
+      "population": 26262368,
+      "area": 587040,
+      "flagUrl": "https://flagcdn.com/w320/mg.png"
+    },
+    {
+      "id": "MW",
+      "name": "Malawi",
+      "lat": -13.261133000000001,
+      "lng": 34.2824215,
+      "population": 17563749,
+      "area": 118480,
+      "flagUrl": "https://flagcdn.com/w320/mw.png"
+    },
+    {
+      "id": "MY",
+      "name": "Malaysia",
+      "lat": 2.027539,
+      "lng": 109.628906,
+      "population": 31528585,
+      "area": 329750,
+      "flagUrl": "https://flagcdn.com/w320/my.png"
+    },
+    {
+      "id": "MV",
+      "name": "Maldives",
+      "lat": 4.158936,
+      "lng": 73.478613,
+      "population": 515696,
+      "area": 300,
+      "flagUrl": "https://flagcdn.com/w320/mv.png"
+    },
+    {
+      "id": "ML",
+      "name": "Mali",
+      "lat": 17.569433500000002,
+      "lng": -4.022973499999999,
+      "population": 19077690,
+      "area": 1240000,
+      "flagUrl": "https://flagcdn.com/w320/ml.png"
+    },
+    {
+      "id": "MT",
+      "name": "Malta",
+      "lat": 35.947998,
+      "lng": 14.373290999999998,
+      "population": 483530,
+      "area": 316,
+      "flagUrl": "https://flagcdn.com/w320/mt.png"
+    },
+    {
+      "id": "MH",
+      "name": "Marshall Islands",
+      "lat": 7.308984,
+      "lng": 168.830273,
+      "population": 58413,
+      "area": 181.3,
+      "flagUrl": "https://flagcdn.com/w320/mh.png"
+    },
+    {
+      "id": "MR",
+      "name": "Mauritania",
+      "lat": 21.015649,
+      "lng": -10.943286,
+      "population": 4403319,
+      "area": 1030700,
+      "flagUrl": "https://flagcdn.com/w320/mr.png"
+    },
+    {
+      "id": "MU",
+      "name": "Mauritius",
+      "lat": -20.246826,
+      "lng": 57.554834,
+      "population": 1265303,
+      "area": 2040,
+      "flagUrl": "https://flagcdn.com/w320/mu.png"
+    },
+    {
+      "id": "MX",
+      "name": "Mexico",
+      "lat": 23.630370999999997,
+      "lng": -101.950024,
+      "population": 126190788,
+      "area": 1972550,
+      "flagUrl": "https://flagcdn.com/w320/mx.png"
+    },
+    {
+      "id": "FM",
+      "name": "Micronesia",
+      "lat": 7.338086,
+      "lng": 151.57832,
+      "population": 112640,
+      "area": 702,
+      "flagUrl": "https://flagcdn.com/w320/fm.png"
+    },
+    {
+      "id": "MD",
+      "name": "Moldova",
+      "lat": 46.9640865,
+      "lng": 28.375,
+      "population": 3545883,
+      "area": 33843,
+      "flagUrl": "https://flagcdn.com/w320/md.png"
+    },
+    {
+      "id": "MC",
+      "name": "Monaco",
+      "lat": 43.751318,
+      "lng": 7.408203,
+      "population": 38682,
+      "area": 1.95,
+      "flagUrl": "https://flagcdn.com/w320/mc.png"
+    },
+    {
+      "id": "MN",
+      "name": "Mongolia",
+      "lat": 46.8563965,
+      "lng": 103.82050799999999,
+      "population": 3170208,
+      "area": 1565000,
+      "flagUrl": "https://flagcdn.com/w320/mn.png"
+    },
+    {
+      "id": "ME",
+      "name": "Montenegro",
+      "lat": 42.7011965,
+      "lng": 19.391992000000002,
+      "population": 622345,
+      "area": 14026,
+      "flagUrl": "https://flagcdn.com/w320/me.png"
+    },
+    {
+      "id": "MA",
+      "name": "Morocco",
+      "lat": 28.6753175,
+      "lng": -9.034253,
+      "population": 36029138,
+      "area": 446550,
+      "flagUrl": "https://flagcdn.com/w320/ma.png"
+    },
+    {
+      "id": "MZ",
+      "name": "Mozambique",
+      "lat": -18.662988,
+      "lng": 35.5381835,
+      "population": 29495962,
+      "area": 801590,
+      "flagUrl": "https://flagcdn.com/w320/mz.png"
+    },
+    {
+      "id": "MM",
+      "name": "Myanmar",
+      "lat": 19.272582999999997,
+      "lng": 96.66342800000001,
+      "population": 53708395,
+      "area": 678500,
+      "flagUrl": "https://flagcdn.com/w320/mm.png"
+    },
+    {
+      "id": "NA",
+      "name": "Namibia",
+      "lat": -22.953223,
+      "lng": 18.4961425,
+      "population": 2448255,
+      "area": 825418,
+      "flagUrl": "https://flagcdn.com/w320/na.png"
+    },
+    {
+      "id": "NR",
+      "name": "Nauru",
+      "lat": -0.520068,
+      "lng": 166.93271449999997,
+      "population": 12704,
+      "area": 21,
+      "flagUrl": "https://flagcdn.com/w320/nr.png"
+    },
+    {
+      "id": "NP",
+      "name": "Nepal",
+      "lat": 28.3739015,
+      "lng": 84.10659150000001,
+      "population": 28087871,
+      "area": 140800,
+      "flagUrl": "https://flagcdn.com/w320/np.png"
+    },
+    {
+      "id": "NL",
+      "name": "Netherlands",
+      "lat": 52.095800499999996,
+      "lng": 5.273682,
+      "population": 17231017,
+      "area": 41526,
+      "flagUrl": "https://flagcdn.com/w320/nl.png"
+    },
+    {
+      "id": "NZ",
+      "name": "New Zealand",
+      "lat": -40.8438965,
+      "lng": 172.5069335,
+      "population": 4885500,
+      "area": 268680,
+      "flagUrl": "https://flagcdn.com/w320/nz.png"
+    },
+    {
+      "id": "NI",
+      "name": "Nicaragua",
+      "lat": 12.8717045,
+      "lng": -85.413843,
+      "population": 6465513,
+      "area": 129494,
+      "flagUrl": "https://flagcdn.com/w320/ni.png"
+    },
+    {
+      "id": "NE",
+      "name": "Niger",
+      "lat": 17.60708,
+      "lng": 8.0635255,
+      "population": 22442948,
+      "area": 1267000,
+      "flagUrl": "https://flagcdn.com/w320/ne.png"
+    },
+    {
+      "id": "NG",
+      "name": "Nigeria",
+      "lat": 9.075122499999999,
+      "lng": 8.652880999999999,
+      "population": 195874740,
+      "area": 923768,
+      "flagUrl": "https://flagcdn.com/w320/ng.png"
+    },
+    {
+      "id": "KP",
+      "name": "North Korea",
+      "lat": 40.361475,
+      "lng": 127.51796900000001,
+      "population": 25549819,
+      "area": 120540,
+      "flagUrl": "https://flagcdn.com/w320/kp.png"
+    },
+    {
+      "id": "MK",
+      "name": "North Macedonia",
+      "lat": 41.604028,
+      "lng": 21.726123,
+      "population": 2082958,
+      "area": 25333,
+      "flagUrl": "https://flagcdn.com/w320/mk.png"
+    },
+    {
+      "id": "NO",
+      "name": "Norway",
+      "lat": 68.308325,
+      "lng": 17.9442385,
+      "population": 5314336,
+      "area": 324220,
+      "flagUrl": "https://flagcdn.com/w320/no.png"
+    },
+    {
+      "id": "OM",
+      "name": "Oman",
+      "lat": 20.813794,
+      "lng": 55.9075685,
+      "population": 4829483,
+      "area": 212460,
+      "flagUrl": "https://flagcdn.com/w320/om.png"
+    },
+    {
+      "id": "PK",
+      "name": "Pakistan",
+      "lat": 30.3950195,
+      "lng": 68.945996,
+      "population": 212215030,
+      "area": 803940,
+      "flagUrl": "https://flagcdn.com/w320/pk.png"
+    },
+    {
+      "id": "PW",
+      "name": "Palau",
+      "lat": 7.360645,
+      "lng": 134.534668,
+      "population": 17907,
+      "area": 458,
+      "flagUrl": "https://flagcdn.com/w320/pw.png"
+    },
+    {
+      "id": "PS",
+      "name": "Palestine",
+      "lat": 31.82334,
+      "lng": 34.961133,
+      "population": 4569087,
+      "area": 5970,
+      "flagUrl": "https://flagcdn.com/w320/ps.png"
+    },
+    {
+      "id": "PA",
+      "name": "Panama",
+      "lat": 8.40896,
+      "lng": -80.11167,
+      "population": 4176873,
+      "area": 78200,
+      "flagUrl": "https://flagcdn.com/w320/pa.png"
+    },
+    {
+      "id": "PG",
+      "name": "Papua New Guinea",
+      "lat": -6.551172,
+      "lng": 147.854492,
+      "population": 8606316,
+      "area": 462840,
+      "flagUrl": "https://flagcdn.com/w320/pg.png"
+    },
+    {
+      "id": "PY",
+      "name": "Paraguay",
+      "lat": -23.420019500000002,
+      "lng": -58.446387,
+      "population": 6956071,
+      "area": 406750,
+      "flagUrl": "https://flagcdn.com/w320/py.png"
+    },
+    {
+      "id": "PE",
+      "name": "Peru",
+      "lat": -9.193676499999999,
+      "lng": -75.0109375,
+      "population": 31989256,
+      "area": 1285220,
+      "flagUrl": "https://flagcdn.com/w320/pe.png"
+    },
+    {
+      "id": "PH",
+      "name": "Philippines",
+      "lat": 11.897363,
+      "lng": 121.963672,
+      "population": 106651922,
+      "area": 300000,
+      "flagUrl": "https://flagcdn.com/w320/ph.png"
+    },
+    {
+      "id": "PL",
+      "name": "Poland",
+      "lat": 51.929468,
+      "lng": 19.1171875,
+      "population": 37978548,
+      "area": 312685,
+      "flagUrl": "https://flagcdn.com/w320/pl.png"
+    },
+    {
+      "id": "PT",
+      "name": "Portugal",
+      "lat": 39.571411,
+      "lng": -7.8433105,
+      "population": 10281762,
+      "area": 92391,
+      "flagUrl": "https://flagcdn.com/w320/pt.png"
+    },
+    {
+      "id": "QA",
+      "name": "Qatar",
+      "lat": 25.358959499999997,
+      "lng": 51.1817385,
+      "population": 2781677,
+      "area": 11437,
+      "flagUrl": "https://flagcdn.com/w320/qa.png"
+    },
+    {
+      "id": "CG",
+      "name": "Republic of the Congo",
+      "lat": -0.6598390000000001,
+      "lng": 14.876172,
+      "population": 5244363,
+      "area": 342000,
+      "flagUrl": "https://flagcdn.com/w320/cg.png"
+    },
+    {
+      "id": "RO",
+      "name": "Romania",
+      "lat": 45.967139,
+      "lng": 24.973827999999997,
+      "population": 19473936,
+      "area": 237500,
+      "flagUrl": "https://flagcdn.com/w320/ro.png"
+    },
+    {
+      "id": "RU",
+      "name": "Russia",
+      "lat": 55.583203,
+      "lng": 43.675976500000004,
+      "population": 144478050,
+      "area": 17100000,
+      "flagUrl": "https://flagcdn.com/w320/ru.png"
+    },
+    {
+      "id": "RW",
+      "name": "Rwanda",
+      "lat": -1.9379395,
+      "lng": 29.86709,
+      "population": 12301939,
+      "area": 26338,
+      "flagUrl": "https://flagcdn.com/w320/rw.png"
+    },
+    {
+      "id": "LC",
+      "name": "Saint Lucia",
+      "lat": 13.9054685,
+      "lng": -60.984179999999995,
+      "population": 181889,
+      "area": 616,
+      "flagUrl": "https://flagcdn.com/w320/lc.png"
+    },
+    {
+      "id": "VC",
+      "name": "Saint Vincent and the Grenadines",
+      "lat": 13.043262,
+      "lng": -61.212842,
+      "population": 110211,
+      "area": 389,
+      "flagUrl": "https://flagcdn.com/w320/vc.png"
+    },
+    {
+      "id": "WS",
+      "name": "Samoa",
+      "lat": -13.684668,
+      "lng": -172.176855,
+      "population": 196130,
+      "area": 2944,
+      "flagUrl": "https://flagcdn.com/w320/ws.png"
+    },
+    {
+      "id": "SM",
+      "name": "San Marino",
+      "lat": 43.941919,
+      "lng": 12.450292999999999,
+      "population": 33785,
+      "area": 61.2,
+      "flagUrl": "https://flagcdn.com/w320/sm.png"
+    },
+    {
+      "id": "ST",
+      "name": "São Tomé and Principe",
+      "lat": 0.404395,
+      "lng": 6.686914,
+      "population": 197700,
+      "area": 1001,
+      "flagUrl": "https://flagcdn.com/w320/st.png"
+    },
+    {
+      "id": "SA",
+      "name": "Saudi Arabia",
+      "lat": 24.248144500000002,
+      "lng": 45.1286135,
+      "population": 33699947,
+      "area": 1960582,
+      "flagUrl": "https://flagcdn.com/w320/sa.png"
+    },
+    {
+      "id": "SN",
+      "name": "Senegal",
+      "lat": 14.503466500000002,
+      "lng": -14.4590335,
+      "population": 15854360,
+      "area": 196190,
+      "flagUrl": "https://flagcdn.com/w320/sn.png"
+    },
+    {
+      "id": "RS",
+      "name": "Serbia",
+      "lat": 44.2044925,
+      "lng": 20.907958999999998,
+      "population": 6982084,
+      "area": 88361,
+      "flagUrl": "https://flagcdn.com/w320/rs.png"
+    },
+    {
+      "id": "SC",
+      "name": "Seychelles",
+      "lat": -4.672168,
+      "lng": 55.4631835,
+      "population": 96762,
+      "area": 455,
+      "flagUrl": "https://flagcdn.com/w320/sc.png"
+    },
+    {
+      "id": "SL",
+      "name": "Sierra Leone",
+      "lat": 8.451538,
+      "lng": -11.7879395,
+      "population": 7650154,
+      "area": 71740,
+      "flagUrl": "https://flagcdn.com/w320/sl.png"
+    },
+    {
+      "id": "SG",
+      "name": "Singapore",
+      "lat": 1.3562255,
+      "lng": 103.823291,
+      "population": 5638676,
+      "area": 692.7,
+      "flagUrl": "https://flagcdn.com/w320/sg.png"
+    },
+    {
+      "id": "SK",
+      "name": "Slovakia",
+      "lat": 48.683935500000004,
+      "lng": 19.700683499999997,
+      "population": 5447011,
+      "area": 48845,
+      "flagUrl": "https://flagcdn.com/w320/sk.png"
+    },
+    {
+      "id": "SI",
+      "name": "Slovenia",
+      "lat": 46.145825,
+      "lng": 14.947216999999998,
+      "population": 2067372,
+      "area": 20273,
+      "flagUrl": "https://flagcdn.com/w320/si.png"
+    },
+    {
+      "id": "SB",
+      "name": "Solomon Islands",
+      "lat": -9.191992,
+      "lng": 161.256641,
+      "population": 652858,
+      "area": 28450,
+      "flagUrl": "https://flagcdn.com/w320/sb.png"
+    },
+    {
+      "id": "SO",
+      "name": "Somalia",
+      "lat": 5.1441895,
+      "lng": 46.1816405,
+      "population": 15008154,
+      "area": 637657,
+      "flagUrl": "https://flagcdn.com/w320/so.png"
+    },
+    {
+      "id": "ZA",
+      "name": "South Africa",
+      "lat": -28.466015499999997,
+      "lng": 24.666846,
+      "population": 57779622,
+      "area": 1219912,
+      "flagUrl": "https://flagcdn.com/w320/za.png"
+    },
+    {
+      "id": "KR",
+      "name": "South Korea",
+      "lat": 35.9191405,
+      "lng": 127.86669950000001,
+      "population": 51635256,
+      "area": 98480,
+      "flagUrl": "https://flagcdn.com/w320/kr.png"
+    },
+    {
+      "id": "SS",
+      "name": "South Sudan",
+      "lat": 7.854004,
+      "lng": 29.707860999999998,
+      "population": 8260490,
+      "area": 644329,
+      "flagUrl": "https://flagcdn.com/w320/ss.png"
+    },
+    {
+      "id": "ES",
+      "name": "Spain",
+      "lat": 39.8952395,
+      "lng": -2.9642335,
+      "population": 46723749,
+      "area": 504782,
+      "flagUrl": "https://flagcdn.com/w320/es.png"
+    },
+    {
+      "id": "LK",
+      "name": "Sri Lanka",
+      "lat": 7.88103,
+      "lng": 80.7935545,
+      "population": 21670000,
+      "area": 65610,
+      "flagUrl": "https://flagcdn.com/w320/lk.png"
+    },
+    {
+      "id": "KN",
+      "name": "St. Kitts and Nevis",
+      "lat": 17.286035,
+      "lng": -62.702002,
+      "population": 52441,
+      "area": 261,
+      "flagUrl": "https://flagcdn.com/w320/kn.png"
+    },
+    {
+      "id": "SD",
+      "name": "Sudan",
+      "lat": 15.434033,
+      "lng": 30.217382999999998,
+      "population": 41801533,
+      "area": 1861484,
+      "flagUrl": "https://flagcdn.com/w320/sd.png"
+    },
+    {
+      "id": "SR",
+      "name": "Suriname",
+      "lat": 3.9178465,
+      "lng": -56.0224855,
+      "population": 575991,
+      "area": 163270,
+      "flagUrl": "https://flagcdn.com/w320/sr.png"
+    },
+    {
+      "id": "SE",
+      "name": "Sweden",
+      "lat": 62.233008,
+      "lng": 17.633691,
+      "population": 10183175,
+      "area": 449964,
+      "flagUrl": "https://flagcdn.com/w320/se.png"
+    },
+    {
+      "id": "CH",
+      "name": "Switzerland",
+      "lat": 46.802832,
+      "lng": 8.212305,
+      "population": 8516543,
+      "area": 41290,
+      "flagUrl": "https://flagcdn.com/w320/ch.png"
+    },
+    {
+      "id": "SY",
+      "name": "Syria",
+      "lat": 34.8072755,
+      "lng": 39.0617185,
+      "population": 16906283,
+      "area": 185180,
+      "flagUrl": "https://flagcdn.com/w320/sy.png"
+    },
+    {
+      "id": "TW",
+      "name": "Taiwan",
+      "lat": 23.600171,
+      "lng": 121.0007325,
+      "population": 23451837,
+      "area": 35980,
+      "flagUrl": "https://flagcdn.com/w320/tw.png"
+    },
+    {
+      "id": "TJ",
+      "name": "Tajikistan",
+      "lat": 38.86469700000001,
+      "lng": 71.2381835,
+      "population": 9100837,
+      "area": 143100,
+      "flagUrl": "https://flagcdn.com/w320/tj.png"
+    },
+    {
+      "id": "TZ",
+      "name": "Tanzania",
+      "lat": -6.3555665,
+      "lng": 34.893506,
+      "population": 56318348,
+      "area": 945087,
+      "flagUrl": "https://flagcdn.com/w320/tz.png"
+    },
+    {
+      "id": "TH",
+      "name": "Thailand",
+      "lat": 13.030591,
+      "lng": 101.507471,
+      "population": 69428524,
+      "area": 514000,
+      "flagUrl": "https://flagcdn.com/w320/th.png"
+    },
+    {
+      "id": "TL",
+      "name": "Timor-Leste",
+      "lat": -8.913818500000001,
+      "lng": 125.666211,
+      "population": 1267972,
+      "area": 15007,
+      "flagUrl": "https://flagcdn.com/w320/tl.png"
+    },
+    {
+      "id": "TG",
+      "name": "Togo",
+      "lat": 8.6025145,
+      "lng": 0.843872,
+      "population": 7889094,
+      "area": 56785,
+      "flagUrl": "https://flagcdn.com/w320/tg.png"
+    },
+    {
+      "id": "TO",
+      "name": "Tonga",
+      "lat": -21.129004,
+      "lng": -175.078174,
+      "population": 103197,
+      "area": 748,
+      "flagUrl": "https://flagcdn.com/w320/to.png"
+    },
+    {
+      "id": "TT",
+      "name": "Trinidad and Tobago",
+      "lat": 10.697265999999999,
+      "lng": -61.215796,
+      "population": 1389858,
+      "area": 5128,
+      "flagUrl": "https://flagcdn.com/w320/tt.png"
+    },
+    {
+      "id": "TN",
+      "name": "Tunisia",
+      "lat": 33.784888,
+      "lng": 9.516992,
+      "population": 11565204,
+      "area": 163610,
+      "flagUrl": "https://flagcdn.com/w320/tn.png"
+    },
+    {
+      "id": "TR",
+      "name": "Turkey",
+      "lat": 38.962353500000006,
+      "lng": 35.4280765,
+      "population": 82319724,
+      "area": 780580,
+      "flagUrl": "https://flagcdn.com/w320/tr.png"
+    },
+    {
+      "id": "TM",
+      "name": "Turkmenistan",
+      "lat": 38.974633999999995,
+      "lng": 59.5615725,
+      "population": 5850908,
+      "area": 488100,
+      "flagUrl": "https://flagcdn.com/w320/tm.png"
+    },
+    {
+      "id": "TV",
+      "name": "Tuvalu",
+      "lat": -8.5005375,
+      "lng": 179.2046875,
+      "population": 11508,
+      "area": 26,
+      "flagUrl": "https://flagcdn.com/w320/tv.png"
+    },
+    {
+      "id": "UG",
+      "name": "Uganda",
+      "lat": 1.3751464999999998,
+      "lng": 32.269189499999996,
+      "population": 42723139,
+      "area": 236040,
+      "flagUrl": "https://flagcdn.com/w320/ug.png"
+    },
+    {
+      "id": "UA",
+      "name": "Ukraine",
+      "lat": 48.789452999999995,
+      "lng": 31.129004,
+      "population": 40000000,
+      "area": 603700,
+      "flagUrl": "https://flagcdn.com/w320/ua.png"
+    },
+    {
+      "id": "AE",
+      "name": "United Arab Emirates",
+      "lat": 24.077051,
+      "lng": 53.893359,
+      "population": 9630959,
+      "area": 82880,
+      "flagUrl": "https://flagcdn.com/w320/ae.png"
+    },
+    {
+      "id": "GB",
+      "name": "United Kingdom",
+      "lat": 54.3356935,
+      "lng": -3.199121,
+      "population": 66488991,
+      "area": 244820,
+      "flagUrl": "https://flagcdn.com/w320/gb.png"
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "lat": 48.2728515,
+      "lng": -117.5376955,
+      "population": 327167434,
+      "area": 9629091,
+      "flagUrl": "https://flagcdn.com/w320/us.png"
+    },
+    {
+      "id": "UY",
+      "name": "Uruguay",
+      "lat": -32.52002,
+      "lng": -55.7818605,
+      "population": 3449299,
+      "area": 176220,
+      "flagUrl": "https://flagcdn.com/w320/uy.png"
+    },
+    {
+      "id": "UZ",
+      "name": "Uzbekistan",
+      "lat": 41.363794,
+      "lng": 64.55390650000001,
+      "population": 32955400,
+      "area": 447400,
+      "flagUrl": "https://flagcdn.com/w320/uz.png"
+    },
+    {
+      "id": "VU",
+      "name": "Vanuatu",
+      "lat": -16.804004,
+      "lng": 168.181445,
+      "population": 292680,
+      "area": 12200,
+      "flagUrl": "https://flagcdn.com/w320/vu.png"
+    },
+    {
+      "id": "VA",
+      "name": "Vatican",
+      "lat": 41.901514,
+      "lng": 12.434863,
+      "population": 921,
+      "area": 0.44,
+      "flagUrl": "https://flagcdn.com/w320/va.png"
+    },
+    {
+      "id": "VE",
+      "name": "Venezuela",
+      "lat": 6.4329345,
+      "lng": -66.598926,
+      "population": 28870195,
+      "area": 912050,
+      "flagUrl": "https://flagcdn.com/w320/ve.png"
+    },
+    {
+      "id": "VN",
+      "name": "Vietnam",
+      "lat": 16.492627,
+      "lng": 106.656445,
+      "population": 95540395,
+      "area": 329560,
+      "flagUrl": "https://flagcdn.com/w320/vn.png"
+    },
+    {
+      "id": "YE",
+      "name": "Yemen",
+      "lat": 15.8019045,
+      "lng": 47.871729,
+      "population": 28498687,
+      "area": 527970,
+      "flagUrl": "https://flagcdn.com/w320/ye.png"
+    },
+    {
+      "id": "ZM",
+      "name": "Zambia",
+      "lat": -13.117578,
+      "lng": 27.8202145,
+      "population": 17351822,
+      "area": 752614,
+      "flagUrl": "https://flagcdn.com/w320/zm.png"
+    },
+    {
+      "id": "ZW",
+      "name": "Zimbabwe",
+      "lat": -19.0225585,
+      "lng": 29.1153805,
+      "population": 16868409,
+      "area": 390580,
+      "flagUrl": "https://flagcdn.com/w320/zw.png"
+    }
+  ]
+}

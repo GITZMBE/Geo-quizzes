@@ -134,6 +134,25 @@ export const GAMES: GameDefinition[] = [
       { slug: "county-roads-secondary", name: "Secondary county roads", scoreType: "POINTS" },
     ],
   },
+  {
+    slug: "city-streets",
+    name: "Guess the City",
+    description:
+      "Only a major city's street network is shown — no labels, no borders. Type which city it is.",
+    dataFile: "/data/city_streets.json",
+    modes: [{ slug: "streets", name: "Street pattern", scoreType: "POINTS" }],
+  },
+  {
+    slug: "higher-or-lower",
+    name: "Higher or Lower",
+    description:
+      "A reference country is shown with its value — is the next country's higher or lower?",
+    dataFile: "/data/country_stats.json",
+    modes: [
+      { slug: "population", name: "Population", scoreType: "POINTS" },
+      { slug: "area", name: "Area", scoreType: "POINTS" },
+    ],
+  },
 ];
 
 export function getGame(slug: string): GameDefinition | undefined {

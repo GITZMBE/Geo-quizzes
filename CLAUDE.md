@@ -241,6 +241,59 @@ few disputed territories alongside real countries; the script filters
 those out and documents exactly what's dropped and why in the output
 file's own `note` field.
 
+7. **Swedish Roads** (`/games/swedish-roads`) — a road's route is
+   highlighted on a `MapView` (drawn together with Sweden's own outline for
+   context, reused from the Europe continent game's data rather than a
+   dedicated Sweden-only file), type its route/designation number; five
+   modes split by road tier (all/motorways/national/county/secondary
+   county), all POINTS, 5 random roads per run from that tier's pool.
+
+`public/data/swedish_roads.json` route designations + place-list order
+come from Swedish Wikipedia's road-numbering articles, actual route
+geometry from OpenStreetMap via the Overpass API — both fetched live by
+`scripts/build-swedish-roads-{primary,secondary}.js` (see that script's own
+header for the Overpass endpoint/rate-limit/curl-not-fetch specifics also
+relied on by the two games below).
+
+8. **Guess the City** (`/games/city-streets`) — one mode, *Street
+   pattern*: only a major city's street network is shown (no labels,
+   borders, or coastline — the road pattern is the only clue), type which
+   city it is; POINTS, 5 random cities per run from a pool of 30.
+
+`public/data/city_streets.json` major-road geometry (motorway/trunk/
+primary only, clipped to a several-km box around each city's center, then
+simplified for file size) comes from OpenStreetMap via Overpass, the same
+endpoint/technique as the Swedish Roads game above —
+`scripts/build-city-streets.js`. The 30-city list is a deliberate curation,
+not a population-rank cut: every city is unambiguously major, but was
+specifically chosen for having a visually distinctive street layout (a
+ring road, a radial star, a strict grid, a unique planned shape) — a raw
+top-N-by-population list would include many huge but visually generic
+sprawl cities indistinguishable from one another by streets alone, which
+would make "recognize the city from its road pattern" unwinnable for most
+of them. Coordinates are reused as-is from `world_largest_cities.json`
+(no re-geocoding). See the script's header comment for the full list and
+each city's distinctive feature.
+
+9. **Higher or Lower** (`/games/higher-or-lower`) — two modes (Population,
+   Area): a reference country is shown on the left with its value, a second
+   country on the right with its value hidden — guess whether it's higher
+   or lower; POINTS, scored as the length of the correct streak (ends on
+   the first wrong guess, matching the classic "higher/lower" mechanic).
+   This is the one game whose round shape doesn't fit `useRoundGame` (no
+   fixed shuffled order — an open-ended streak instead), so it has its own
+   state shape/factory (`HigherLowerState`/`getHigherLowerState` in
+   `lib/state/gameAtoms.ts`) rather than reusing `RoundGameState`.
+
+`public/data/country_stats.json` population + area (km²) come from
+GeoNames' `countryInfo.txt`, cross-referenced by ISO alpha-2 against the
+existing 197-country list in `world_countries.json` (id/name/lat/lng/
+flagUrl reused from there rather than re-derived) —
+`scripts/build-country-stats.js`. Kept as its own data file rather than
+adding population/area fields onto `world_countries.json` itself, so as
+not to risk the 6 continent games that already depend on that file's exact
+shape.
+
 ## Infra / deployment status
 
 - **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been
