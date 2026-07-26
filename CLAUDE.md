@@ -355,6 +355,41 @@ when signed in — like every other page route, `/info/*` is already gated by
 `proxy.ts`'s existing "everything except /, /sign-in, /sign-up" matcher, so
 no middleware changes were needed.
 
+1. **Empires Through History** (`/info/empires`, issue #4) — pick an empire,
+   drag a slider through the eras it's tracked at, see its border on a world
+   map. `components/info/EmpireHistoryViewer.tsx` reuses `MapView` (not
+   `GlobeView` — same click-precision-vs-rotation reasoning as every other
+   region game) with two combined layers: the 6 existing continent files
+   merged client-side (`fetchWorldBackdrop()` in `lib/info/data.ts`) as a
+   neutral modern-day backdrop for orientation, and the selected empire's
+   single era polygon highlighted on top. No click interaction, no scoring —
+   `onRegionClick` is simply omitted.
+
+   `public/data/empires_history.json` border polygons come from
+   `aourednik/historical-basemaps` (GitHub), a collection of ~54 world
+   political-border snapshots by year — **GPL-3.0 licensed**, a deliberate,
+   flagged-and-accepted exception to every other geo source this project
+   uses elsewhere (Natural Earth/GeoNames/geoBoundaries/OSM are all public-
+   domain or permissively licensed) — `scripts/build-empires-history.js`.
+   Only 4 empires are covered, each one this dataset happens to track under
+   one *stable, single* name across many years: Ottoman Empire (14 eras,
+   1400-1914), Byzantine Empire (8 eras, 800-1400), Russian Empire (6 eras,
+   1783-1914), Mongol Empire (only 2 eras, 1100 and 1200 — the dataset
+   doesn't track it as one polity outside that narrow window). Deliberately
+   excludes empires the dataset only tracks as several separately-named
+   constituent territories per year (e.g. no single "British Empire" feature
+   exists in any year — only holdings like "British Raj"/"British
+   Somaliland" — so stitching those together would mean the build script
+   inventing a classification the source data doesn't make), chains of
+   historically distinct empires that happen to share a region (Achaemenid/
+   Sassanid/Safavid/Qajar Persia are different empires across different
+   centuries, not one continuous state), and — caught by manually inspecting
+   bounding boxes before trusting the data, not assumed — the Ottoman
+   Empire's own 1920/1930 snapshots, which turned out to be an identical,
+   already-collapsed-to-central-Anatolia placeholder in the source dataset
+   rather than an accurate picture of its actual final years, so those two
+   were dropped rather than presented as real history.
+
 ## Infra / deployment status
 
 - **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been
