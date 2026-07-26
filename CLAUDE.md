@@ -341,6 +341,20 @@ value is genuinely present but not yet indexed there (seen for Turkey as of
 this script's original run) is caught by a live per-entity fallback lookup
 rather than being silently dropped — see the script for both paths.
 
+## Informational pages (`/info`)
+
+A second, non-game content section for read-only geography content (issue
+#3) — no scoring, no leaderboard, no `useRoundGame`. `lib/info/registry.ts`
+mirrors `lib/games/registry.ts`'s pattern (a typed array + `getInfoPage(slug)`
+lookup) but is a deliberately separate registry/data module
+(`lib/info/data.ts`), not an extension of the games one, since this content
+doesn't share any game data envelope. `app/info/page.tsx` is a hub/list page
+structurally identical to `app/games/page.tsx` (search + card list). Reached
+from `components/Header.tsx`'s "Info" link, shown next to "Play Games" only
+when signed in — like every other page route, `/info/*` is already gated by
+`proxy.ts`'s existing "everything except /, /sign-in, /sign-up" matcher, so
+no middleware changes were needed.
+
 ## Infra / deployment status
 
 - **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been

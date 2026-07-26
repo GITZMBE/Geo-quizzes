@@ -17,6 +17,9 @@ export function Header() {
           <Link href="/games" className="text-muted-foreground hover:text-foreground">
             Play Games
           </Link>
+          <Link href="/info" className="text-muted-foreground hover:text-foreground">
+            Info
+          </Link>
           <span className="text-muted-foreground">
             {session.user.name ?? session.user.email}
           </span>
