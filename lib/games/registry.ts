@@ -155,11 +155,18 @@ export const GAMES: GameDefinition[] = [
   },
   {
     slug: "unrecognized-states-europe",
-    name: "Unofficial European States",
+    name: "Unofficial States & Territories",
     description:
-      "A flag is shown — type which partially-recognized European state it belongs to.",
-    dataFile: "/data/unrecognized_states_europe.json",
-    modes: [{ slug: "flags", name: "Flags", scoreType: "POINTS" }],
+      "A flag is shown — type which state, territory, or movement it belongs to.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "de-facto-states", name: "De Facto States", scoreType: "POINTS" },
+      { slug: "autonomous-territories", name: "Autonomous Territories", scoreType: "POINTS" },
+      { slug: "disputed-territories", name: "Disputed Territories", scoreType: "POINTS" },
+      { slug: "separatist-movements", name: "Separatist Movements", scoreType: "POINTS" },
+      { slug: "historical-states", name: "Historical States", scoreType: "POINTS" },
+      { slug: "micronations", name: "Micronations", scoreType: "POINTS" },
+    ],
   },
   {
     slug: "national-coat-of-arms",

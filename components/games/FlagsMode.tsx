@@ -10,13 +10,20 @@ import { getAutocompleteMatch } from "@/lib/games/text";
 export function FlagsMode({
   gameSlug,
   countries,
+  modeSlug = "flags",
 }: {
   gameSlug: string;
   countries: CountryFeature[];
+  // Defaults to "flags" so every existing caller (all 6 countries-<continent>
+  // games) is unaffected — a game with several flag-guessing categories
+  // sharing this one component (e.g. unrecognized-states-europe's 6
+  // categories) passes its own mode slug so each gets independent
+  // round-state/leaderboard keying, same pattern as RoadsMode's modeSlug prop.
+  modeSlug?: string;
 }) {
   const { game, mode, state, target, submitGuess, playAgain } = useRoundGame({
     gameSlug,
-    modeSlug: "flags",
+    modeSlug,
     items: countries,
     getId: (c) => c.properties.name,
   });

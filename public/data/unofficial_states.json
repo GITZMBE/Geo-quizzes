@@ -1,0 +1,890 @@
+{
+  "type": "FeatureCollection",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (3), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them). Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kosovo",
+        "iso2": "XK",
+        "capital": "Pristina",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Kosovo.svg",
+        "category": "de-facto-states"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.833333333,
+          42.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northern Cyprus",
+        "iso2": "NC",
+        "capital": "North Nicosia",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Turkish%20Republic%20of%20Northern%20Cyprus.svg",
+        "category": "de-facto-states"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.3634,
+          35.1816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Transnistria",
+        "iso2": "PMR",
+        "capital": "Tiraspol",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Transnistria%20%28state%29.svg",
+        "category": "de-facto-states"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.25,
+          47.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Ossetia",
+        "iso2": "RSO",
+        "capital": "Tskhinvali",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Ossetia.svg",
+        "category": "de-facto-states"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.97,
+          42.225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Abkhazia",
+        "iso2": "ABK",
+        "capital": "Sokhumi",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Republic%20of%20Abkhazia.svg",
+        "category": "de-facto-states"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          41,
+          43.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Taiwan",
+        "iso2": "TAI",
+        "capital": "Taipei",
+        "category": "de-facto-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Republic%20of%20China.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121,
+          24
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Somaliland",
+        "iso2": "SOM",
+        "capital": "Hargeisa",
+        "category": "de-facto-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Somaliland.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.2,
+          9.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Greenland",
+        "iso2": "GRE",
+        "capital": "Nuuk",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gl.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -40,
+          72
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Faroe Islands",
+        "iso2": "FAR",
+        "capital": "Tórshavn",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/fo.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.8444805555556,
+          61.969944444444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hong Kong",
+        "iso2": "HON",
+        "capital": "Victoria",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/hk.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.15861111111,
+          22.278333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Macau",
+        "iso2": "MAC",
+        "capital": "Macau",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/mo.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.53805555555556,
+          22.19
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Scotland",
+        "iso2": "SCO",
+        "capital": "Edinburgh",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gb-sct.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5,
+          57
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Wales",
+        "iso2": "WAL",
+        "capital": "Cardiff",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gb-wls.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.6333333333333,
+          52.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Northern Ireland",
+        "iso2": "NOR",
+        "capital": "Belfast",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gb-nir.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.6925,
+          54.6075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Åland Islands",
+        "iso2": "ALA",
+        "capital": "Mariehamn",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/ax.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20,
+          60.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Puerto Rico",
+        "iso2": "PUE",
+        "capital": "San Juan",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/pr.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.5,
+          18.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gibraltar",
+        "iso2": "GIB",
+        "capital": "Gibraltar",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gi.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.35,
+          36.14
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Isle of Man",
+        "iso2": "ISL",
+        "capital": "Douglas",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/im.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.525,
+          54.235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jersey",
+        "iso2": "JER",
+        "capital": "Saint Helier",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/je.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.11,
+          49.19
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Guernsey",
+        "iso2": "GUE",
+        "capital": "Saint Peter Port",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gg.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.5833333333333,
+          49.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aruba",
+        "iso2": "ARU",
+        "capital": "Oranjestad",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/aw.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69.975,
+          12.515
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Curaçao",
+        "iso2": "CUR",
+        "capital": "Willemstad",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/cw.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -69,
+          12.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sint Maarten",
+        "iso2": "SIN",
+        "capital": "Philipsburg",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/sx.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -63.067777777778,
+          18.031944444444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bermuda",
+        "iso2": "BER",
+        "capital": "Hamilton",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/bm.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -64.74,
+          32.32
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cook Islands",
+        "iso2": "COO",
+        "capital": "Avarua",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/ck.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.78333333333333,
+          -21.233333333333334
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Niue",
+        "iso2": "NIU",
+        "capital": "Alofi",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/nu.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -169.91666666667,
+          -19.05
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "American Samoa",
+        "iso2": "AME",
+        "capital": "Pago Pago",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/as.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -170.7075,
+          -14.295833
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Guam",
+        "iso2": "GUA",
+        "capital": "Hagåtña",
+        "category": "autonomous-territories",
+        "flagUrl": "https://flagcdn.com/w320/gu.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.8,
+          13.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kurdistan Region",
+        "iso2": "KUR",
+        "capital": "Erbil",
+        "category": "autonomous-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Kurdistan.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44,
+          36.183333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Western Sahara",
+        "iso2": "WES",
+        "capital": "Laayoune",
+        "category": "disputed-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Sahrawi%20Arab%20Democratic%20Republic.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13,
+          25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Donetsk People's Republic",
+        "iso2": "DON",
+        "capital": "Donetsk",
+        "category": "disputed-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Donetsk%20People's%20Republic.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.804166666667,
+          48.008888888889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Luhansk People's Republic",
+        "iso2": "LUH",
+        "capital": "Luhansk",
+        "category": "disputed-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Luhansk%20People's%20Republic.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39,
+          49
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Catalonia",
+        "iso2": "CAT",
+        "capital": "Barcelona",
+        "category": "separatist-movements",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Estelada%20blava.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.5666666666666667,
+          41.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bougainville",
+        "iso2": "BOU",
+        "capital": "Arawa",
+        "category": "separatist-movements",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Bougainville.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155,
+          -6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kanaky (New Caledonia)",
+        "iso2": "KAN",
+        "capital": "Nouméa",
+        "category": "separatist-movements",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20FLNKS.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          165.3,
+          -21.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Padania",
+        "iso2": "PAD",
+        "capital": "Milan (informal, not a claimed capital)",
+        "category": "separatist-movements",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Padania.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.19,
+          45.4642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Soviet Union",
+        "iso2": "SOV",
+        "capital": "Moscow",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Soviet%20Union%20(dark%20version).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90,
+          65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yugoslavia",
+        "iso2": "YUG",
+        "capital": "Belgrade",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Yugoslavia%20(1946-1992).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.4275,
+          44.82
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Czechoslovakia",
+        "iso2": "CZE",
+        "capital": "Prague",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Czechoslovakia.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.416666666667,
+          50.083333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "East Germany",
+        "iso2": "EAS",
+        "capital": "East Berlin",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20German%20Democratic%20Republic.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.389,
+          52.052
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Austria-Hungary",
+        "iso2": "AUS",
+        "capital": "Vienna",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hybrid%20flag%20of%20the%20Habsburg%20Monarchy%20and%20the%20Kingdom%20of%20Hungary.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.365,
+          48.2075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ottoman Empire",
+        "iso2": "OTT",
+        "capital": "Constantinople",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Ottoman%20Empire%20(1844%E2%80%931922).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29,
+          41
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "United Arab Republic",
+        "iso2": "UNI",
+        "capital": "Cairo",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20United%20Arab%20Republic%20(1958%E2%80%931971)%2C%20Flag%20of%20Syria%20(1980%E2%80%932024).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.216666666666665,
+          30.033333333333335
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Vietnam",
+        "iso2": "SOU",
+        "capital": "Saigon",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Vietnam.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.69527777777778,
+          10.776944444444444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zaire",
+        "iso2": "ZAI",
+        "capital": "Kinshasa",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Zaire%20(1971%E2%80%931997).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.4,
+          -4.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Prussia",
+        "iso2": "PRU",
+        "capital": "Berlin",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Prussia%20(1892-1918).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14,
+          53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Republic of Artsakh",
+        "iso2": "ART",
+        "capital": "Stepanakert",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Artsakh.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.75055555555556,
+          39.81722222222222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sealand",
+        "iso2": "SEA",
+        "capital": "HM Fort Roughs",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Sealand.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.4825,
+          51.894444444444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Molossia",
+        "iso2": "MOL",
+        "capital": "Molossia",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Republic%20of%20Molossia.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.53947222222,
+          39.322805555556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Liberland",
+        "iso2": "LIB",
+        "capital": "Liberland",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Liberland.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.871388888888887,
+          45.76833333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ladonia",
+        "iso2": "LAD",
+        "capital": "Ladonia",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Ladonia%20with%20contours.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.53944444,
+          56.28777778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kugelmugel",
+        "iso2": "KUG",
+        "capital": "Kugelmugel",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Kugelmugel%20in%20Austria.png"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.395555555556,
+          48.215277777778
+        ]
+      }
+    }
+  ]
+}

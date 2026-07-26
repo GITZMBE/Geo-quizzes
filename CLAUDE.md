@@ -294,28 +294,78 @@ adding population/area fields onto `world_countries.json` itself, so as
 not to risk the 6 continent games that already depend on that file's exact
 shape.
 
-10. **Unofficial European States** (`/games/unrecognized-states-europe`) —
-    one mode, *Flags*: reuses `FlagsMode` unmodified (flag shown, type the
-    name); POINTS. A scoped-down answer to issue #2's original ask (flags of
-    "de facto states, disputed territories, separatist movements, historical
-    states, and micronations" worldwide) — that full scope has no clean,
-    politically-neutral way to derive automatically the way the 197
-    sovereign states do via Natural Earth, so this covers a small,
-    explicitly-curated list of 5 currently-existing, actually-governed
-    partially-recognized European states instead: Kosovo, Northern Cyprus,
-    Transnistria, South Ossetia, Abkhazia. Deliberately excludes anything
-    tied to an active war/annexation dispute (e.g. the Russian-occupied
-    Donetsk/Luhansk "people's republics") or already-defunct entities (e.g.
-    Nagorno-Karabakh, which ceased to exist as a de facto state in 2023).
+10. **Unofficial States & Territories** (`/games/unrecognized-states-europe`
+    — slug kept from its original name for leaderboard continuity, only the
+    display `name`/`description` changed) — 6 modes, all *Flags* (flag
+    shown, type the name), all POINTS, one shared `FlagsMode` instance per
+    mode. Started as a scoped-down, Europe-only answer to issue #2's
+    original ask; later expanded (worldwide, all 6 named types as separate
+    modes) per explicit follow-up product direction. Each mode is one
+    category from issue #2's original wording, deliberately curated rather
+    than exhaustive — same "small well-documented set, note what's
+    excluded" approach as every other data-filtering decision in this
+    codebase:
+    - **De Facto States** (7): Kosovo, Northern Cyprus, Transnistria, South
+      Ossetia, Abkhazia, Taiwan, Somaliland.
+    - **Autonomous Territories** (22): recognized as part of a sovereign
+      state but with their own flag and real self-government — Greenland,
+      Faroe Islands, Hong Kong, Macau, Scotland, Wales, Northern Ireland,
+      Åland Islands, Puerto Rico, Gibraltar, Isle of Man, Jersey, Guernsey,
+      Aruba, Curaçao, Sint Maarten, Bermuda, Cook Islands, Niue, American
+      Samoa, Guam, Kurdistan Region.
+    - **Disputed Territories** (3, deliberately small): Western Sahara,
+      Donetsk People's Republic, Luhansk People's Republic — unlike every
+      other mode here, this one *does* include active/ongoing disputes
+      (per explicit direction), not just long-settled cases. Excludes
+      Kashmir and the Golan Heights: neither has a flag distinct from the
+      states disputing them, so there's nothing to actually show/guess.
+    - **Separatist Movements** (4): Catalonia (shown with the Estelada —
+      the movement's own flag, distinct from Catalonia's official flag),
+      Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
+      Padania. Screened to movements represented by a real, distinct flag
+      used by a *legitimate political* movement/party — explicitly
+      excludes militant/currently-designated-terrorist organizations (e.g.
+      Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM,
+      Chechnya/Ichkeria) even though Disputed Territories does include
+      active disputes; that's a distinction between "politically sensitive
+      but peaceful" and "armed conflict/terror designation," not a
+      contradiction.
+    - **Historical States** (11, 20th-century-dissolved cutoff — otherwise
+      unbounded): Soviet Union, Yugoslavia, Czechoslovakia, East Germany,
+      Austria-Hungary, Ottoman Empire, United Arab Republic, South Vietnam,
+      Zaire, Prussia, Republic of Artsakh (Nagorno-Karabakh's de facto
+      government, dissolved 2024 — belongs here now rather than Disputed
+      Territories since it no longer exists as an active claim).
+    - **Micronations** (5, lowest sensitivity): Sealand, Molossia,
+      Liberland, Ladonia, Kugelmugel.
 
-`public/data/unrecognized_states_europe.json` is plain GeoJSON (`Point`
-geometry at each capital) rather than the "points" envelope, purely so it
-satisfies `CountryFeature`'s existing type shape and `FlagsMode` needed zero
-changes — flag images (Wikidata property P41), capitals (P36), and
-coordinates (P625) come from Wikidata's public SPARQL endpoint,
-`scripts/build-unrecognized-states-europe.js`. `iso2` in this file is *not*
-a real ISO 3166-1 code (none exists for any of these territories) — it's a
-locally-invented short id kept only to satisfy the shared type.
+`public/data/unofficial_states.json` is plain GeoJSON (`Point` geometry per
+entity, a `properties.category` field per the mode slugs above) rather than
+the "points" envelope, purely so it satisfies `CountryFeature`'s existing
+type shape and `FlagsMode` needed only one small change — see below. Flags
+come from flagcdn.com where a code already exists (most autonomous
+territories, matching `world_countries.json`'s convention) or Wikidata
+property P41 (Commons `Special:FilePath`) otherwise; capitals from P36,
+coordinates from P625 — via `scripts/build-unofficial-states.js`, with
+documented per-entity overrides where the raw Wikidata value would be
+misleading (e.g. the Ottoman Empire's P36 capital is Söğüt, the dynasty's
+13th-century founding capital, not Constantinople/Istanbul; Czechoslovakia's
+P41 flag file is literally named "Flag of the Czech Republic.svg" since the
+Czech Republic kept the same design after the 1993 split — the dedicated
+"Flag of Czechoslovakia.svg" file is used instead for clarity). `iso2` is
+*not* a real ISO 3166-1 code for any of these — a locally-invented short id
+kept only to satisfy the shared type.
+
+`components/games/FlagsMode.tsx` gained an optional `modeSlug` prop
+(defaulting to `"flags"`, so its 6 other existing callers — every
+countries-`<continent>` game — are unaffected) so multiple modes here can
+share one component with independent round-state/leaderboard keying, same
+pattern `components/games/RoadsMode.tsx` already established for Swedish
+Roads' 5 modes over 1 data file. `app/games/unrecognized-states-europe/
+page.tsx` filters the fetched features by `properties.category === mode.slug`
+per mode — the category slugs were chosen to exactly match the registered
+mode slugs, so no separate switch statement (unlike Swedish Roads'
+`filterByMode`) is needed.
 
 11. **National Coat of Arms** (`/games/national-coat-of-arms`) — one mode,
     *Coat of Arms*: a country's coat of arms is shown, type which country it

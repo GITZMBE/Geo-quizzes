@@ -17,11 +17,18 @@ const FlagsMode = dynamic(
 
 const game = getGame("unrecognized-states-europe")!;
 
+// The extra `category` field (one per registered mode slug) beyond
+// CountryFeature's base shape — same "widen the type, don't add a new
+// envelope" approach fetchCountryRegions itself already uses.
+type UnofficialStateFeature = CountryFeature & { properties: { category: string } };
+
 export default function UnrecognizedStatesEuropePage() {
-  const [countries, setCountries] = useState<CountryFeature[] | null>(null);
+  const [states, setStates] = useState<UnofficialStateFeature[] | null>(null);
 
   useEffect(() => {
-    fetchCountryRegions(game.dataFile).then(setCountries);
+    fetchCountryRegions(game.dataFile).then((features) =>
+      setStates(features as UnofficialStateFeature[])
+    );
   }, []);
 
   return (
@@ -29,8 +36,15 @@ export default function UnrecognizedStatesEuropePage() {
       <h1 className="text-2xl font-bold">{game.name}</h1>
       <p className="text-muted-foreground">{game.description}</p>
 
-      <GameShell game={game} ready={countries !== null}>
-        {() => <FlagsMode gameSlug={game.slug} countries={countries!} />}
+      <GameShell game={game} ready={states !== null}>
+        {(mode) => (
+          <FlagsMode
+            key={mode.slug}
+            gameSlug={game.slug}
+            modeSlug={mode.slug}
+            countries={states!.filter((s) => s.properties.category === mode.slug)}
+          />
+        )}
       </GameShell>
     </main>
   );
