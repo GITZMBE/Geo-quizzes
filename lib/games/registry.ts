@@ -153,6 +153,14 @@ export const GAMES: GameDefinition[] = [
       { slug: "area", name: "Area", scoreType: "POINTS" },
     ],
   },
+  {
+    slug: "unrecognized-states-europe",
+    name: "Unofficial European States",
+    description:
+      "A flag is shown — type which partially-recognized European state it belongs to.",
+    dataFile: "/data/unrecognized_states_europe.json",
+    modes: [{ slug: "flags", name: "Flags", scoreType: "POINTS" }],
+  },
 ];
 
 export function getGame(slug: string): GameDefinition | undefined {

@@ -294,6 +294,29 @@ adding population/area fields onto `world_countries.json` itself, so as
 not to risk the 6 continent games that already depend on that file's exact
 shape.
 
+10. **Unofficial European States** (`/games/unrecognized-states-europe`) —
+    one mode, *Flags*: reuses `FlagsMode` unmodified (flag shown, type the
+    name); POINTS. A scoped-down answer to issue #2's original ask (flags of
+    "de facto states, disputed territories, separatist movements, historical
+    states, and micronations" worldwide) — that full scope has no clean,
+    politically-neutral way to derive automatically the way the 197
+    sovereign states do via Natural Earth, so this covers a small,
+    explicitly-curated list of 5 currently-existing, actually-governed
+    partially-recognized European states instead: Kosovo, Northern Cyprus,
+    Transnistria, South Ossetia, Abkhazia. Deliberately excludes anything
+    tied to an active war/annexation dispute (e.g. the Russian-occupied
+    Donetsk/Luhansk "people's republics") or already-defunct entities (e.g.
+    Nagorno-Karabakh, which ceased to exist as a de facto state in 2023).
+
+`public/data/unrecognized_states_europe.json` is plain GeoJSON (`Point`
+geometry at each capital) rather than the "points" envelope, purely so it
+satisfies `CountryFeature`'s existing type shape and `FlagsMode` needed zero
+changes — flag images (Wikidata property P41), capitals (P36), and
+coordinates (P625) come from Wikidata's public SPARQL endpoint,
+`scripts/build-unrecognized-states-europe.js`. `iso2` in this file is *not*
+a real ISO 3166-1 code (none exists for any of these territories) — it's a
+locally-invented short id kept only to satisfy the shared type.
+
 ## Infra / deployment status
 
 - **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been
