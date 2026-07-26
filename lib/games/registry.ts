@@ -161,6 +161,14 @@ export const GAMES: GameDefinition[] = [
     dataFile: "/data/unrecognized_states_europe.json",
     modes: [{ slug: "flags", name: "Flags", scoreType: "POINTS" }],
   },
+  {
+    slug: "national-coat-of-arms",
+    name: "National Coat of Arms",
+    description:
+      "A country's coat of arms is shown — type which country it belongs to.",
+    dataFile: "/data/country_coat_of_arms.json",
+    modes: [{ slug: "coat-of-arms", name: "Coat of Arms", scoreType: "POINTS" }],
+  },
 ];
 
 export function getGame(slug: string): GameDefinition | undefined {

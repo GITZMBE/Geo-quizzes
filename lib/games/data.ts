@@ -148,3 +148,15 @@ export type CountryStat = GamePoint & {
 export async function fetchCountryStats(url: string): Promise<CountryStat[]> {
   return fetchPoints<CountryStat>(url);
 }
+
+// Coat of arms image per country for the "National Coat of Arms" game —
+// points format like CountryStat, built separately
+// (scripts/build-country-coat-of-arms.js) rather than adding to
+// world_countries.json, same reasoning as CountryStat above.
+export type CountryCoatOfArms = GamePoint & {
+  coatOfArmsUrl: string;
+};
+
+export async function fetchCountryCoatOfArms(url: string): Promise<CountryCoatOfArms[]> {
+  return fetchPoints<CountryCoatOfArms>(url);
+}

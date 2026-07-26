@@ -1,0 +1,1386 @@
+{
+  "kind": "points",
+  "source": "Coat of arms images from Wikidata (property P94), matched by ISO 3166-1 alpha-2 (P297) against the existing 197-country list in public/data/world_countries.json (id/name/lat/lng reused from there, not re-derived). Image URLs are Wikimedia Commons Special:FilePath links, the stable hotlink form for Commons files.",
+  "note": "All 197 countries from world_countries.json had a P94 coat-of-arms image. 1 countries (Turkey) needed the live per-entity fallback lookup because Wikidata's bulk query service hadn't yet indexed their P94 value at the time this file was built.",
+  "items": [
+    {
+      "id": "AF",
+      "name": "Afghanistan",
+      "lat": 33.9241695,
+      "lng": 67.6805665,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arms%20of%20the%20Islamic%20Emirate%20of%20Afghanistan.svg"
+    },
+    {
+      "id": "AL",
+      "name": "Albania",
+      "lat": 41.150732500000004,
+      "lng": 20.1557615,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Albania.svg"
+    },
+    {
+      "id": "DZ",
+      "name": "Algeria",
+      "lat": 28.0404055,
+      "lng": 1.6422605,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Emblem%20of%20Algeria%20%28bronze%20effect%29.svg"
+    },
+    {
+      "id": "AD",
+      "name": "Andorra",
+      "lat": 42.540088,
+      "lng": 1.5838865,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20Arms%20of%20Andorra.svg"
+    },
+    {
+      "id": "AO",
+      "name": "Angola",
+      "lat": -11.9379885,
+      "lng": 17.894873,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Angola.svg"
+    },
+    {
+      "id": "AG",
+      "name": "Antigua and Barbuda",
+      "lat": 17.168945,
+      "lng": -61.817285,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Antigua%20and%20Barbuda.svg"
+    },
+    {
+      "id": "AR",
+      "name": "Argentina",
+      "lat": -37.07959,
+      "lng": -63.622412499999996,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Argentina.svg"
+    },
+    {
+      "id": "AM",
+      "name": "Armenia",
+      "lat": 40.084375,
+      "lng": 45.0121095,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Armenia.svg"
+    },
+    {
+      "id": "AU",
+      "name": "Australia",
+      "lat": -24.926416,
+      "lng": 133.40083049999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Commonwealth%20of%20Australia.svg"
+    },
+    {
+      "id": "AT",
+      "name": "Austria",
+      "lat": 47.700415,
+      "lng": 13.335693,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Austria.svg"
+    },
+    {
+      "id": "AZ",
+      "name": "Azerbaijan",
+      "lat": 40.1510255,
+      "lng": 47.56709,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Azerbaijan.svg"
+    },
+    {
+      "id": "BS",
+      "name": "Bahamas",
+      "lat": 23.671387,
+      "lng": -76.010449,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Bahamas.svg"
+    },
+    {
+      "id": "BH",
+      "name": "Bahrain",
+      "lat": 26.023755,
+      "lng": 50.5311035,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20Arms%20of%20The%20Kingdom%20of%20Bahrain.svg"
+    },
+    {
+      "id": "BD",
+      "name": "Bangladesh",
+      "lat": 23.681689499999997,
+      "lng": 90.3275395,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20emblem%20of%20Bangladesh.svg"
+    },
+    {
+      "id": "BB",
+      "name": "Barbados",
+      "lat": 13.1899415,
+      "lng": -59.537158500000004,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Barbados%20%282%29.svg"
+    },
+    {
+      "id": "BY",
+      "name": "Belarus",
+      "lat": 53.705420000000004,
+      "lng": 27.9407715,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Belarus%20%282020%E2%80%93present%29.svg"
+    },
+    {
+      "id": "BE",
+      "name": "Belgium",
+      "lat": 50.501001,
+      "lng": 4.4446775,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Great%20coat%20of%20arms%20of%20Belgium.svg"
+    },
+    {
+      "id": "BZ",
+      "name": "Belize",
+      "lat": 17.182715,
+      "lng": -88.659033,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Belize.svg"
+    },
+    {
+      "id": "BJ",
+      "name": "Benin",
+      "lat": 9.3003175,
+      "lng": 2.298926,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Benin.svg"
+    },
+    {
+      "id": "BT",
+      "name": "Bhutan",
+      "lat": 27.506372499999998,
+      "lng": 90.411084,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Bhutan.svg"
+    },
+    {
+      "id": "BO",
+      "name": "Bolivia",
+      "lat": -16.300781,
+      "lng": -63.5706785,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20de%20Bolivia.svg"
+    },
+    {
+      "id": "BA",
+      "name": "Bosnia and Herzegovina",
+      "lat": 43.920531999999994,
+      "lng": 17.660204999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Bosnia%20and%20Herzegovina.svg"
+    },
+    {
+      "id": "BW",
+      "name": "Botswana",
+      "lat": -22.3226565,
+      "lng": 24.671094,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Botswana.svg"
+    },
+    {
+      "id": "BR",
+      "name": "Brazil",
+      "lat": -14.2421145,
+      "lng": -54.40376,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Brazil.svg"
+    },
+    {
+      "id": "BN",
+      "name": "Brunei",
+      "lat": 4.5300045,
+      "lng": 114.6953125,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Brunei.svg"
+    },
+    {
+      "id": "BG",
+      "name": "Bulgaria",
+      "lat": 42.740674,
+      "lng": 25.4646975,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Bulgaria.svg"
+    },
+    {
+      "id": "BF",
+      "name": "Burkina Faso",
+      "lat": 12.251294,
+      "lng": -1.5671875,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Burkina%20Faso.svg"
+    },
+    {
+      "id": "BI",
+      "name": "Burundi",
+      "lat": -3.3844235,
+      "lng": 29.912744,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Burundi.svg"
+    },
+    {
+      "id": "CV",
+      "name": "Cabo Verde",
+      "lat": 16.572021,
+      "lng": -24.032715,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Cape%20Verde.svg"
+    },
+    {
+      "id": "KH",
+      "name": "Cambodia",
+      "lat": 12.558154,
+      "lng": 104.962598,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Royal%20arms%20of%20Cambodia.svg"
+    },
+    {
+      "id": "CM",
+      "name": "Cameroon",
+      "lat": 7.3773685,
+      "lng": 12.3581055,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Cameroon.svg"
+    },
+    {
+      "id": "CA",
+      "name": "Canada",
+      "lat": 57.7625,
+      "lng": -96.827905,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Royal%20Coat%20of%20arms%20of%20Canada.svg"
+    },
+    {
+      "id": "CF",
+      "name": "Central African Republic",
+      "lat": 6.633154,
+      "lng": 20.917236000000003,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Central%20African%20Republic.svg"
+    },
+    {
+      "id": "TD",
+      "name": "Chad",
+      "lat": 15.460254,
+      "lng": 18.714257500000002,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Chad.svg"
+    },
+    {
+      "id": "CL",
+      "name": "Chile",
+      "lat": -36.207959,
+      "lng": -71.358447,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Chile%20%28c%29.svg"
+    },
+    {
+      "id": "CN",
+      "name": "China",
+      "lat": 36.905127,
+      "lng": 104.179834,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%E4%B8%AD%E8%8F%AF%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9C%8B%E5%9C%8B%E5%BE%BD.svg"
+    },
+    {
+      "id": "CO",
+      "name": "Colombia",
+      "lat": 4.0981685,
+      "lng": -72.950732,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Colombia.svg"
+    },
+    {
+      "id": "KM",
+      "name": "Comoros",
+      "lat": -11.862109,
+      "lng": 43.491504,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20the%20Comoros.svg"
+    },
+    {
+      "id": "CR",
+      "name": "Costa Rica",
+      "lat": 9.630053499999999,
+      "lng": -84.235791,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Costa%20Rica.svg"
+    },
+    {
+      "id": "HR",
+      "name": "Croatia",
+      "lat": 44.520996,
+      "lng": 16.103418,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Croatia.svg"
+    },
+    {
+      "id": "CU",
+      "name": "Cuba",
+      "lat": 21.585156,
+      "lng": -79.357422,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Cuba.svg"
+    },
+    {
+      "id": "CY",
+      "name": "Cyprus",
+      "lat": 34.871362500000004,
+      "lng": 33.175586,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Cyprus%20%282006%29.svg"
+    },
+    {
+      "id": "CZ",
+      "name": "Czechia",
+      "lat": 49.8028565,
+      "lng": 15.4610355,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Czech%20Republic.svg"
+    },
+    {
+      "id": "CI",
+      "name": "Côte d'Ivoire",
+      "lat": 7.537694999999999,
+      "lng": -5.5547115,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Ivory%20Coast%20%282%29.svg"
+    },
+    {
+      "id": "CD",
+      "name": "Democratic Republic of the Congo",
+      "lat": -4.07085,
+      "lng": 21.7438475,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Democratic%20Republic%20of%20the%20Congo%20%28black%20spear%29.svg"
+    },
+    {
+      "id": "DK",
+      "name": "Denmark",
+      "lat": 55.956885,
+      "lng": 11.627734,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20coat%20of%20arms%20of%20Denmark.svg"
+    },
+    {
+      "id": "DJ",
+      "name": "Djibouti",
+      "lat": 11.824805,
+      "lng": 42.587207,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Djibouti.svg"
+    },
+    {
+      "id": "DM",
+      "name": "Dominica",
+      "lat": 15.4302,
+      "lng": -61.366113,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Dominica.svg"
+    },
+    {
+      "id": "DO",
+      "name": "Dominican Republic",
+      "lat": 18.7747805,
+      "lng": -70.1697755,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Dominican%20Republic.svg"
+    },
+    {
+      "id": "EC",
+      "name": "Ecuador",
+      "lat": -2.189258,
+      "lng": -80.962793,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Ecuador.svg"
+    },
+    {
+      "id": "EG",
+      "name": "Egypt",
+      "lat": 26.824926499999997,
+      "lng": 30.787305,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Egypt%20%28Official%29.svg"
+    },
+    {
+      "id": "SV",
+      "name": "El Salvador",
+      "lat": 13.797559,
+      "lng": -88.910034,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20El%20Salvador.svg"
+    },
+    {
+      "id": "GQ",
+      "name": "Equatorial Guinea",
+      "lat": 2.304443,
+      "lng": 9.800781,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Equatorial%20Guinea.svg"
+    },
+    {
+      "id": "ER",
+      "name": "Eritrea",
+      "lat": 15.20127,
+      "lng": 39.819434,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Eritrea%20%28or%20argent%20azur%29.svg"
+    },
+    {
+      "id": "EE",
+      "name": "Estonia",
+      "lat": 58.5835695,
+      "lng": 25.002783,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Estonia.svg"
+    },
+    {
+      "id": "SZ",
+      "name": "eSwatini",
+      "lat": -26.524414,
+      "lng": 31.4509765,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Eswatini.svg"
+    },
+    {
+      "id": "ET",
+      "name": "Ethiopia",
+      "lat": 9.1541995,
+      "lng": 40.4954105,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Ethiopia.svg"
+    },
+    {
+      "id": "FJ",
+      "name": "Fiji",
+      "lat": -19.15166,
+      "lng": 178.020801,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Fiji.svg"
+    },
+    {
+      "id": "FI",
+      "name": "Finland",
+      "lat": 64.9440185,
+      "lng": 26.078076,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Finland.svg"
+    },
+    {
+      "id": "FR",
+      "name": "France",
+      "lat": 43.051758,
+      "lng": -1.46084,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arms%20of%20the%20French%20Republic.svg"
+    },
+    {
+      "id": "GA",
+      "name": "Gabon",
+      "lat": -0.8083009999999999,
+      "lng": 11.588623,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Gabon.svg"
+    },
+    {
+      "id": "GM",
+      "name": "Gambia",
+      "lat": 13.4381345,
+      "lng": -15.325757,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20The%20Gambia.svg"
+    },
+    {
+      "id": "GE",
+      "name": "Georgia",
+      "lat": 42.319995,
+      "lng": 43.3254395,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Greater%20coat%20of%20arms%20of%20Georgia.svg"
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "lat": 51.091113500000006,
+      "lng": 10.437061,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Germany.svg"
+    },
+    {
+      "id": "GH",
+      "name": "Ghana",
+      "lat": 7.964673,
+      "lng": -1.024292,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Ghana.svg"
+    },
+    {
+      "id": "GR",
+      "name": "Greece",
+      "lat": 38.339135999999996,
+      "lng": 24.116553000000003,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Greece.svg"
+    },
+    {
+      "id": "GD",
+      "name": "Grenada",
+      "lat": 12.1227295,
+      "lng": -61.6946045,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Grenada.svg"
+    },
+    {
+      "id": "GT",
+      "name": "Guatemala",
+      "lat": 15.7764645,
+      "lng": -90.231738,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Guatemala.svg"
+    },
+    {
+      "id": "GN",
+      "name": "Guinea",
+      "lat": 9.977734,
+      "lng": -11.205664,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Guinea.svg"
+    },
+    {
+      "id": "GW",
+      "name": "Guinea-Bissau",
+      "lat": 11.8100345,
+      "lng": -15.1926755,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Guinea-Bissau.svg"
+    },
+    {
+      "id": "GY",
+      "name": "Guyana",
+      "lat": 4.8752685,
+      "lng": -58.936816,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Guyana.svg"
+    },
+    {
+      "id": "HT",
+      "name": "Haiti",
+      "lat": 18.932031,
+      "lng": -73.069141,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Haiti.svg"
+    },
+    {
+      "id": "HN",
+      "name": "Honduras",
+      "lat": 14.501709000000002,
+      "lng": -86.26005900000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Honduras.svg"
+    },
+    {
+      "id": "HU",
+      "name": "Hungary",
+      "lat": 47.15979,
+      "lng": 19.484863,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Hungary.svg"
+    },
+    {
+      "id": "IS",
+      "name": "Iceland",
+      "lat": 64.96479450000001,
+      "lng": -19.022681,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Iceland.svg"
+    },
+    {
+      "id": "IN",
+      "name": "India",
+      "lat": 21.787108999999997,
+      "lng": 82.7520995,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20India.svg"
+    },
+    {
+      "id": "ID",
+      "name": "Indonesia",
+      "lat": -2.720801,
+      "lng": 118.783301,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20emblem%20of%20Indonesia%20Garuda%20Pancasila.svg"
+    },
+    {
+      "id": "IR",
+      "name": "Iran",
+      "lat": 32.4353275,
+      "lng": 53.664209,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Iran.svg"
+    },
+    {
+      "id": "IQ",
+      "name": "Iraq",
+      "lat": 33.2177735,
+      "lng": 43.6600095,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Iraq.svg"
+    },
+    {
+      "id": "IE",
+      "name": "Ireland",
+      "lat": 53.4169675,
+      "lng": -8.2088135,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Ireland.svg"
+    },
+    {
+      "id": "IL",
+      "name": "Israel",
+      "lat": 31.366211,
+      "lng": 35.101172,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Israel.svg"
+    },
+    {
+      "id": "IT",
+      "name": "Italy",
+      "lat": 41.8849855,
+      "lng": 12.556787,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Italy.svg"
+    },
+    {
+      "id": "JM",
+      "name": "Jamaica",
+      "lat": 18.118579,
+      "lng": -77.2751465,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Jamaica.svg"
+    },
+    {
+      "id": "JP",
+      "name": "Japan",
+      "lat": 37.52207,
+      "lng": 137.322656,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kamon%20of%20the%20Imperial%20House%20of%20Japan.svg"
+    },
+    {
+      "id": "JO",
+      "name": "Jordan",
+      "lat": 31.281348,
+      "lng": 37.121776999999994,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Jordan.svg"
+    },
+    {
+      "id": "KZ",
+      "name": "Kazakhstan",
+      "lat": 48.004517,
+      "lng": 66.966016,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Kazakhstan%20latin.svg"
+    },
+    {
+      "id": "KE",
+      "name": "Kenya",
+      "lat": 0.3999509999999997,
+      "lng": 37.8936035,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Kenya%20%28Official%29.svg"
+    },
+    {
+      "id": "KI",
+      "name": "Kiribati",
+      "lat": -11.441016,
+      "lng": -151.782617,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Kiribati.svg"
+    },
+    {
+      "id": "XK",
+      "name": "Kosovo",
+      "lat": 42.5636475,
+      "lng": 20.891211,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20the%20Republic%20of%20Kosovo.svg"
+    },
+    {
+      "id": "KW",
+      "name": "Kuwait",
+      "lat": 29.3064205,
+      "lng": 47.486962500000004,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20the%20State%20of%20Kuwait.svg"
+    },
+    {
+      "id": "KG",
+      "name": "Kyrgyzstan",
+      "lat": 41.2239505,
+      "lng": 74.7376465,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Kyrgyzstan.svg"
+    },
+    {
+      "id": "LA",
+      "name": "Laos",
+      "lat": 18.295313,
+      "lng": 103.898828,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Laos%20%281991-2025%29.svg"
+    },
+    {
+      "id": "LV",
+      "name": "Latvia",
+      "lat": 56.8654785,
+      "lng": 24.608496000000002,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Latvia.svg"
+    },
+    {
+      "id": "LB",
+      "name": "Lebanon",
+      "lat": 33.8771975,
+      "lng": 35.8467775,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Lebanon.svg"
+    },
+    {
+      "id": "LS",
+      "name": "Lesotho",
+      "lat": -29.606396500000002,
+      "lng": 28.2238285,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Lesotho.svg"
+    },
+    {
+      "id": "LR",
+      "name": "Liberia",
+      "lat": 6.444506499999999,
+      "lng": -9.453711,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Liberia.svg"
+    },
+    {
+      "id": "LY",
+      "name": "Libya",
+      "lat": 26.3392825,
+      "lng": 17.230370999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20the%20Government%20of%20National%20Unity%20%28Libya%29.svg"
+    },
+    {
+      "id": "LI",
+      "name": "Liechtenstein",
+      "lat": 47.1640625,
+      "lng": 9.5450195,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Staatswappen-Liechtensteins.svg"
+    },
+    {
+      "id": "LT",
+      "name": "Lithuania",
+      "lat": 55.152075499999995,
+      "lng": 23.910888999999997,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Lithuania.svg"
+    },
+    {
+      "id": "LU",
+      "name": "Luxembourg",
+      "lat": 49.806323,
+      "lng": 6.1061525,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Greater%20coat%20of%20arms%20of%20the%20grand-duchy%20of%20Luxembourg.svg"
+    },
+    {
+      "id": "MG",
+      "name": "Madagascar",
+      "lat": -18.825049,
+      "lng": 46.8737795,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20Madagascar.svg"
+    },
+    {
+      "id": "MW",
+      "name": "Malawi",
+      "lat": -13.261133000000001,
+      "lng": 34.2824215,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Malawi.svg"
+    },
+    {
+      "id": "MY",
+      "name": "Malaysia",
+      "lat": 2.027539,
+      "lng": 109.628906,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Malaysia.svg"
+    },
+    {
+      "id": "MV",
+      "name": "Maldives",
+      "lat": 4.158936,
+      "lng": 73.478613,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Maldives.svg"
+    },
+    {
+      "id": "ML",
+      "name": "Mali",
+      "lat": 17.569433500000002,
+      "lng": -4.022973499999999,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Mali.svg"
+    },
+    {
+      "id": "MT",
+      "name": "Malta",
+      "lat": 35.947998,
+      "lng": 14.373290999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Malta.svg"
+    },
+    {
+      "id": "MH",
+      "name": "Marshall Islands",
+      "lat": 7.308984,
+      "lng": 168.830273,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20the%20Marshall%20Islands.svg"
+    },
+    {
+      "id": "MR",
+      "name": "Mauritania",
+      "lat": 21.015649,
+      "lng": -10.943286,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Seal%20of%20Mauritania.svg"
+    },
+    {
+      "id": "MU",
+      "name": "Mauritius",
+      "lat": -20.246826,
+      "lng": 57.554834,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Mauritius.svg"
+    },
+    {
+      "id": "MX",
+      "name": "Mexico",
+      "lat": 23.630370999999997,
+      "lng": -101.950024,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Mexico.svg"
+    },
+    {
+      "id": "FM",
+      "name": "Micronesia",
+      "lat": 7.338086,
+      "lng": 151.57832,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20the%20Federated%20States%20of%20Micronesia.svg"
+    },
+    {
+      "id": "MD",
+      "name": "Moldova",
+      "lat": 46.9640865,
+      "lng": 28.375,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Moldova.svg"
+    },
+    {
+      "id": "MC",
+      "name": "Monaco",
+      "lat": 43.751318,
+      "lng": 7.408203,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Monaco.svg"
+    },
+    {
+      "id": "MN",
+      "name": "Mongolia",
+      "lat": 46.8563965,
+      "lng": 103.82050799999999,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20emblem%20of%20Mongolia.svg"
+    },
+    {
+      "id": "ME",
+      "name": "Montenegro",
+      "lat": 42.7011965,
+      "lng": 19.391992000000002,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Montenegro.svg"
+    },
+    {
+      "id": "MA",
+      "name": "Morocco",
+      "lat": 28.6753175,
+      "lng": -9.034253,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Morocco.svg"
+    },
+    {
+      "id": "MZ",
+      "name": "Mozambique",
+      "lat": -18.662988,
+      "lng": 35.5381835,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Mozambique.svg"
+    },
+    {
+      "id": "MM",
+      "name": "Myanmar",
+      "lat": 19.272582999999997,
+      "lng": 96.66342800000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20Seal%20of%20the%20Republic%20of%20the%20Union%20of%20Myanmar.svg"
+    },
+    {
+      "id": "NA",
+      "name": "Namibia",
+      "lat": -22.953223,
+      "lng": 18.4961425,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Namibia.svg"
+    },
+    {
+      "id": "NR",
+      "name": "Nauru",
+      "lat": -0.520068,
+      "lng": 166.93271449999997,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Nauru%20%282020%29.svg"
+    },
+    {
+      "id": "NP",
+      "name": "Nepal",
+      "lat": 28.3739015,
+      "lng": 84.10659150000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Nepal.svg"
+    },
+    {
+      "id": "NL",
+      "name": "Netherlands",
+      "lat": 52.095800499999996,
+      "lng": 5.273682,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20coat%20of%20arms%20of%20the%20Netherlands.svg"
+    },
+    {
+      "id": "NZ",
+      "name": "New Zealand",
+      "lat": -40.8438965,
+      "lng": 172.5069335,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20New%20Zealand.svg"
+    },
+    {
+      "id": "NI",
+      "name": "Nicaragua",
+      "lat": 12.8717045,
+      "lng": -85.413843,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Nicaragua.svg"
+    },
+    {
+      "id": "NE",
+      "name": "Niger",
+      "lat": 17.60708,
+      "lng": 8.0635255,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Niger.svg"
+    },
+    {
+      "id": "NG",
+      "name": "Nigeria",
+      "lat": 9.075122499999999,
+      "lng": 8.652880999999999,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Nigeria.svg"
+    },
+    {
+      "id": "KP",
+      "name": "North Korea",
+      "lat": 40.361475,
+      "lng": 127.51796900000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20North%20Korea.svg"
+    },
+    {
+      "id": "MK",
+      "name": "North Macedonia",
+      "lat": 41.604028,
+      "lng": 21.726123,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20North%20Macedonia.svg"
+    },
+    {
+      "id": "NO",
+      "name": "Norway",
+      "lat": 68.308325,
+      "lng": 17.9442385,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Norway.svg"
+    },
+    {
+      "id": "OM",
+      "name": "Oman",
+      "lat": 20.813794,
+      "lng": 55.9075685,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20emblem%20of%20Oman.svg"
+    },
+    {
+      "id": "PK",
+      "name": "Pakistan",
+      "lat": 30.3950195,
+      "lng": 68.945996,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20emblem%20of%20Pakistan.svg"
+    },
+    {
+      "id": "PW",
+      "name": "Palau",
+      "lat": 7.360645,
+      "lng": 134.534668,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Seal%20of%20Palau.svg"
+    },
+    {
+      "id": "PS",
+      "name": "Palestine",
+      "lat": 31.82334,
+      "lng": 34.961133,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Palestine.svg"
+    },
+    {
+      "id": "PA",
+      "name": "Panama",
+      "lat": 8.40896,
+      "lng": -80.11167,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Panama.svg"
+    },
+    {
+      "id": "PG",
+      "name": "Papua New Guinea",
+      "lat": -6.551172,
+      "lng": 147.854492,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20emblem%20of%20Papua%20New%20Guinea.svg"
+    },
+    {
+      "id": "PY",
+      "name": "Paraguay",
+      "lat": -23.420019500000002,
+      "lng": -58.446387,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Paraguay.svg"
+    },
+    {
+      "id": "PE",
+      "name": "Peru",
+      "lat": -9.193676499999999,
+      "lng": -75.0109375,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20nacional%20del%20Per%C3%BA.svg"
+    },
+    {
+      "id": "PH",
+      "name": "Philippines",
+      "lat": 11.897363,
+      "lng": 121.963672,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Philippines.svg"
+    },
+    {
+      "id": "PL",
+      "name": "Poland",
+      "lat": 51.929468,
+      "lng": 19.1171875,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Herb%20Polski.svg"
+    },
+    {
+      "id": "PT",
+      "name": "Portugal",
+      "lat": 39.571411,
+      "lng": -7.8433105,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Portugal.svg"
+    },
+    {
+      "id": "QA",
+      "name": "Qatar",
+      "lat": 25.358959499999997,
+      "lng": 51.1817385,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Qatar-2022.svg"
+    },
+    {
+      "id": "CG",
+      "name": "Republic of the Congo",
+      "lat": -0.6598390000000001,
+      "lng": 14.876172,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Republic%20of%20the%20Congo.svg"
+    },
+    {
+      "id": "RO",
+      "name": "Romania",
+      "lat": 45.967139,
+      "lng": 24.973827999999997,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Romania.svg"
+    },
+    {
+      "id": "RU",
+      "name": "Russia",
+      "lat": 55.583203,
+      "lng": 43.675976500000004,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20Arms%20of%20the%20Russian%20Federation.svg"
+    },
+    {
+      "id": "RW",
+      "name": "Rwanda",
+      "lat": -1.9379395,
+      "lng": 29.86709,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Rwanda.svg"
+    },
+    {
+      "id": "LC",
+      "name": "Saint Lucia",
+      "lat": 13.9054685,
+      "lng": -60.984179999999995,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Saint%20Lucia.svg"
+    },
+    {
+      "id": "VC",
+      "name": "Saint Vincent and the Grenadines",
+      "lat": 13.043262,
+      "lng": -61.212842,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Saint%20Vincent%20and%20the%20Grenadines.svg"
+    },
+    {
+      "id": "WS",
+      "name": "Samoa",
+      "lat": -13.684668,
+      "lng": -172.176855,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Public%20Seal%20of%20Samoa.svg"
+    },
+    {
+      "id": "SM",
+      "name": "San Marino",
+      "lat": 43.941919,
+      "lng": 12.450292999999999,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20San%20Marino.svg"
+    },
+    {
+      "id": "ST",
+      "name": "São Tomé and Principe",
+      "lat": 0.404395,
+      "lng": 6.686914,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20S%C3%A3o%20Tom%C3%A9%20and%20Pr%C3%ADncipe.svg"
+    },
+    {
+      "id": "SA",
+      "name": "Saudi Arabia",
+      "lat": 24.248144500000002,
+      "lng": 45.1286135,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Saudi%20Arabia.svg"
+    },
+    {
+      "id": "SN",
+      "name": "Senegal",
+      "lat": 14.503466500000002,
+      "lng": -14.4590335,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Senegal.svg"
+    },
+    {
+      "id": "RS",
+      "name": "Serbia",
+      "lat": 44.2044925,
+      "lng": 20.907958999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Serbia.svg"
+    },
+    {
+      "id": "SC",
+      "name": "Seychelles",
+      "lat": -4.672168,
+      "lng": 55.4631835,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Seychelles.svg"
+    },
+    {
+      "id": "SL",
+      "name": "Sierra Leone",
+      "lat": 8.451538,
+      "lng": -11.7879395,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Sierra%20Leone.svg"
+    },
+    {
+      "id": "SG",
+      "name": "Singapore",
+      "lat": 1.3562255,
+      "lng": 103.823291,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Singapore.svg"
+    },
+    {
+      "id": "SK",
+      "name": "Slovakia",
+      "lat": 48.683935500000004,
+      "lng": 19.700683499999997,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Slovakia.svg"
+    },
+    {
+      "id": "SI",
+      "name": "Slovenia",
+      "lat": 46.145825,
+      "lng": 14.947216999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Slovenia.svg"
+    },
+    {
+      "id": "SB",
+      "name": "Solomon Islands",
+      "lat": -9.191992,
+      "lng": 161.256641,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20Solomon%20Islands.svg"
+    },
+    {
+      "id": "SO",
+      "name": "Somalia",
+      "lat": 5.1441895,
+      "lng": 46.1816405,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Somalia.svg"
+    },
+    {
+      "id": "ZA",
+      "name": "South Africa",
+      "lat": -28.466015499999997,
+      "lng": 24.666846,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20South%20Africa%20%28heraldic%29.svg"
+    },
+    {
+      "id": "KR",
+      "name": "South Korea",
+      "lat": 35.9191405,
+      "lng": 127.86669950000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20South%20Korea.svg"
+    },
+    {
+      "id": "SS",
+      "name": "South Sudan",
+      "lat": 7.854004,
+      "lng": 29.707860999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20South%20Sudan.svg"
+    },
+    {
+      "id": "ES",
+      "name": "Spain",
+      "lat": 39.8952395,
+      "lng": -2.9642335,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20de%20Espa%C3%B1a%20%28variant%29.svg"
+    },
+    {
+      "id": "LK",
+      "name": "Sri Lanka",
+      "lat": 7.88103,
+      "lng": 80.7935545,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Sri%20Lanka.svg"
+    },
+    {
+      "id": "KN",
+      "name": "St. Kitts and Nevis",
+      "lat": 17.286035,
+      "lng": -62.702002,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20Arms%20of%20Saint%20Kitts%20and%20Nevis.svg"
+    },
+    {
+      "id": "SD",
+      "name": "Sudan",
+      "lat": 15.434033,
+      "lng": 30.217382999999998,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Sudan.svg"
+    },
+    {
+      "id": "SR",
+      "name": "Suriname",
+      "lat": 3.9178465,
+      "lng": -56.0224855,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Suriname.svg"
+    },
+    {
+      "id": "SE",
+      "name": "Sweden",
+      "lat": 62.233008,
+      "lng": 17.633691,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Great%20coat%20of%20arms%20of%20Sweden.svg"
+    },
+    {
+      "id": "CH",
+      "name": "Switzerland",
+      "lat": 46.802832,
+      "lng": 8.212305,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Switzerland.svg"
+    },
+    {
+      "id": "SY",
+      "name": "Syria",
+      "lat": 34.8072755,
+      "lng": 39.0617185,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Syria%20%282025%E2%80%93present%29.svg"
+    },
+    {
+      "id": "TW",
+      "name": "Taiwan",
+      "lat": 23.600171,
+      "lng": 121.0007325,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Emblem%20of%20the%20Republic%20of%20China.svg"
+    },
+    {
+      "id": "TJ",
+      "name": "Tajikistan",
+      "lat": 38.86469700000001,
+      "lng": 71.2381835,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Tajikistan.svg"
+    },
+    {
+      "id": "TZ",
+      "name": "Tanzania",
+      "lat": -6.3555665,
+      "lng": 34.893506,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Tanzania.svg"
+    },
+    {
+      "id": "TH",
+      "name": "Thailand",
+      "lat": 13.030591,
+      "lng": 101.507471,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Thailand.svg"
+    },
+    {
+      "id": "TL",
+      "name": "Timor-Leste",
+      "lat": -8.913818500000001,
+      "lng": 125.666211,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20East%20Timor.svg"
+    },
+    {
+      "id": "TG",
+      "name": "Togo",
+      "lat": 8.6025145,
+      "lng": 0.843872,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Armoiries%20du%20Togo.svg"
+    },
+    {
+      "id": "TO",
+      "name": "Tonga",
+      "lat": -21.129004,
+      "lng": -175.078174,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Tonga.svg"
+    },
+    {
+      "id": "TT",
+      "name": "Trinidad and Tobago",
+      "lat": 10.697265999999999,
+      "lng": -61.215796,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Trinidad%20and%20Tobago%20%282025%29.svg"
+    },
+    {
+      "id": "TN",
+      "name": "Tunisia",
+      "lat": 33.784888,
+      "lng": 9.516992,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Tunisia.svg"
+    },
+    {
+      "id": "TR",
+      "name": "Turkey",
+      "lat": 38.962353500000006,
+      "lng": 35.4280765,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Turkey.svg"
+    },
+    {
+      "id": "TM",
+      "name": "Turkmenistan",
+      "lat": 38.974633999999995,
+      "lng": 59.5615725,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Turkmenistan.svg"
+    },
+    {
+      "id": "TV",
+      "name": "Tuvalu",
+      "lat": -8.5005375,
+      "lng": 179.2046875,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Tuvalu.svg"
+    },
+    {
+      "id": "UG",
+      "name": "Uganda",
+      "lat": 1.3751464999999998,
+      "lng": 32.269189499999996,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Uganda.svg"
+    },
+    {
+      "id": "UA",
+      "name": "Ukraine",
+      "lat": 48.789452999999995,
+      "lng": 31.129004,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20the%20Ukrainian%20Soviet%20Socialist%20Republic%20%281949%E2%80%931991%29%2C%20Emblem%20of%20Ukraine%20%281991%E2%80%931992%29.svg"
+    },
+    {
+      "id": "AE",
+      "name": "United Arab Emirates",
+      "lat": 24.077051,
+      "lng": 53.893359,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20the%20United%20Arab%20Emirates.svg"
+    },
+    {
+      "id": "GB",
+      "name": "United Kingdom",
+      "lat": 54.3356935,
+      "lng": -3.199121,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20the%20United%20Kingdom%20%282022%2C%20variant%202%29.svg"
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "lat": 48.2728515,
+      "lng": -117.5376955,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Greater%20coat%20of%20arms%20of%20the%20United%20States.svg"
+    },
+    {
+      "id": "UY",
+      "name": "Uruguay",
+      "lat": -32.52002,
+      "lng": -55.7818605,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Uruguay.svg"
+    },
+    {
+      "id": "UZ",
+      "name": "Uzbekistan",
+      "lat": 41.363794,
+      "lng": 64.55390650000001,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Uzbekistan.svg"
+    },
+    {
+      "id": "VU",
+      "name": "Vanuatu",
+      "lat": -16.804004,
+      "lng": 168.181445,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Vanuatu.svg"
+    },
+    {
+      "id": "VA",
+      "name": "Vatican",
+      "lat": 41.901514,
+      "lng": 12.434863,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Vatican%20City%20%282023%E2%80%93present%29.svg"
+    },
+    {
+      "id": "VE",
+      "name": "Venezuela",
+      "lat": 6.4329345,
+      "lng": -66.598926,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Venezuela.svg"
+    },
+    {
+      "id": "VN",
+      "name": "Vietnam",
+      "lat": 16.492627,
+      "lng": 106.656445,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Vietnam.svg"
+    },
+    {
+      "id": "YE",
+      "name": "Yemen",
+      "lat": 15.8019045,
+      "lng": 47.871729,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emblem%20of%20Yemen%20%282%29.svg"
+    },
+    {
+      "id": "ZM",
+      "name": "Zambia",
+      "lat": -13.117578,
+      "lng": 27.8202145,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Zambia.svg"
+    },
+    {
+      "id": "ZW",
+      "name": "Zimbabwe",
+      "lat": -19.0225585,
+      "lng": 29.1153805,
+      "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Zimbabwe.svg"
+    }
+  ]
+}

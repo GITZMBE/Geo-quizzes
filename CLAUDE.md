@@ -317,6 +317,30 @@ coordinates (P625) come from Wikidata's public SPARQL endpoint,
 a real ISO 3166-1 code (none exists for any of these territories) — it's a
 locally-invented short id kept only to satisfy the shared type.
 
+11. **National Coat of Arms** (`/games/national-coat-of-arms`) — one mode,
+    *Coat of Arms*: a country's coat of arms is shown, type which country it
+    belongs to; POINTS. `components/games/CoatOfArmsMode.tsx` is copy-adapted
+    from `FlagsMode.tsx` (same sibling pattern as Capitals/CountriesMap/
+    Flags) rather than reusing it directly, since the data is points-shaped
+    (`CountryCoatOfArms`, not `CountryFeature`) and the image box uses
+    `object-contain` on a white background instead of `object-cover` — coats
+    of arms have far more varied aspect ratios and transparent backgrounds
+    than flags, so cropping to fill a wide rectangle chops off real content
+    in a way that never happens with a flag.
+
+`public/data/country_coat_of_arms.json` coat-of-arms images come from
+Wikidata (property P94), matched by ISO alpha-2 (P297) against the existing
+197-country list in `world_countries.json` (id/name/lat/lng reused from
+there, same "kept as its own file" precedent as `country_stats.json`) —
+`scripts/build-country-coat-of-arms.js`. Image URLs are Wikimedia Commons
+`Special:FilePath` links (redirect straight to the current file, Wikimedia's
+documented stable hotlink form — same "reference directly, never download"
+approach as flagcdn.com elsewhere in this codebase). Wikidata's bulk SPARQL
+query service can lag a few days behind live edits, so a country whose P94
+value is genuinely present but not yet indexed there (seen for Turkey as of
+this script's original run) is caught by a live per-entity fallback lookup
+rather than being silently dropped — see the script for both paths.
+
 ## Infra / deployment status
 
 - **GitHub**: `https://github.com/GITZMBE/Geo-quizzes.git` (repo has been
