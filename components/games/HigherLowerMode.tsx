@@ -206,7 +206,17 @@ function CountryCard({
       }`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- external flagcdn.com images, not worth Next/Image config for a fixed-size flag */}
-      <img src={country.flagUrl} alt="" className="h-20 w-32 rounded-md object-cover shadow-sm" />
+      <img
+        src={country.flagUrl}
+        alt=""
+        className="h-20 w-32 rounded-md object-cover shadow-sm"
+        // flagcdn.com is generally reliable, but a brief outage shouldn't
+        // leave a broken-image icon on screen — hide it and let the
+        // country name/stat below still carry the round.
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+        }}
+      />
       <p className="text-lg font-bold">{country.name}</p>
       <div>
         <p className="text-sm text-muted-foreground">{statLabel}</p>

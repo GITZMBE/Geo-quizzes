@@ -97,6 +97,12 @@ export function FlagsMode({
               src={targetCountry.properties.flagUrl}
               alt="Flag to guess"
               className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+              // flagcdn.com is generally reliable, but a brief outage
+              // shouldn't leave a broken-image icon on screen — hide it and
+              // let the question text/score above still carry the round.
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
           )}
 
