@@ -328,12 +328,32 @@ shape.
       Åland Islands, Puerto Rico, Gibraltar, Isle of Man, Jersey, Guernsey,
       Aruba, Curaçao, Sint Maarten, Bermuda, Cook Islands, Niue, American
       Samoa, Guam, Kurdistan Region.
-    - **Disputed Territories** (3, deliberately small): Western Sahara,
-      Donetsk People's Republic, Luhansk People's Republic — unlike every
-      other mode here, this one *does* include active/ongoing disputes
-      (per explicit direction), not just long-settled cases. Excludes
-      Kashmir and the Golan Heights: neither has a flag distinct from the
-      states disputing them, so there's nothing to actually show/guess.
+    - **Disputed Territories** (5, deliberately small): Western Sahara,
+      Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
+      (Russian-administered), Zaporizhzhia Oblast (Russian-administered) —
+      unlike every other mode here, this one *does* include active/ongoing
+      disputes (per explicit direction), not just long-settled cases.
+      Excludes Kashmir and the Golan Heights: neither has a flag distinct
+      from the states disputing them, so there's nothing to actually
+      show/guess. Kherson/Zaporizhzhia were added per issue #15 (prompted by
+      the Wikipedia article on the 2022 Russian annexation of Donetsk,
+      Kherson, Luhansk and Zaporizhzhia oblasts): unlike Donetsk/Luhansk —
+      pre-existing 2014 separatist "People's Republics" with their own
+      branding — Russia annexed Kherson/Zaporizhzhia directly as its own
+      federal subjects with no separate breakaway government, but it did
+      present/adopt a distinct flag for each as a federal subject (all four
+      flags — DPR, LPR, and the new Kherson/Zaporizhzhia ones — were
+      presented 30 Sept 2022 and formally adopted 4 Oct 2022), which is what
+      clears this dataset's bar (a real, distinct, sourceable flag) the same
+      way it excludes Kashmir/Golan Heights above. Wikidata carries these as
+      their own "federal subject of Russia" items, distinct from Ukraine's
+      own same-named oblasts (Q114331288 "Kherson Oblast", Q114333615
+      "Zaporozhye Oblast"), each with its own P41 flag/P36 capital/P625
+      coordinate — no overrides needed, though note Zaporozhye Oblast's P36
+      capital resolves to Melitopol, not Zaporizhzhia city itself (which has
+      remained Ukrainian-held throughout, so Russia's occupation
+      administration is actually seated in Melitopol instead — an accurate
+      reflection of the claim, not a data error).
     - **Separatist Movements** (4): Catalonia (shown with the Estelada —
       the movement's own flag, distinct from Catalonia's official flag),
       Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
@@ -376,18 +396,20 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 41 of 47
+`world_countries.json`. It only has a feature for the 45 of 49
 non-Micronation entities a real public boundary source actually exists for
 — De Facto States (all 7, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
 which aren't in Natural Earth), Autonomous Territories (all 22, Map
-Subunits), Disputed Territories (1 of 3 — Western Sahara; Donetsk/Luhansk
-People's Republics have no stable boundary in either source, unlike the
-decades-old frozen conflicts above), Separatist Movements (3 of 4 — Padania
-was never formally bounded by any administrative act), Historical States (8
-of 11 — via `aourednik/historical-basemaps`, one representative year per
-entity rather than a multi-era slider; United Arab Republic/South
-Vietnam/Republic of Artsakh excluded, see `scripts/
+Subunits), Disputed Territories (all 5 — Western Sahara via Map Subunits;
+Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
+(Russian-administered), and Zaporizhzhia Oblast (Russian-administered) all
+via Natural Earth's Admin-1 States/Provinces layer instead, matched to each
+entity's underlying pre-war Ukrainian oblast by name — see below), Separatist
+Movements (3 of 4 — Padania was never formally bounded by any administrative
+act), Historical States (8 of 11 — via `aourednik/historical-basemaps`, one
+representative year per entity rather than a multi-era slider; United Arab
+Republic/South Vietnam/Republic of Artsakh excluded, see `scripts/
 build-unofficial-states-borders.js`'s header for why each specifically
 doesn't have a trustworthy match). All 5 Micronations are excluded
 entirely — no real administrative boundary exists at any usable scale for
@@ -398,6 +420,29 @@ today) simply doesn't show a Map mode button at all, and any entity gains
 one automatically the next time this file is rebuilt with more coverage —
 see `components/games/UnofficialStatesGamePage.tsx`'s `effectiveGame`
 mode-filtering.
+
+Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast
+(Russian-administered) all draw their Map mode border from the same place:
+their underlying pre-war Ukrainian oblast's own Natural Earth Admin-1
+boundary — i.e. the internationally-recognized Donetsk/Luhansk/Kherson/
+Zaporizhzhia Oblast administrative shape each entity is named after and
+claims the whole of, not the actual current front line/line of control
+(which shifts constantly and would go stale within weeks of any rebuild).
+This was a deliberate research decision for issue #15 (prompted by the
+Wikipedia article on the 2022 Russian annexation of these four oblasts):
+Nominatim was re-tried for the "People's Republic" names specifically
+(English and Russian) and still returned nothing usable, confirming this
+file's previous documented finding — but it also quotes Kremlin
+spokesperson Dmitry Peskov stating Russia's Donetsk/Luhansk annexation
+uses "their 2014 borders" (i.e. the Soviet-era oblast boundary, the same
+one used here), while Kherson/Zaporizhzhia's borders were, per the same
+article, "not legally defined" by Russia at all — making the oblast's own
+official boundary the best-documented, most defensible stand-in available
+for those two as well. This also mirrors how Western Sahara's own feature
+in this file already works (the historical Spanish Sahara territorial
+extent, not just the Polisario-controlled Free Zone east of the berm) —
+both represent the maximal claimed/administrative territory, not
+moment-to-moment military control.
 
 `components/games/FlagsMode.tsx`'s optional `modeSlug` prop (defaulting to
 `"flags"`, so its other callers — every countries-`<continent>` game, and

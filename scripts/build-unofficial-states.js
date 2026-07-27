@@ -24,11 +24,25 @@
 // - De facto states: worldwide, not just Europe.
 // - Autonomous territories: recognized as part of a sovereign state, own
 //   flag, real self-government.
-// - Disputed territories: kept deliberately small (3) — includes active,
-//   ongoing disputes (Donetsk/Luhansk) per explicit product direction,
-//   unlike this file's original Europe-only version. Excludes Kashmir and
-//   the Golan Heights: neither has a flag distinct from the states
-//   disputing them, so there's nothing to actually show/guess.
+// - Disputed territories: kept deliberately small (5) — includes active,
+//   ongoing disputes (Donetsk/Luhansk, and now Kherson/Zaporizhzhia) per
+//   explicit product direction, unlike this file's original Europe-only
+//   version. Kherson Oblast/Zaporizhzhia Oblast were added per GitHub issue
+//   #15 (prompted by the Wikipedia article on the 2022 Russian annexation of
+//   Donetsk, Kherson, Luhansk and Zaporizhzhia oblasts): unlike Donetsk/
+//   Luhansk (pre-existing 2014 separatist "People's Republics" with their
+//   own branding), Russia annexed Kherson/Zaporizhzhia directly as its own
+//   federal subjects with no separate separatist government of their own —
+//   but it did present/adopt a distinct flag for each as a federal subject
+//   (both presented 30 Sept 2022, formally adopted 4 Oct 2022, alongside
+//   DPR/LPR's own redesigned flags the same day), satisfying the same
+//   "real, distinct flag" bar as everything else here (Wikidata Q114331288
+//   "Kherson Oblast" / Q114333615 "Zaporozhye Oblast", each a distinct
+//   "federal subject of Russia" item from Ukraine's own same-named oblast,
+//   with its own P41 flag, P36 capital, P625 coordinate — no overrides
+//   needed). Excludes Kashmir and the Golan Heights: neither has a flag
+//   distinct from the states disputing them, so there's nothing to
+//   actually show/guess.
 // - Separatist movements: deliberately screened to political movements
 //   represented by a real, distinct flag used by a legitimate political
 //   movement/party — NOT militant or currently-designated-terrorist
@@ -47,7 +61,71 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 
 const OUT_PATH = path.join(__dirname, "..", "public", "data", "unofficial_states.json");
-const OLD_EUROPE_PATH = path.join(__dirname, "..", "public", "data", "unrecognized_states_europe.json");
+
+// The 5 original "Unofficial European States" entities (github.com/GITZMBE/
+// Geo-quizzes issue #2's first, Europe-only version) — inlined here rather
+// than re-read from public/data/unrecognized_states_europe.json, which was
+// deleted once its content was folded into this file (commit
+// "Expand Unofficial States game to 6 worldwide categories"). These 5 are
+// already resolved (flag/capital/coordinates) and don't need re-resolving
+// against Wikidata on every rerun, unlike ENTITIES below.
+const EUROPE_LEGACY_FEATURES = [
+  {
+    type: "Feature",
+    properties: {
+      name: "Kosovo",
+      iso2: "XK",
+      capital: "Pristina",
+      flagUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Kosovo.svg",
+      category: "de-facto-states",
+    },
+    geometry: { type: "Point", coordinates: [20.833333333, 42.55] },
+  },
+  {
+    type: "Feature",
+    properties: {
+      name: "Northern Cyprus",
+      iso2: "NC",
+      capital: "North Nicosia",
+      flagUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Turkish%20Republic%20of%20Northern%20Cyprus.svg",
+      category: "de-facto-states",
+    },
+    geometry: { type: "Point", coordinates: [33.3634, 35.1816] },
+  },
+  {
+    type: "Feature",
+    properties: {
+      name: "Transnistria",
+      iso2: "PMR",
+      capital: "Tiraspol",
+      flagUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Transnistria%20%28state%29.svg",
+      category: "de-facto-states",
+    },
+    geometry: { type: "Point", coordinates: [29.25, 47.3] },
+  },
+  {
+    type: "Feature",
+    properties: {
+      name: "South Ossetia",
+      iso2: "RSO",
+      capital: "Tskhinvali",
+      flagUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Ossetia.svg",
+      category: "de-facto-states",
+    },
+    geometry: { type: "Point", coordinates: [43.97, 42.225] },
+  },
+  {
+    type: "Feature",
+    properties: {
+      name: "Abkhazia",
+      iso2: "ABK",
+      capital: "Sokhumi",
+      flagUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Republic%20of%20Abkhazia.svg",
+      category: "de-facto-states",
+    },
+    geometry: { type: "Point", coordinates: [41, 43.15] },
+  },
+];
 
 function commonsFilePathUrl(filename) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}`;
@@ -101,6 +179,22 @@ const ENTITIES = [
   { id: "western-sahara", name: "Western Sahara", category: "disputed-territories", qid: "Q40362", capitalOverride: "Laayoune" },
   { id: "donetsk-pr", name: "Donetsk People's Republic", category: "disputed-territories", qid: "Q16150196" },
   { id: "luhansk-pr", name: "Luhansk People's Republic", category: "disputed-territories", qid: "Q16746854" },
+  // Q114331288 is Wikidata's dedicated "federal subject of Russia" item,
+  // distinct from Ukraine's own Kherson Oblast item — its P36 capital
+  // resolves to "Kherson" (the city Russia's annexation decree nominally
+  // claims as the oblast capital), even though Kherson city itself has been
+  // back under Ukrainian control since it was recaptured in Nov 2022; kept
+  // as-is (no override) since that's genuinely what's claimed, not what's
+  // currently held — same "claim, not control" framing as the map polygon
+  // below.
+  { id: "kherson-oblast-ru", name: "Kherson Oblast (Russian-administered)", category: "disputed-territories", qid: "Q114331288" },
+  // Q114333615 ("Zaporozhye Oblast") is likewise Wikidata's dedicated
+  // Russian-federal-subject item. Its P36 capital resolves to "Melitopol",
+  // not Zaporizhzhia city itself — accurately reflecting that Zaporizhzhia
+  // city has remained under Ukrainian control throughout, so Russia's
+  // occupation administration for the oblast is actually seated in
+  // Melitopol instead.
+  { id: "zaporizhzhia-oblast-ru", name: "Zaporizhzhia Oblast (Russian-administered)", category: "disputed-territories", qid: "Q114333615" },
 
   // --- Separatist movements (screened — see header) ---
   // Catalonia's coordinates/capital come from the region itself (Q5705),
@@ -202,11 +296,7 @@ function resolveEntity(spec) {
 }
 
 function main() {
-  const oldEurope = JSON.parse(fs.readFileSync(OLD_EUROPE_PATH, "utf8"));
-  const europeFeatures = oldEurope.features.map((f) => ({
-    ...f,
-    properties: { ...f.properties, category: "de-facto-states" },
-  }));
+  const europeFeatures = EUROPE_LEGACY_FEATURES;
 
   const newFeatures = ENTITIES.map(resolveEntity);
 
@@ -220,10 +310,12 @@ function main() {
     note:
       "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: " +
       Object.entries(categoryCounts).map(([c, n]) => `${c} (${n})`).join(", ") +
-      ". Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them). " +
+      ". Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); " +
+      "Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct " +
+      "Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. " +
       "Separatist movements is screened to real political movements with their own distinct flag, excluding militant/" +
       "terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) " +
-      "even though disputed-territories does include active disputes (Donetsk/Luhansk) per explicit product direction. " +
+      "even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. " +
       "Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. " +
       "`iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy " +
       "CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's " +

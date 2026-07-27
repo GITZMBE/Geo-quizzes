@@ -25,11 +25,15 @@
 //    Public domain. Source file (not checked in — download fresh if
 //    rerunning, same convention as build-world-countries.js):
 //    https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_map_subunits.geojson
-//  - "ne-admin1": Natural Earth's 1:10m Admin-1 States/Provinces layer, used
-//    only for Catalonia — Natural Earth has no single "Catalonia" feature,
-//    only its 4 constituent provinces (Barcelona, Girona, Lleida, Tarragona,
-//    grouped under `region: "Cataluña"`), merged here the same way a
-//    same-year multi-feature polity is merged elsewhere in this codebase.
+//  - "ne-admin1": Natural Earth's 1:10m Admin-1 States/Provinces layer. Used
+//    for Catalonia (matched via `region: "Cataluña"`) — Natural Earth has no
+//    single "Catalonia" feature, only its 4 constituent provinces (Barcelona,
+//    Girona, Lleida, Tarragona), merged here the same way a same-year
+//    multi-feature polity is merged elsewhere in this codebase — and, as of
+//    GitHub issue #15, also for Donetsk/Luhansk/Kherson/Zaporizhzhia (matched
+//    via `admin: "Ukraine"` + `name_en`), see the "Disputed Territories" note
+//    below for why this layer specifically (the oblast's own official
+//    boundary, not a separatist/occupation one) is what's used for those 4.
 //    Public domain. Source file (not checked in):
 //    https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson
 //  - "historical-basemaps": the same aourednik/historical-basemaps source
@@ -46,6 +50,38 @@
 //    entity with a >=1s delay between (Nominatim's usage policy caps at 1
 //    req/sec) and a descriptive User-Agent per that same policy.
 //
+// Disputed Territories — Donetsk/Luhansk People's Republics and Kherson/
+// Zaporizhzhia Oblast (Russian-administered), added/revisited per GitHub
+// issue #15 (research prompted by the Wikipedia article on the 2022 Russian
+// annexation of Donetsk, Kherson, Luhansk and Zaporizhzhia oblasts):
+//  - Re-tried Nominatim for Donetsk/Luhansk specifically (both English
+//    "Donetsk People's Republic"/"Luhansk People's Republic" and Russian
+//    "Донецкая Народная Республика"/"Луганская Народная Республика" query
+//    strings) — still no admin-boundary result for either, only unrelated
+//    points (a Moscow square/office named after the DPR). CLAUDE.md's
+//    previous finding stands: neither separatist "republic" itself has a
+//    stable, consistently-tagged OSM administrative relation.
+//  - What *is* reliably sourceable, for all 4 entities, is each one's
+//    underlying pre-war Ukrainian oblast administrative boundary (Natural
+//    Earth's Admin-1 layer, "ne-admin1" source, matched by `name_en` within
+//    `admin: "Ukraine"`) — i.e., the internationally-recognized Donetsk/
+//    Luhansk/Kherson/Zaporizhzhia Oblast shapes these entities are named
+//    after and claim the whole of, not the current front line. This
+//    deliberately mirrors how Western Sahara's own feature in this same
+//    file already works (the historical Spanish Sahara territorial extent,
+//    not just the Polisario-controlled Free Zone east of the berm) — both
+//    represent the maximal claimed/administrative territory, not moment-to-
+//    moment military control, which would require a constantly-stale
+//    front-line source instead. It also matches Kremlin spokesperson Dmitry
+//    Peskov's own statement (quoted in the Wikipedia article) that Russia's
+//    annexation of Donetsk/Luhansk uses "their 2014 borders" — i.e. the
+//    Soviet-era oblast administrative boundary, the same one used here —
+//    while Kherson/Zaporizhzhia's boundaries were, per the same article,
+//    "not legally defined" by Russia at all; the oblast's own official
+//    boundary is the best-documented, most defensible stand-in available for
+//    those two as well, rather than fabricating a front-line shape that (a)
+//    isn't legally anything and (b) would be stale within weeks.
+//
 // Deliberately excluded, with no border feature at all (Flags mode still
 // covers them — only "map" mode is affected):
 //  - All 5 Micronations (Sealand, Molossia, Liberland, Ladonia, Kugelmugel):
@@ -53,12 +89,6 @@
 //    is an offshore platform, Molossia a family's yard, Kugelmugel a single
 //    house. Nothing to source, not even approximately, without fabricating
 //    a boundary that doesn't exist.
-//  - Donetsk People's Republic / Luhansk People's Republic: no stable
-//    boundary found in either Natural Earth or Nominatim (tried the English
-//    and Russian names) — unlike Transnistria/South Ossetia/Abkhazia's
-//    decades-old frozen conflicts, these are active/contested since 2014
-//    (annexed by Russia in 2022) and OSM has no consistently-tagged
-//    administrative relation for either as of this script's writing.
 //  - Padania: Lega Nord's aspirational northern-Italy region was never
 //    formally bounded by any administrative act, so there's no real
 //    geometry to source — approximating one from several Italian regions'
@@ -104,7 +134,10 @@ function sleep(ms) {
 
 // De Facto States — all 7 have a real source.
 // Autonomous Territories — all 22 have a real source.
-// Disputed Territories — 1 of 3 (Western Sahara only).
+// Disputed Territories — all 5 (Western Sahara, Donetsk/Luhansk People's
+//   Republics, Kherson/Zaporizhzhia Oblast — see the issue #15 note above
+//   for why Donetsk/Luhansk/Kherson/Zaporizhzhia all use their underlying
+//   oblast's admin boundary rather than a front-line/occupation shape).
 // Separatist Movements — 3 of 4 (all but Padania).
 // Historical States — 8 of 11 (see exclusions above).
 // Micronations — 0 of 5 (excluded entirely, see header note).
@@ -147,6 +180,18 @@ const ENTITIES = [
   { name: "Kurdistan Region", category: "autonomous-territories", source: "ne-subunits", matchName: "Iraqi Kurdistan" },
 
   { name: "Western Sahara", category: "disputed-territories", source: "ne-subunits", matchName: "W. Sahara" },
+  // Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast
+  // (Russian-administered) all use their pre-war Ukrainian oblast's own
+  // Admin-1 boundary (Natural Earth's `name_en` field, filtered to
+  // `admin: "Ukraine"` to avoid same-named regions elsewhere) — the
+  // internationally-recognized administrative shape each entity claims the
+  // whole of, not the current front line. See the header note above (issue
+  // #15) for the full reasoning and the Nominatim re-check that still came
+  // up empty for the "People's Republic" names specifically.
+  { name: "Donetsk People's Republic", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Donetsk", matchAdmin: "Ukraine" },
+  { name: "Luhansk People's Republic", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Luhansk", matchAdmin: "Ukraine" },
+  { name: "Kherson Oblast (Russian-administered)", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Kherson", matchAdmin: "Ukraine" },
+  { name: "Zaporizhzhia Oblast (Russian-administered)", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Zaporizhzhia", matchAdmin: "Ukraine" },
 
   { name: "Catalonia", category: "separatist-movements", source: "ne-admin1", matchRegion: "Cataluña" },
   { name: "Bougainville", category: "separatist-movements", source: "ne-subunits", matchName: "Bougainville" },
@@ -174,8 +219,10 @@ const ENTITIES = [
   { name: "Prussia", category: "historical-states", source: "historical-basemaps", year: 1815, matchName: "Prussia" },
 ];
 
-function mergeByName(features, propKey, propValue) {
-  const matches = features.filter((f) => f.properties?.[propKey] === propValue);
+function mergeByName(features, propKey, propValue, extraFilter) {
+  const matches = features.filter(
+    (f) => f.properties?.[propKey] === propValue && (!extraFilter || extraFilter(f))
+  );
   if (matches.length === 0) return null;
   const polygons = [];
   for (const f of matches) {
@@ -273,7 +320,14 @@ async function main() {
     if (entity.source === "ne-subunits") {
       geometry = mergeByName(neSubunits.features, "NAME", entity.matchName);
     } else if (entity.source === "ne-admin1") {
-      geometry = mergeByName(neAdmin1.features, "region", entity.matchRegion);
+      geometry = entity.matchRegion
+        ? mergeByName(neAdmin1.features, "region", entity.matchRegion)
+        : mergeByName(
+            neAdmin1.features,
+            "name_en",
+            entity.matchNameEn,
+            (f) => f.properties?.admin === entity.matchAdmin
+          );
     } else if (entity.source === "historical-basemaps") {
       const geojson = fetchHistoricalYear(entity.year, hbmCache);
       geometry = mergeByName(geojson.features, "NAME", entity.matchName);
@@ -301,9 +355,9 @@ async function main() {
   const out = {
     type: "FeatureCollection",
     source:
-      "Border polygons from three sources, mixed per-entity: Natural Earth 1:10m Admin-0 Map Subunits and Admin-1 States/Provinces (public domain), aourednik/historical-basemaps (GPL-3.0, same source/license as the Empires Through History info page), and OpenStreetMap via Nominatim (ODbL) for Transnistria/South Ossetia/Abkhazia. See scripts/build-unofficial-states-borders.js for exactly which source backs each entity.",
+      "Border polygons from three sources, mixed per-entity: Natural Earth 1:10m Admin-0 Map Subunits and Admin-1 States/Provinces (public domain), aourednik/historical-basemaps (GPL-3.0, same source/license as the Empires Through History info page), and OpenStreetMap via Nominatim (ODbL) for Transnistria/South Ossetia/Abkhazia. Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast (Russian-administered) all use their pre-war Ukrainian oblast's own Natural Earth Admin-1 boundary (the claimed/administrative extent, not the current front line — see scripts/build-unofficial-states-borders.js's header, added for GitHub issue #15). See that script for exactly which source backs each entity.",
     note:
-      "Covers 41 of the 47 non-micronation entities in unofficial_states.json (all 7 De Facto States, all 22 Autonomous Territories, 1 of 3 Disputed Territories, 3 of 4 Separatist Movements, 8 of 11 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Donetsk/Luhansk People's Republics (no stable boundary found in either source, unlike the decades-old frozen conflicts Transnistria/South Ossetia/Abkhazia), Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), and Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic). See scripts/build-unofficial-states-borders.js's header for the full per-exclusion reasoning.",
+      "Covers 45 of the 49 non-micronation entities in unofficial_states.json (all 7 De Facto States, all 22 Autonomous Territories, all 5 Disputed Territories, 3 of 4 Separatist Movements, 8 of 11 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), and Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic). See scripts/build-unofficial-states-borders.js's header for the full per-exclusion reasoning.",
     features,
   };
 
