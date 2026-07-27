@@ -1,10 +1,13 @@
-// Builds public/data/unofficial_states.json for the "Unofficial States &
-// Territories" game — an expansion of the original 5-state, Europe-only
-// "Unofficial European States" (github.com/GITZMBE/Geo-quizzes issue #2)
-// into 6 worldwide categories, each its own game mode (registered in
-// lib/games/registry.ts, filtered client-side in
-// app/games/unrecognized-states-europe/page.tsx by `properties.category`,
-// same one-file-many-modes pattern as scripts/build-swedish-roads-*.js).
+// Builds public/data/unofficial_states.json, shared across the 6
+// "Unofficial States & Territories" games — an expansion of the original
+// 5-state, Europe-only "Unofficial European States" (github.com/GITZMBE/
+// Geo-quizzes issue #2) into 6 worldwide categories, each its own
+// registered game (issue #7 split what used to be one game with 6 modes
+// into 6 separate games, each filtering this same file client-side by
+// `properties.category` — see components/games/UnofficialStatesGamePage.tsx
+// — plus an additional per-entity border file, see
+// scripts/build-unofficial-states-borders.js, for the "map" mode issue #7
+// also added).
 //
 // Every entity's flag/capital/coordinates are resolved the same rigorous
 // way as the original 5 (never a guessed/fabricated URL): flagcdn.com where

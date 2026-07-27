@@ -294,17 +294,21 @@ adding population/area fields onto `world_countries.json` itself, so as
 not to risk the 6 continent games that already depend on that file's exact
 shape.
 
-10. **Unofficial States & Territories** (`/games/unrecognized-states-europe`
-    — slug kept from its original name for leaderboard continuity, only the
-    display `name`/`description` changed) — 6 modes, all *Flags* (flag
-    shown, type the name), all POINTS, one shared `FlagsMode` instance per
-    mode. Started as a scoped-down, Europe-only answer to issue #2's
-    original ask; later expanded (worldwide, all 6 named types as separate
-    modes) per explicit follow-up product direction. Each mode is one
-    category from issue #2's original wording, deliberately curated rather
-    than exhaustive — same "small well-documented set, note what's
-    excluded" approach as every other data-filtering decision in this
-    codebase:
+10. **Unofficial States & Territories** — 6 separate games (`/games/
+    de-facto-states`, `/games/autonomous-territories`, `/games/
+    disputed-territories`, `/games/separatist-movements`, `/games/
+    historical-states`, `/games/micronations`), each with a *Flags* mode
+    (flag shown, type the name) and a *Map* mode (a filled-in outline shown
+    on `MapView`, zoomed to fit that one entity — `regionsData` holding only
+    the single target feature, same trick `CityStreetsMode` already relies
+    on for its per-city zoom — type the name), both POINTS. Started as a
+    scoped-down, Europe-only answer to issue #2's original ask; expanded
+    worldwide with all 6 named types as modes of one game per explicit
+    follow-up direction; then split into 6 separate games and given the Map
+    mode per issue #7. Each game is one category from issue #2's original
+    wording, deliberately curated rather than exhaustive — same "small
+    well-documented set, note what's excluded" approach as every other
+    data-filtering decision in this codebase:
     - **De Facto States** (7): Kosovo, Northern Cyprus, Transnistria, South
       Ossetia, Abkhazia, Taiwan, Somaliland.
     - **Autonomous Territories** (22): recognized as part of a sovereign
@@ -339,8 +343,9 @@ shape.
     - **Micronations** (5, lowest sensitivity): Sealand, Molossia,
       Liberland, Ladonia, Kugelmugel.
 
-`public/data/unofficial_states.json` is plain GeoJSON (`Point` geometry per
-entity, a `properties.category` field per the mode slugs above) rather than
+`public/data/unofficial_states.json` (Flags mode data, shared read-only
+across all 6 games) is plain GeoJSON (`Point` geometry per entity, a
+`properties.category` field matching each game's slug exactly) rather than
 the "points" envelope, purely so it satisfies `CountryFeature`'s existing
 type shape and `FlagsMode` needed only one small change — see below. Flags
 come from flagcdn.com where a code already exists (most autonomous
@@ -356,16 +361,59 @@ Czech Republic kept the same design after the 1993 split — the dedicated
 *not* a real ISO 3166-1 code for any of these — a locally-invented short id
 kept only to satisfy the shared type.
 
-`components/games/FlagsMode.tsx` gained an optional `modeSlug` prop
-(defaulting to `"flags"`, so its 6 other existing callers — every
-countries-`<continent>` game — are unaffected) so multiple modes here can
-share one component with independent round-state/leaderboard keying, same
-pattern `components/games/RoadsMode.tsx` already established for Swedish
-Roads' 5 modes over 1 data file. `app/games/unrecognized-states-europe/
-page.tsx` filters the fetched features by `properties.category === mode.slug`
-per mode — the category slugs were chosen to exactly match the registered
-mode slugs, so no separate switch statement (unlike Swedish Roads'
-`filterByMode`) is needed.
+`public/data/unofficial_states_borders.json` (Map mode data, added for issue
+#7) is a *separate* file rather than repurposing `unofficial_states.json`'s
+own `Point` geometry — same "own file, join by name" precedent as
+`country_stats.json`/`country_coat_of_arms.json` not being bolted onto
+`world_countries.json`. It only has a feature for the 41 of 47
+non-Micronation entities a real public boundary source actually exists for
+— De Facto States (all 7, via Natural Earth's Admin-0 Map Subunits layer for
+most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
+which aren't in Natural Earth), Autonomous Territories (all 22, Map
+Subunits), Disputed Territories (1 of 3 — Western Sahara; Donetsk/Luhansk
+People's Republics have no stable boundary in either source, unlike the
+decades-old frozen conflicts above), Separatist Movements (3 of 4 — Padania
+was never formally bounded by any administrative act), Historical States (8
+of 11 — via `aourednik/historical-basemaps`, one representative year per
+entity rather than a multi-era slider; United Arab Republic/South
+Vietnam/Republic of Artsakh excluded, see `scripts/
+build-unofficial-states-borders.js`'s header for why each specifically
+doesn't have a trustworthy match). All 5 Micronations are excluded
+entirely — no real administrative boundary exists at any usable scale for
+an offshore platform, a family's yard, or a single house. Per explicit
+product direction, this is meant to be additive, not a hardcoded exclusion
+list elsewhere: a category with zero border features (only Micronations,
+today) simply doesn't show a Map mode button at all, and any entity gains
+one automatically the next time this file is rebuilt with more coverage —
+see `components/games/UnofficialStatesGamePage.tsx`'s `effectiveGame`
+mode-filtering.
+
+`components/games/FlagsMode.tsx`'s optional `modeSlug` prop (defaulting to
+`"flags"`, so its other callers — every countries-`<continent>` game, and
+now each of these 6 separate games — are unaffected) predates the split
+(originally needed so 6 categories sharing *one* game could each get
+independent round-state/leaderboard keying); now that each category is its
+own gameSlug, the default alone is enough, but the prop itself stays for the
+same reason `components/games/RoadsMode.tsx`'s own `modeSlug` prop exists.
+`components/games/MapGuessMode.tsx` is the new Map mode component — same
+round shape as `FlagsMode` (one full pass, POINTS), a filled `MapView`
+shape instead of a flag image as the clue; it also picks `"pacific"`
+instead of the default `"mercator"` projection per-round when the target
+entity's own longitude span exceeds 180° (only the Soviet Union's Chukotka
+Peninsula triggers this today), same antimeridian-seam fix as Oceania's
+countries game, just decided per-target instead of hardcoded to one
+game/continent. `components/games/UnofficialStatesGamePage.tsx` is a shared
+page body all 6 route files render (each still its own `page.tsx` — Next.js
+needs a real file per route — passing only its own `gameSlug`, since all 6
+would otherwise duplicate identical fetch/filter/mode-gating logic): it
+fetches both data files, filters each by `properties.category === gameSlug`
+(the category slugs were chosen to exactly match the registered game slugs,
+so no separate switch statement, unlike Swedish Roads' `filterByMode`), and
+computes the `effectiveGame` passed to `GameShell` — `game.modes` from the
+registry always includes both `"flags"` and `"map"` (even for Micronations)
+so a future data addition needs no registry change, but `effectiveGame`
+drops `"map"` from the *button list* when zero border features were found
+for that category.
 
 11. **National Coat of Arms** (`/games/national-coat-of-arms`) — one mode,
     *Coat of Arms*: a country's coat of arms is shown, type which country it

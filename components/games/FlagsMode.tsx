@@ -15,10 +15,12 @@ export function FlagsMode({
   gameSlug: string;
   countries: CountryFeature[];
   // Defaults to "flags" so every existing caller (all 6 countries-<continent>
-  // games) is unaffected — a game with several flag-guessing categories
-  // sharing this one component (e.g. unrecognized-states-europe's 6
-  // categories) passes its own mode slug so each gets independent
-  // round-state/leaderboard keying, same pattern as RoadsMode's modeSlug prop.
+  // games, plus the 6 Unofficial States & Territories games, each of which
+  // is its own gameSlug rather than sharing one game with several
+  // categories) is unaffected — a future game with more than one
+  // flags-shaped mode of its own could still pass a distinct modeSlug here
+  // for independent round-state/leaderboard keying, same pattern as
+  // RoadsMode's modeSlug prop.
   modeSlug?: string;
 }) {
   const { game, mode, state, target, submitGuess, playAgain } = useRoundGame({

@@ -160,3 +160,20 @@ export type CountryCoatOfArms = GamePoint & {
 export async function fetchCountryCoatOfArms(url: string): Promise<CountryCoatOfArms[]> {
   return fetchPoints<CountryCoatOfArms>(url);
 }
+
+// Border polygon per Unofficial States & Territories entity that has a real
+// public source (see scripts/build-unofficial-states-borders.js) — a
+// separate file/type from CountryFeature (unofficial_states.json's Point
+// geometry) rather than replacing that file's geometry field, same "own
+// file, join by name" precedent as CountryStat/CountryCoatOfArms not being
+// bolted onto world_countries.json. Same wire format as fetchRegions (plain
+// GeoJSON), so this just widens the type like CountryFeature/RoadFeature do.
+export type UnofficialBorderFeature = RegionFeature & {
+  properties: { name: string; category: string };
+  geometry: { type: "Polygon" | "MultiPolygon"; coordinates: unknown };
+};
+
+export async function fetchUnofficialBorders(url: string): Promise<UnofficialBorderFeature[]> {
+  const features = await fetchRegions(url);
+  return features as UnofficialBorderFeature[];
+}
