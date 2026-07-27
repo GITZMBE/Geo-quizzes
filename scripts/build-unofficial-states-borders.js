@@ -460,7 +460,7 @@ async function main() {
     features,
   };
 
-  fs.writeFileSync(OUT_PATH, JSON.stringify(out));
+  fs.writeFileSync(OUT_PATH, JSON.stringify(out, null, 2));
   console.log(`Wrote ${features.length} border features (of ${ENTITIES.length} attempted) to ${OUT_PATH}`);
   const byCategory = new Map();
   for (const f of features) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type PointerEvent, type WheelEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type WheelEvent } from "react";
 import { geoAlbersUsa, geoMercator, geoPath, type GeoPermissibleObjects } from "d3-geo";
 import type { RegionFeature } from "@/lib/games/data";
 
@@ -345,6 +345,18 @@ export function MapView<T extends RegionFeature>({
 
   const zoomed = transform.k > 1;
 
+  // Shared by onClick and onKeyDown so a region's mouse and keyboard
+  // activation paths can't drift apart — only regions with a real
+  // onRegionClick get tabIndex/role/keyboard handling below (a non-
+  // interactive backdrop, e.g. Empires viewer or Unofficial States Map
+  // mode's world-backdrop layer, omits onRegionClick entirely per CLAUDE.md
+  // and must stay untabbable, not become a dead stop in the tab order).
+  function handleKeyActivate(e: KeyboardEvent, feature: T) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    onRegionClick?.(feature);
+  }
+
   return (
     // bg-map-water (not bg-surface) gives the map a distinct "sea" base —
     // see issue #16: without it, empty space (open ocean, and the small
@@ -386,7 +398,15 @@ export function MapView<T extends RegionFeature>({
                   strokeLinejoin="round"
                   vectorEffect="non-scaling-stroke"
                   onClick={() => onRegionClick?.(feature)}
-                  className={onRegionClick ? "cursor-pointer" : undefined}
+                  onKeyDown={onRegionClick ? (e) => handleKeyActivate(e, feature) : undefined}
+                  tabIndex={onRegionClick ? 0 : undefined}
+                  role={onRegionClick ? "button" : undefined}
+                  aria-label={onRegionClick && label ? label(feature) : undefined}
+                  className={
+                    onRegionClick
+                      ? "cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      : undefined
+                  }
                 >
                   {label && <title>{label(feature)}</title>}
                 </path>
@@ -402,7 +422,15 @@ export function MapView<T extends RegionFeature>({
                   strokeWidth={1}
                   vectorEffect="non-scaling-stroke"
                   onClick={() => onRegionClick?.(feature)}
-                  className={onRegionClick ? "cursor-pointer" : undefined}
+                  onKeyDown={onRegionClick ? (e) => handleKeyActivate(e, feature) : undefined}
+                  tabIndex={onRegionClick ? 0 : undefined}
+                  role={onRegionClick ? "button" : undefined}
+                  aria-label={onRegionClick && label ? label(feature) : undefined}
+                  className={
+                    onRegionClick
+                      ? "cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      : undefined
+                  }
                 >
                   {label && <title>{label(feature)}</title>}
                 </circle>
