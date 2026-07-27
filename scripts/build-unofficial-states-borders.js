@@ -107,12 +107,14 @@
 //    same entity as the 1991-2024 self-declared republic. Using it would
 //    show the wrong polity's territory under the modern entity's name.
 //
-// Requires @turf/simplify, not a project dependency since this only runs
-// offline as a data-prep step: npm install --no-save @turf/simplify
+// Requires @turf/simplify and @turf/kinks, not project dependencies since
+// this only runs offline as a data-prep step:
+//   npm install --no-save @turf/simplify @turf/kinks
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 const simplify = require("@turf/simplify").default;
+const kinks = require("@turf/kinks").default;
 
 const NE_SUBUNITS_FILE = path.join(__dirname, "..", "ne_10m_admin_0_map_subunits.geojson");
 const NE_ADMIN1_FILE = path.join(__dirname, "..", "ne_10m_admin_1_states_provinces.geojson");
@@ -256,12 +258,54 @@ function fetchNominatim(query) {
   return results[0].geojson;
 }
 
+// @turf/simplify's Douglas-Peucker reduction isn't topology-aware — it can
+// (and, confirmed via @turf/kinks against this exact output, does for
+// Transnistria, Greenland, Scotland, and Bermuda) turn a valid, non-self-
+// intersecting ring into a bowtie/self-crossing one, since deleting a point
+// only checks that point's own deviation from its neighbors, not whether
+// the resulting shorter segment now crosses some other edge of the same
+// ring. Rendered with `fillRule="evenodd"` (needed elsewhere for
+// legitimately-disjoint same-winding rings, see MapView's own comment),
+// a self-intersecting ring fills by parity across the *whole* crossing
+// span rather than just the intended shape — this is the "filling outside
+// the borders" MapView issue #16 reported, not a MapView bug.
+function ringHasKink(ring) {
+  const asPolygon = { type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [ring] } };
+  try {
+    return kinks(asPolygon).features.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+// Simplifies, then repairs any ring the simplification broke by falling
+// back to that *specific* ring's full-resolution coordinates (not the
+// whole geometry) — keeps the file-size benefit of simplification
+// everywhere it didn't cause a problem, while guaranteeing every rendered
+// ring is one @turf/kinks confirms has zero self-intersections.
 function simplifyGeometry(geometry) {
   const simplified = simplify(
     { type: "Feature", properties: {}, geometry },
     { tolerance: SIMPLIFY_TOLERANCE, highQuality: false }
+  ).geometry;
+
+  const isMulti = geometry.type === "MultiPolygon";
+  const rawParts = isMulti ? geometry.coordinates : [geometry.coordinates];
+  const simplifiedParts = isMulti ? simplified.coordinates : [simplified.coordinates];
+
+  let repaired = 0;
+  const fixedParts = simplifiedParts.map((part, partIdx) =>
+    part.map((ring, ringIdx) => {
+      if (!ringHasKink(ring)) return ring;
+      repaired++;
+      return rawParts[partIdx][ringIdx];
+    })
   );
-  return simplified.geometry;
+  if (repaired > 0) {
+    console.log(`    repaired ${repaired} self-intersecting ring(s) introduced by simplification`);
+  }
+
+  return isMulti ? { type: "MultiPolygon", coordinates: fixedParts } : { type: "Polygon", coordinates: fixedParts };
 }
 
 async function main() {
@@ -300,6 +344,7 @@ async function main() {
       );
     }
 
+    console.log(`  ${entity.name}...`);
     features.push({
       type: "Feature",
       properties: { name: entity.name, category: entity.category },

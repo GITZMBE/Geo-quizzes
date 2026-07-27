@@ -346,7 +346,13 @@ export function MapView<T extends RegionFeature>({
   const zoomed = transform.k > 1;
 
   return (
-    <div ref={containerRef} className="absolute inset-0 bg-surface">
+    // bg-map-water (not bg-surface) gives the map a distinct "sea" base —
+    // see issue #16: without it, empty space (open ocean, and the small
+    // fitExtent inset margin around the fitted content, see FIT_PADDING_PX
+    // above) was indistinguishable from the plain page background, which
+    // read as "oceans filled in wrong" and "padding between the map and its
+    // container" rather than as part of the map itself.
+    <div ref={containerRef} className="absolute inset-0 bg-map-water">
       {pathFor && (
         <>
           <svg

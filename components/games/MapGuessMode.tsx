@@ -140,7 +140,14 @@ export function MapGuessMode({
                 regionsData={mapData}
                 projection={projection}
                 fill={(f) => {
-                  if (!f.properties.isTarget) return "rgba(37, 99, 235, 0.08)";
+                  // Backdrop land uses the same neutral fill as an
+                  // unguessed US state (see USStatesMode.tsx) — issue #16:
+                  // the previous 0.08-alpha tint read as barely-there,
+                  // closer to the water than to land. The target keeps the
+                  // stronger highlight blue (unchanged, per issue #16 —
+                  // that's "the filling ... for the map currently" the
+                  // report asked to keep).
+                  if (!f.properties.isTarget) return "rgba(37, 99, 235, 0.15)";
                   return state.lastResult === "correct"
                     ? "rgba(34, 197, 94, 0.55)"
                     : state.lastResult === "wrong"
