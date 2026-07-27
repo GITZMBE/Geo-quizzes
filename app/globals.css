@@ -18,6 +18,13 @@
   --error: #dc2626;
   --error-foreground: #ffffff;
 
+  /* MapView's "sea" backdrop (issue #16) — a distinct light-blue base so
+     ocean/empty space reads as water instead of blank UI background, and
+     so fitExtent's inset padding (see MapView.tsx's FIT_PADDING_PX) shows
+     as part of the map itself rather than a gap between the map and its
+     container. */
+  --map-water: #dbeafe;
+
   --radius-sm: 0.375rem;
   --radius-md: 0.625rem;
   --radius-lg: 1rem;
@@ -41,6 +48,8 @@
     --success-foreground: #0b1120;
     --error: #f87171;
     --error-foreground: #0b1120;
+
+    --map-water: #0f2036;
   }
 }
 
@@ -61,6 +70,7 @@
   --color-success-foreground: var(--success-foreground);
   --color-error: var(--error);
   --color-error-foreground: var(--error-foreground);
+  --color-map-water: var(--map-water);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
