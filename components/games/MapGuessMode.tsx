@@ -4,23 +4,28 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MapView } from "@/components/MapView";
 import { Leaderboard } from "@/components/Leaderboard";
 import { GameResultActions } from "@/components/games/GameResultActions";
-import type { UnofficialBorderFeature } from "@/lib/games/data";
+import type { RegionFeature, UnofficialBorderFeature } from "@/lib/games/data";
 import { useRoundGame } from "@/lib/games/useRoundGame";
 import { getAutocompleteMatch } from "@/lib/games/text";
 
-// A single region's outline is shown, filled in, zoomed to fit its own
-// size (MapView's fitSize does this automatically once regionsData holds
-// only the one target feature, the same trick CityStreetsMode already
-// relies on for a per-city zoom) — type which one it is. Same round shape
-// as FlagsMode (one full pass through `entities`, POINTS), just with a
+// A single region's outline is shown, filled in, drawn together with a
+// light-gray backdrop of every country in the world for geographic
+// reference (issue #11 — fitting the target to its own bounding box alone
+// gave no sense of where on Earth it was, and made the zoom level
+// inconsistent from entity to entity) — type which one it is. Same round
+// shape as FlagsMode (one full pass through `entities`, POINTS), just with a
 // filled map shape instead of a flag image as the clue.
+type MapFeature = RegionFeature & { properties: { name: string; isTarget: boolean } };
+
 export function MapGuessMode({
   gameSlug,
   entities,
+  backdrop,
   modeSlug = "map",
 }: {
   gameSlug: string;
   entities: UnofficialBorderFeature[];
+  backdrop: RegionFeature[];
   modeSlug?: string;
 }) {
   const { game, mode, state, target, submitGuess, playAgain } = useRoundGame({
@@ -36,10 +41,24 @@ export function MapGuessMode({
   const targetEntity = target ? byName.get(target) : undefined;
   const names = entities.map((e) => e.properties.name);
 
-  const mapData = useMemo<UnofficialBorderFeature[]>(
-    () => (targetEntity ? [targetEntity] : []),
-    [targetEntity]
+  const backdropFeatures = useMemo<MapFeature[]>(
+    () => backdrop.map((f) => ({ ...f, properties: { name: f.properties.name, isTarget: false } })),
+    [backdrop]
   );
+
+  // fitSize/fitExtent is computed over the whole combined set, so the
+  // backdrop keeps every round framed at the same, consistent whole-world
+  // zoom level regardless of the target's own bounding box — the target is
+  // just highlighted on top, not the thing the view is fit to.
+  const mapData = useMemo<MapFeature[]>(() => {
+    if (!targetEntity) return backdropFeatures;
+    const targetFeature: MapFeature = {
+      type: "Feature",
+      properties: { name: targetEntity.properties.name, isTarget: true },
+      geometry: targetEntity.geometry,
+    };
+    return [...backdropFeatures, targetFeature];
+  }, [backdropFeatures, targetEntity]);
 
   // A feature whose own longitude span is already >180° (Soviet Union's
   // Chukotka peninsula reaches past the antimeridian) blows up default
@@ -120,15 +139,16 @@ export function MapGuessMode({
               <MapView
                 regionsData={mapData}
                 projection={projection}
-                fill={() =>
-                  state.lastResult === "correct"
+                fill={(f) => {
+                  if (!f.properties.isTarget) return "rgba(37, 99, 235, 0.08)";
+                  return state.lastResult === "correct"
                     ? "rgba(34, 197, 94, 0.55)"
                     : state.lastResult === "wrong"
                       ? "rgba(239, 68, 68, 0.55)"
-                      : "rgba(37, 99, 235, 0.55)"
-                }
-                stroke={() => "var(--foreground)"}
-                strokeWidth={() => 1}
+                      : "rgba(37, 99, 235, 0.55)";
+                }}
+                stroke={(f) => (f.properties.isTarget ? "var(--foreground)" : "var(--border)")}
+                strokeWidth={(f) => (f.properties.isTarget ? 1.5 : 1)}
               />
             )}
           </div>

@@ -177,3 +177,25 @@ export async function fetchUnofficialBorders(url: string): Promise<UnofficialBor
   const features = await fetchRegions(url);
   return features as UnofficialBorderFeature[];
 }
+
+// Modern-day country outlines, reused as-is (not re-fetched/re-simplified)
+// purely for orientation behind a single highlighted feature on MapView —
+// the six per-continent files already cover the whole world between them, so
+// there's no reason to add a dedicated world-outline data file. Originally
+// added for the Empires Through History viewer (`lib/info/data.ts` re-exports
+// this rather than duplicating it); MapGuessMode (issue #11) reuses it for
+// the same reason — a lone country/entity fit to its own bounding box has no
+// visual reference for where on Earth it actually is.
+const CONTINENT_FILES = [
+  "/data/countries_africa.json",
+  "/data/countries_asia.json",
+  "/data/countries_europe.json",
+  "/data/countries_north-america.json",
+  "/data/countries_south-america.json",
+  "/data/countries_oceania.json",
+];
+
+export async function fetchWorldBackdrop(): Promise<RegionFeature[]> {
+  const perContinent = await Promise.all(CONTINENT_FILES.map((url) => fetchCountryRegions(url)));
+  return perContinent.flat();
+}
