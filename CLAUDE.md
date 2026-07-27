@@ -118,6 +118,17 @@ and gotchas an agent working in this repo needs to know.
     why `pathFor`'s `useMemo` is now split into a `proj` memo and a `pathFor
     = geoPath(proj)` memo chained off it, rather than one combined memo that
     only ever exposed the wrapped `geoPath`).
+  - **`fitSize` fits content edge-to-edge with zero margin** — for a
+    bounding box whose aspect ratio happens to match the container, the
+    shape's stroke touches (and visually seems to bleed past) the
+    container's own border, reported as "the filling goes outside of the
+    borders" in issue #11 (most visible on the Unofficial States "Map" mode,
+    below, where a single entity is fit to its own bounding box with
+    nothing else in view). Fixed by switching to `fitExtent` with a small
+    (`FIT_PADDING_PX = 24`, clamped so it can't exceed a quarter of either
+    dimension) inset box instead of `fitSize` — applies to every `MapView`
+    caller, not just Map mode, since none of them wanted edge-to-edge
+    framing in the first place.
 - **Prisma uses `prisma-client-js` with `engineType = "client"`**, output to
   `app/generated/prisma/`. Import from `@/app/generated/prisma`, not
   `@prisma/client` directly. `lib/prisma.ts` constructs the client with
@@ -402,7 +413,23 @@ instead of the default `"mercator"` projection per-round when the target
 entity's own longitude span exceeds 180° (only the Soviet Union's Chukotka
 Peninsula triggers this today), same antimeridian-seam fix as Oceania's
 countries game, just decided per-target instead of hardcoded to one
-game/continent. `components/games/UnofficialStatesGamePage.tsx` is a shared
+game/continent. As originally shipped this fit the target to its own
+bounding box alone (the same `CityStreetsMode` per-city-zoom trick) — issue
+#11 reported that this gave players no sense of where on Earth the shape
+actually was, and made the zoom level jump around round to round depending
+on each entity's own bounding box (a huge one like the Soviet Union framed
+very differently than a compact one like Gibraltar). Fixed by drawing the
+target together with `fetchWorldBackdrop()`'s modern-day country outlines
+as a light, non-interactive backdrop (same layering trick
+`EmpireHistoryViewer` already uses, see below) — `fitSize`/`fitExtent` runs
+over the *combined* set, so every round now frames at the same whole-world
+zoom level regardless of the target's own extent, with the target
+highlighted on top and the player free to zoom in via `MapView`'s existing
+zoom controls for a closer look. `fetchWorldBackdrop` itself moved from
+`lib/info/data.ts` to `lib/games/data.ts` (the former now just re-exports
+it) once a games component needed it too — it never depended on anything
+Empires-specific, just `RegionFeature`.
+`components/games/UnofficialStatesGamePage.tsx` is a shared
 page body all 6 route files render (each still its own `page.tsx` — Next.js
 needs a real file per route — passing only its own `gameSlug`, since all 6
 would otherwise duplicate identical fetch/filter/mode-gating logic): it
@@ -458,7 +485,8 @@ no middleware changes were needed.
    map. `components/info/EmpireHistoryViewer.tsx` reuses `MapView` (not
    `GlobeView` — same click-precision-vs-rotation reasoning as every other
    region game) with two combined layers: the 6 existing continent files
-   merged client-side (`fetchWorldBackdrop()` in `lib/info/data.ts`) as a
+   merged client-side (`fetchWorldBackdrop()`, in `lib/games/data.ts` — also
+   reused by the Unofficial States "Map" mode, see issue #11 above) as a
    neutral modern-day backdrop for orientation, and the selected empire's
    single era polygon highlighted on top. No click interaction, no scoring —
    `onRegionClick` is simply omitted.
