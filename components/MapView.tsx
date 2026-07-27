@@ -40,6 +40,15 @@ type MapViewProps<T extends RegionFeature> = {
   // type — e.g. a road's two endpoint places. Projected via the same
   // projection regionsData's paths use, so they always line up.
   markers?: { lat: number; lng: number; label: string }[];
+  // What identity change should reset zoom/pan — defaults to regionsData
+  // itself (every existing caller's behavior: a new round/shuffle gets a
+  // fresh regionsData array, so this is a no-op for them). A caller whose
+  // regionsData legitimately changes on every render for reasons other than
+  // "the player should look at a different place now" (e.g.
+  // EmpireHistoryViewer rebuilding its array on every era-slider tick) can
+  // pass a narrower key — e.g. the selected empire's id — so scrubbing the
+  // slider doesn't yank the view back to the default zoom.
+  resetViewKey?: unknown;
 };
 
 const MIN_SCALE = 1;
@@ -129,6 +138,7 @@ export function MapView<T extends RegionFeature>({
   onRegionClick,
   label,
   markers,
+  resetViewKey = regionsData,
 }: MapViewProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -145,15 +155,15 @@ export function MapView<T extends RegionFeature>({
   const pinchRef = useRef<{ distance: number } | null>(null);
 
   // A previous round's zoom/pan shouldn't carry over onto a different
-  // region set (new game, or a fresh shuffle) — reset whenever the data
-  // identity changes. Adjusting state during render (React's documented
-  // pattern for this — see "you might not need an effect") rather than in
-  // a useEffect, which React 19's stricter lint flags as a
-  // cascading-render risk when setState is called unconditionally in an
-  // effect body.
-  const [prevRegionsData, setPrevRegionsData] = useState(regionsData);
-  if (regionsData !== prevRegionsData) {
-    setPrevRegionsData(regionsData);
+  // region set (new game, or a fresh shuffle) — reset whenever resetViewKey
+  // changes (defaults to regionsData's own identity, see the prop comment).
+  // Adjusting state during render (React's documented pattern for this —
+  // see "you might not need an effect") rather than in a useEffect, which
+  // React 19's stricter lint flags as a cascading-render risk when setState
+  // is called unconditionally in an effect body.
+  const [prevResetViewKey, setPrevResetViewKey] = useState(resetViewKey);
+  if (resetViewKey !== prevResetViewKey) {
+    setPrevResetViewKey(resetViewKey);
     setTransform(IDENTITY_TRANSFORM);
   }
 

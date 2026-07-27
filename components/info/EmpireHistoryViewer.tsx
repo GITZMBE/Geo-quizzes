@@ -76,6 +76,7 @@ export function EmpireHistoryViewer({
       <div className="relative flex-1 rounded-lg border border-border overflow-hidden">
         <MapView
           regionsData={regionsData}
+          resetViewKey={empire.id}
           label={(f) => f.properties.name}
           stroke={(f) => (f.properties.isEmpire ? "var(--foreground)" : "var(--border)")}
           strokeWidth={(f) => (f.properties.isEmpire ? 1.5 : 1)}
