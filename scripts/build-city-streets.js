@@ -151,6 +151,69 @@ async function fetchCityStreets(lat, lng, radiusKm, classes) {
   return elements.map((el) => el.geometry.map((p) => [p.lon, p.lat]));
 }
 
+// OSM splits one physical road into many separate "ways" at every
+// intersection/tag change, so Overpass returns thousands of already-atomic
+// 2-point segments per city — Douglas-Peucker can't simplify a straight
+// 2-point line any further, so it was doing almost nothing (issue #36:
+// confirmed this was ~178k points/87k lines across 30 cities pre-merge,
+// with most lines averaging ~2 points each). Chaining segments that share
+// an exact endpoint (OSM gives a shared node identical coordinates in
+// every way that references it, so no fuzzy-match tolerance is needed)
+// into longer polylines first gives simplify() actual redundant interior
+// points to remove, cutting this file from 3.7MB to ~650KB with the
+// tolerance itself unchanged from the value already validated below.
+function mergeLines(lines) {
+  const key = (pt) => pt[0] + "," + pt[1];
+  const endpointMap = new Map();
+  lines.forEach((line, i) => {
+    if (line.length < 2) return;
+    const startKey = key(line[0]);
+    const endKey = key(line[line.length - 1]);
+    if (!endpointMap.has(startKey)) endpointMap.set(startKey, []);
+    if (!endpointMap.has(endKey)) endpointMap.set(endKey, []);
+    endpointMap.get(startKey).push({ lineIdx: i, end: "start" });
+    endpointMap.get(endKey).push({ lineIdx: i, end: "end" });
+  });
+
+  const used = new Array(lines.length).fill(false);
+  const merged = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    if (used[i] || lines[i].length < 2) continue;
+    used[i] = true;
+    let chain = lines[i].slice();
+
+    let extended = true;
+    while (extended) {
+      extended = false;
+      const candidates = endpointMap.get(key(chain[chain.length - 1])) || [];
+      for (const c of candidates) {
+        if (used[c.lineIdx]) continue;
+        const other = lines[c.lineIdx];
+        chain = c.end === "start" ? chain.concat(other.slice(1)) : chain.concat(other.slice(0, -1).reverse());
+        used[c.lineIdx] = true;
+        extended = true;
+        break;
+      }
+    }
+    extended = true;
+    while (extended) {
+      extended = false;
+      const candidates = endpointMap.get(key(chain[0])) || [];
+      for (const c of candidates) {
+        if (used[c.lineIdx]) continue;
+        const other = lines[c.lineIdx];
+        chain = c.end === "end" ? other.slice(0, -1).concat(chain) : other.slice(1).reverse().concat(chain);
+        used[c.lineIdx] = true;
+        extended = true;
+        break;
+      }
+    }
+    merged.push(chain);
+  }
+  return merged;
+}
+
 // Simplifies point density (Douglas-Peucker, ~33m tolerance) and rounds to
 // 5 decimal places (~1m precision — far finer than this game's rendering
 // needs) to keep file size reasonable across 30 cities' worth of streets;
@@ -159,7 +222,7 @@ async function fetchCityStreets(lat, lng, radiusKm, classes) {
 // into a blob.
 function simplifyLines(lines) {
   if (lines.length === 0) return [];
-  const mls = multiLineString(lines);
+  const mls = multiLineString(mergeLines(lines));
   const simplified = simplify(mls, { tolerance: 0.0003, highQuality: true });
   return simplified.geometry.coordinates.map((line) =>
     line.map(([lng, lat]) => [Math.round(lng * 1e5) / 1e5, Math.round(lat * 1e5) / 1e5])
@@ -213,7 +276,7 @@ async function main() {
   const out = {
     type: "FeatureCollection",
     note:
-      "Major roads (motorway/trunk/primary) from OpenStreetMap via Overpass, clipped to a box around each city's center and simplified (Douglas-Peucker, ~33m tolerance) for file size. City list is curated for visual distinctiveness (ring roads, radial patterns, strict grids, unique planned shapes), not a raw population cut — see this script's header comment for the reasoning. `properties.pattern` documents each city's distinctive feature for maintainers; not shown to players." +
+      "Major roads (motorway/trunk/primary) from OpenStreetMap via Overpass, clipped to a box around each city's center, with same-node way segments merged into longer polylines before simplifying (Douglas-Peucker, ~33m tolerance) for file size — see this script's mergeLines() for why (issue #36). City list is curated for visual distinctiveness (ring roads, radial patterns, strict grids, unique planned shapes), not a raw population cut — see this script's header comment for the reasoning. `properties.pattern` documents each city's distinctive feature for maintainers; not shown to players." +
       (skipped.length > 0 ? ` Skipped (no data returned): ${skipped.join("; ")}.` : " Skipped: none."),
     features,
   };
