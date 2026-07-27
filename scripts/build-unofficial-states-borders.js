@@ -34,6 +34,9 @@
 //    via `admin: "Ukraine"` + `name_en`), see the "Disputed Territories" note
 //    below for why this layer specifically (the oblast's own official
 //    boundary, not a separatist/occupation one) is what's used for those 4.
+//    Also used for Flanders (issue #23, matched via `region: "Flemish"` —
+//    Belgium's 5 constituent Flemish provinces, same multi-feature merge
+//    as Catalonia above; confirmed globally unique before trusting it).
 //    Public domain. Source file (not checked in):
 //    https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson
 //  - "historical-basemaps": the same aourednik/historical-basemaps source
@@ -239,6 +242,15 @@ const ENTITIES = [
   { name: "Zaporizhzhia Oblast (Russian-administered)", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Zaporizhzhia", matchAdmin: "Ukraine" },
 
   { name: "Catalonia", category: "separatist-movements", source: "ne-admin1", matchRegion: "Cataluña" },
+  // Flanders (issue #23): Natural Earth has no single "Flanders" feature,
+  // only Belgium's 5 constituent provinces (West Flanders, East Flanders,
+  // Antwerp, Limburg, Flemish Brabant) — merged here the same way
+  // Catalonia's 4 provinces are merged above, via the shared `region`
+  // grouping field ("Flemish", globally unique to exactly these 5 —
+  // confirmed by checking every `region` value in the file before trusting
+  // the match). This is the real Flemish Region boundary and correctly
+  // excludes Brussels-Capital Region, which is institutionally separate.
+  { name: "Flanders", category: "separatist-movements", source: "ne-admin1", matchRegion: "Flemish" },
   { name: "Bougainville", category: "separatist-movements", source: "ne-subunits", matchName: "Bougainville" },
   // Shown with the FLNKS flag (per unofficial_states.json), but the
   // territory the movement claims is New Caledonia itself — Natural Earth
