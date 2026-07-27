@@ -4,14 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { shuffle } from "@/lib/games/geo";
 
-// Generic "browse every question, reveal its answer" review mode (issue
+// Generic "browse every question with its answer shown" review mode (issue
 // #12) — shared across every game rather than one-off per game/mode, since
 // the shape is identical regardless of what the "question" actually looks
 // like (a flag, a highlighted map region, a coat of arms, a road). No
 // score, no timer, no leaderboard, no persisted round state: unlike
 // useRoundGame's modes this is meant to be revisited freely, so a fresh
 // shuffle each mount (not restored from a previous session) is the right
-// behavior, not a bug.
+// behavior, not a bug. The answer renders immediately alongside the
+// question (issue #19) — practice is for review, not a per-question quiz,
+// so there's no reveal gate to click through.
 export function PracticeMode<T>({
   items,
   renderQuestion,
@@ -23,14 +25,12 @@ export function PracticeMode<T>({
 }) {
   const [order] = useState(() => shuffle(items));
   const [index, setIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
 
   const item = order[index];
   if (!item) return null;
 
   function go(delta: number) {
     setIndex((i) => Math.min(order.length - 1, Math.max(0, i + delta)));
-    setRevealed(false);
   }
 
   return (
@@ -52,19 +52,9 @@ export function PracticeMode<T>({
         >
           ← Previous
         </button>
-        {revealed ? (
-          <div className="flex-1 rounded-md border border-success bg-success/10 px-4 py-3 text-center text-lg font-bold text-success">
-            {renderAnswer(item)}
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setRevealed(true)}
-            className="flex-1 rounded-md bg-primary px-4 py-3 font-medium text-primary-foreground hover:opacity-90"
-          >
-            Reveal answer
-          </button>
-        )}
+        <div className="flex-1 rounded-md border border-success bg-success/10 px-4 py-3 text-center text-lg font-bold text-success">
+          {renderAnswer(item)}
+        </div>
         <button
           type="button"
           onClick={() => go(1)}
@@ -75,7 +65,7 @@ export function PracticeMode<T>({
         </button>
       </div>
 
-      {index === order.length - 1 && revealed && (
+      {index === order.length - 1 && (
         <div className="flex justify-center">
           <Link href="/games" className="rounded-md border border-border px-6 py-3 font-medium hover:bg-surface">
             Back to games

@@ -9,7 +9,10 @@ import type { GameDefinition, GameMode } from "@/lib/games/registry";
 // component itself isn't mounted until Start is pressed — for the
 // TIME_MS "type them all" modes that also means the clock only starts
 // once the player actually begins, not while they're still reading the
-// mode picker.
+// mode picker. Practice mode (`GameMode.practice`) is the one exception
+// (issue #19): it has no score/timer to gate, and browsing it is meant to
+// be as frictionless as possible, so selecting it skips the Start screen
+// and mounts immediately once data is ready.
 export function GameShell({
   game,
   ready,
@@ -28,7 +31,8 @@ export function GameShell({
 
   function selectMode(slug: string) {
     setModeSlug(slug);
-    setStarted(false);
+    const selected = game.modes.find((m) => m.slug === slug);
+    setStarted(!!selected?.practice && ready);
   }
 
   if (started) {
