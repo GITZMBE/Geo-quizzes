@@ -21,7 +21,11 @@
 //
 // Category scope, decided with the project owner before building this (see
 // the plan this shipped from):
-// - De facto states: worldwide, not just Europe.
+// - De facto states: worldwide, not just Europe. Sahrawi Arab Democratic
+//   Republic (SADR) added per GitHub issue #21, alongside (not instead of)
+//   the pre-existing "Western Sahara" Disputed Territories entry — see the
+//   ENTITIES comment above SADR's entry for why they share a Wikidata qid
+//   but resolve to different capitals/coordinates.
 // - Autonomous territories: recognized as part of a sovereign state, own
 //   flag, real self-government.
 // - Disputed territories: kept deliberately small (5) — includes active,
@@ -55,7 +59,10 @@
 //   bounded (otherwise unbounded — every defunct kingdom in history would
 //   qualify).
 // - Micronations: lowest sensitivity, self-declared entities with no real
-//   recognition.
+//   recognition. Kingdom of Talossa, Principality of Seborga, and Conch
+//   Republic were added per GitHub issue #25 — same "small, well-documented"
+//   bar as the original 5, each with real Wikidata coverage and a distinct
+//   flag.
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
@@ -164,6 +171,34 @@ const ENTITIES = [
   // --- De facto states (worldwide) ---
   { id: "taiwan", name: "Taiwan", category: "de-facto-states", qid: "Q865" },
   { id: "somaliland", name: "Somaliland", category: "de-facto-states", qid: "Q34754" },
+  // Added per GitHub issue #21. Wikidata has no separate item for the SADR
+  // government distinct from "Western Sahara" (Q40362 is literally both —
+  // unlike Donetsk/Luhansk, which do have their own dedicated items apart
+  // from the Ukrainian oblasts they claim), so this reuses the same qid as
+  // the "Western Sahara" Disputed Territories entry below, but represents a
+  // deliberately different aspect of it: this entry is the Polisario's own
+  // de facto self-governing zone/government, not the disputed claim as a
+  // whole. Q40362's P36 (capital) carries two claims — Laâyoune (Q47837,
+  // the coastal city SADR's constitution nominally names as capital, but
+  // which has been under Moroccan control throughout) and Tifariti
+  // (Q2360337, qualified "since 2008", actually within Polisario-controlled
+  // territory east of the Moroccan Wall/berm and where SADR institutions
+  // and celebrations are actually held) — Tifariti is used here since it's
+  // the seat that's actually real/de facto, the same "use what's actually
+  // true, not the nominal/constitutional claim" reasoning already applied
+  // to Kherson/Zaporizhzhia's occupation-administration capitals above.
+  // coordOverride likewise points at Tifariti rather than Q40362's own
+  // P625 (a generic Western-Sahara-wide centroid, already used as-is by
+  // the Disputed Territories entry) so the two entries plot at genuinely
+  // different points on the map.
+  {
+    id: "sadr",
+    name: "Sahrawi Arab Democratic Republic",
+    category: "de-facto-states",
+    qid: "Q40362",
+    capitalOverride: "Tifariti",
+    coordOverride: { lng: -10.567, lat: 26.158 },
+  },
 
   // --- Autonomous territories ---
   { id: "greenland", name: "Greenland", category: "autonomous-territories", qid: "Q223", flagcdnCode: "gl" },
@@ -275,6 +310,19 @@ const ENTITIES = [
   { id: "liberland", name: "Liberland", category: "micronations", qid: "Q19801186", capitalOverride: "Liberland" },
   { id: "ladonia", name: "Ladonia", category: "micronations", qid: "Q968430", capitalOverride: "Ladonia" },
   { id: "kugelmugel", name: "Kugelmugel", category: "micronations", qid: "Q877579", flagFile: "Flag of Kugelmugel in Austria.png", capitalOverride: "Kugelmugel" },
+  // Added per GitHub issue #25. Talossa's Wikidata item has no P36 (capital)
+  // claim — "Talossa" is both the nation's own name and the name of its
+  // claimed capital neighborhood (within Milwaukee, WI), same
+  // same-name-as-capital convention as Molossia/Liberland/Ladonia/Kugelmugel
+  // above, none of which have a separate distinct capital place either.
+  { id: "talossa", name: "Kingdom of Talossa", category: "micronations", qid: "Q2353425", capitalOverride: "Talossa" },
+  { id: "seborga", name: "Principality of Seborga", category: "micronations", qid: "Q1549254" },
+  // Conch Republic's own P41 (flag) value on Wikidata is literally named
+  // "Flag of Key West, Florida.svg" — that file is both Key West's
+  // unofficial municipal flag and the Conch Republic's flag (the 1982
+  // secession was of Key West itself), not a mismatch/placeholder like
+  // Czechoslovakia's Czech-Republic-named flag file elsewhere in this list.
+  { id: "conch-republic", name: "Conch Republic", category: "micronations", qid: "Q1123960" },
 ];
 
 function resolveEntity(spec) {
