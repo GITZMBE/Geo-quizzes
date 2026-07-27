@@ -1,0 +1,81 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { getGame } from "@/lib/games/registry";
+import {
+  fetchCountryRegions,
+  fetchUnofficialBorders,
+  type CountryFeature,
+  type UnofficialBorderFeature,
+} from "@/lib/games/data";
+import { GameShell } from "@/components/games/GameShell";
+
+const FlagsMode = dynamic(
+  () => import("@/components/games/FlagsMode").then((m) => m.FlagsMode),
+  { ssr: false }
+);
+const MapGuessMode = dynamic(
+  () => import("@/components/games/MapGuessMode").then((m) => m.MapGuessMode),
+  { ssr: false }
+);
+
+const FLAGS_DATA_FILE = "/data/unofficial_states.json";
+const BORDERS_DATA_FILE = "/data/unofficial_states_borders.json";
+
+// Shared page body for all 6 Unofficial States & Territories games (github.
+// com/GITZMBE/Geo-quizzes issue #7 split these out of one combined game) —
+// each one filters the same two data files down to its own category, so
+// extracting this once avoids repeating identical fetch/filter/mode-gating
+// logic across 6 near-identical page.tsx files (each still exists as its
+// own route file, same as every other game — Next.js needs a real file per
+// route — they just render this with their own gameSlug).
+export function UnofficialStatesGamePage({ gameSlug }: { gameSlug: string }) {
+  const game = getGame(gameSlug)!;
+  // The registry's category slugs were deliberately chosen to equal each
+  // game's own slug (de-facto-states, autonomous-territories, etc.) — one
+  // less mapping to keep in sync, same reasoning the old combined game used
+  // for its per-mode category filter.
+  const category = gameSlug;
+
+  const [flagStates, setFlagStates] = useState<(CountryFeature & { properties: { category: string } })[] | null>(
+    null
+  );
+  const [borderStates, setBorderStates] = useState<UnofficialBorderFeature[] | null>(null);
+
+  useEffect(() => {
+    fetchCountryRegions(FLAGS_DATA_FILE).then((features) =>
+      setFlagStates(features as (CountryFeature & { properties: { category: string } })[])
+    );
+    fetchUnofficialBorders(BORDERS_DATA_FILE).then(setBorderStates);
+  }, []);
+
+  const countries = flagStates?.filter((s) => s.properties.category === category) ?? null;
+  const borders = borderStates?.filter((s) => s.properties.category === category) ?? null;
+  const ready = countries !== null && borders !== null;
+
+  // "map" mode stays registered in lib/games/registry.ts for every game
+  // (including ones with zero border entities today, like Micronations) so
+  // a future data addition just works — only the button/availability here
+  // is data-driven, per explicit product direction on issue #7.
+  const effectiveGame = {
+    ...game,
+    modes: game.modes.filter((m) => m.slug !== "map" || (borders && borders.length > 0)),
+  };
+
+  return (
+    <main className="flex flex-1 flex-col gap-4 p-8">
+      <h1 className="text-2xl font-bold">{game.name}</h1>
+      <p className="text-muted-foreground">{game.description}</p>
+
+      <GameShell game={effectiveGame} ready={ready}>
+        {(mode) => (
+          <>
+            {mode.slug === "flags" && <FlagsMode key="flags" gameSlug={game.slug} countries={countries!} />}
+            {mode.slug === "map" && <MapGuessMode key="map" gameSlug={game.slug} entities={borders!} />}
+          </>
+        )}
+      </GameShell>
+    </main>
+  );
+}

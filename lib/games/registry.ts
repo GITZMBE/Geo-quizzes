@@ -153,19 +153,79 @@ export const GAMES: GameDefinition[] = [
       { slug: "area", name: "Area", scoreType: "POINTS" },
     ],
   },
+  // The 6 categories below were originally one game ("Unofficial States &
+  // Territories", modes keyed by category) — split into separate games per
+  // issue #7. Each game's slug doubles as its category value in
+  // unofficial_states.json/unofficial_states_borders.json (see
+  // UnofficialStatesGamePage), and each gets a "map" mode alongside the
+  // original "flags" mode — "map" stays registered even for a category
+  // with zero border entities today (Micronations) so the button just
+  // starts appearing once that category gains real border data, without a
+  // registry change; see scripts/build-unofficial-states-borders.js for
+  // exactly which entities have one and why the rest don't.
   {
-    slug: "unrecognized-states-europe",
-    name: "Unofficial States & Territories",
+    slug: "de-facto-states",
+    name: "De Facto States",
     description:
-      "A flag is shown — type which state, territory, or movement it belongs to.",
+      "Breakaway territories that function independently but aren't widely recognized — guess the flag, or the shape on the map.",
     dataFile: "/data/unofficial_states.json",
     modes: [
-      { slug: "de-facto-states", name: "De Facto States", scoreType: "POINTS" },
-      { slug: "autonomous-territories", name: "Autonomous Territories", scoreType: "POINTS" },
-      { slug: "disputed-territories", name: "Disputed Territories", scoreType: "POINTS" },
-      { slug: "separatist-movements", name: "Separatist Movements", scoreType: "POINTS" },
-      { slug: "historical-states", name: "Historical States", scoreType: "POINTS" },
-      { slug: "micronations", name: "Micronations", scoreType: "POINTS" },
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
+    ],
+  },
+  {
+    slug: "autonomous-territories",
+    name: "Autonomous Territories",
+    description:
+      "Recognized as part of a sovereign state, but with their own flag and real self-government — guess the flag, or the shape on the map.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
+    ],
+  },
+  {
+    slug: "disputed-territories",
+    name: "Disputed Territories",
+    description: "Contested between multiple claimants — guess the flag, or the shape on the map.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
+    ],
+  },
+  {
+    slug: "separatist-movements",
+    name: "Separatist Movements",
+    description:
+      "Political movements seeking independence, shown by their own flag — guess the flag, or the shape on the map.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
+    ],
+  },
+  {
+    slug: "historical-states",
+    name: "Historical States",
+    description:
+      "20th-century states that no longer exist — guess the flag, or the shape on the map.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
+    ],
+  },
+  {
+    slug: "micronations",
+    name: "Micronations",
+    description:
+      "Self-declared, unrecognized \"countries\" with no real territory — guess the flag.",
+    dataFile: "/data/unofficial_states.json",
+    modes: [
+      { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      { slug: "map", name: "Map", scoreType: "POINTS" },
     ],
   },
   {
