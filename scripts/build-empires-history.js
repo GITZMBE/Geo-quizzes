@@ -13,17 +13,19 @@
 // choice for this feature specifically (see issue #4 discussion), not
 // something to silently extend to other games.
 //
-// Empire selection and year coverage were verified empirically (grepping
-// every one of the ~54 files for each candidate empire's name) before
-// picking these four — the deciding factor was which empires this dataset
-// tracks under one *stable, single* NAME across many years, since anything
-// else would require this script to unilaterally decide which of several
-// differently-named constituent territories "count" as one continuous
-// empire (e.g. the dataset has no single "British Empire" polity — only
-// separately-named holdings like "British Raj", "British Somaliland",
-// "British Guiana" per year — stitching those into one entity would be this
-// script inventing a classification the source data doesn't make, so
-// "British Empire" was deliberately left out rather than guessed at).
+// Empire selection and year coverage were verified empirically (indexing
+// every NAME property across all ~54 files, then inspecting each candidate
+// empire's per-year bounding box/area to catch placeholder-geometry issues
+// like the Ottoman one below) before picking these ten — the deciding
+// factor was which empires this dataset tracks under one *stable, single*
+// NAME across many years, since anything else would require this script to
+// unilaterally decide which of several differently-named constituent
+// territories "count" as one continuous empire (e.g. the dataset has no
+// single "British Empire" polity — only separately-named holdings like
+// "British Raj", "British Somaliland", "British Guiana" per year —
+// stitching those into one entity would be this script inventing a
+// classification the source data doesn't make, so "British Empire" was
+// deliberately left out rather than guessed at).
 //
 // Similarly excluded: chains of *different* empires that happen to occupy
 // the same region (e.g. "Achaemenid Empire" at 500 BC and "Persia" from 1783
@@ -126,6 +128,118 @@ const EMPIRES = [
       { year: 1200, label: "1200 (Genghis Khan's rise to power)" },
     ],
   },
+  {
+    id: "holy-roman-empire",
+    name: "Holy Roman Empire",
+    matchName: "Holy Roman Empire",
+    // Some years (1279, 1530, 1600) carry two separate features under this
+    // same NAME — e.g. the Kingdom of Arles/Burgundy as a disjoint block
+    // from the main Central European territory — mergeMatchingFeatures
+    // already concatenates every same-year match into one MultiPolygon
+    // rather than keeping only the first, so no real territory is dropped.
+    eras: [
+      { year: 1000, label: "1000" },
+      { year: 1100, label: "1100" },
+      { year: 1200, label: "1200" },
+      { year: 1279, label: "1279" },
+      { year: 1300, label: "1300" },
+      { year: 1400, label: "1400" },
+      { year: 1492, label: "1492" },
+      { year: 1500, label: "1500" },
+      { year: 1530, label: "1530" },
+      { year: 1600, label: "1600" },
+      { year: 1650, label: "1650" },
+      { year: 1700, label: "1700" },
+      { year: 1715, label: "1715 (last snapshot under this name — the Empire persisted, nominally, until its 1806 dissolution)" },
+    ],
+  },
+  {
+    id: "khmer-empire",
+    name: "Khmer Empire",
+    matchName: "Khmer Empire",
+    eras: [
+      { year: 900, label: "900" },
+      { year: 1000, label: "1000" },
+      { year: 1100, label: "1100" },
+      { year: 1200, label: "1200" },
+      { year: 1279, label: "1279" },
+      { year: 1300, label: "1300" },
+      { year: 1400, label: "1400 (Angkor's decline was already underway; its capital fell to Ayutthayan raids by 1431)" },
+    ],
+  },
+  {
+    id: "mughal-empire",
+    name: "Mughal Empire",
+    matchName: "Mughal Empire",
+    eras: [
+      { year: 1530, label: "1530" },
+      { year: 1600, label: "1600" },
+      { year: 1650, label: "1650" },
+      { year: 1700, label: "1700" },
+      {
+        year: 1715,
+        label:
+          "1715 (near its territorial peak — real power fragmented to regional successor states after 1707, though the empire nominally lasted until 1857)",
+      },
+    ],
+  },
+  {
+    id: "safavid-empire",
+    name: "Safavid Empire",
+    matchName: "Safavid Empire",
+    eras: [
+      { year: 1530, label: "1530" },
+      { year: 1600, label: "1600" },
+      { year: 1650, label: "1650" },
+      { year: 1700, label: "1700" },
+      { year: 1715, label: "1715 (its final years before Afghan invaders toppled the dynasty in 1722)" },
+    ],
+  },
+  {
+    id: "srivijaya-empire",
+    name: "Srivijaya Empire",
+    matchName: "Srivijaya Empire",
+    eras: [
+      { year: 800, label: "800" },
+      { year: 900, label: "900" },
+      { year: 1000, label: "1000" },
+      { year: 1100, label: "1100" },
+      { year: 1200, label: "1200" },
+      { year: 1279, label: "1279" },
+      { year: 1300, label: "1300" },
+      { year: 1400, label: "1400 (last snapshot under this name)" },
+    ],
+  },
+  {
+    id: "manchu-qing-empire",
+    name: "Manchu (Qing) Empire",
+    matchName: "Manchu Empire",
+    // The dataset renames the same continuous polity to "Qing Empire" for
+    // exactly two snapshots (1783, 1800) before reverting to "Manchu
+    // Empire" from 1815 on — confirmed by bounding box/area continuity
+    // across the switch (1715 "Manchu Empire" ends at ~774 area/141.3°E
+    // extent, 1783 "Qing Empire" picks up at ~1293 area/141.3°E, 1815
+    // "Manchu Empire" continues at ~1145 area/134.7°E) — so those two eras
+    // override matchName rather than being treated as a different empire,
+    // same pattern as Mongol's 1100 "Mongols" override above. Stops at
+    // 1900, not the dataset's 1914 snapshot: that year's "Manchu Empire"
+    // feature is still a real, evolving polygon (not a static placeholder
+    // like Ottoman's dropped 1920/1930 years) but the name itself is
+    // anachronistic — the Qing dynasty had already fallen in the 1911-12
+    // Xinhai Revolution, and the 1914 file has no separate "Republic of
+    // China"/similar feature, so presenting it under this name would show
+    // wrong history rather than merely thin coverage.
+    eras: [
+      { year: 1650, label: "1650" },
+      { year: 1700, label: "1700" },
+      { year: 1715, label: "1715" },
+      { year: 1783, label: "1783", matchName: "Qing Empire" },
+      { year: 1800, label: "1800", matchName: "Qing Empire" },
+      { year: 1815, label: "1815" },
+      { year: 1880, label: "1880" },
+      { year: 1900, label: "1900 (last snapshot accurately tracked under this name — see the dropped-1914 note above)" },
+    ],
+  },
 ];
 
 function fetchYearFile(year, cache) {
@@ -190,7 +304,7 @@ function main() {
     source:
       "Border polygons from aourednik/historical-basemaps (github.com/aourednik/historical-basemaps), a collection of world political-border snapshots by year. Licensed GPL-3.0 (a copyleft license on the data itself, a deliberate exception to every other geo source used elsewhere in this codebase, which is public-domain or permissively licensed).",
     note:
-      "4 empires tracked under a single stable name in the source dataset across multiple years: Ottoman Empire (14 eras, 1400-1914 — stops there because its 1920/1930 \"Ottoman Sultanate\" snapshots turned out to be an identical, already-reduced-to-central-Anatolia placeholder in the source data, not an accurate picture of the empire's actual final years), Byzantine Empire (8 eras, 800-1400), Russian Empire (6 eras, 1783-1914), Mongol Empire (only 2 eras, 1100 as \"Mongols\" and 1200 as \"Mongol Empire\" — the dataset doesn't track it as a single polity outside this narrow window, so this entry's coverage is deliberately thin rather than padded). Deliberately excludes empires this dataset only tracks as several separately-named constituent territories per year rather than one polity (e.g. the British Empire — no single \"British Empire\" feature exists in any year file, only holdings like \"British Raj\"/\"British Somaliland\"/\"British Guiana\" — stitching those together would mean this script inventing a classification the source data doesn't make), and chains of historically distinct empires that happen to share a region (e.g. Achaemenid/Sassanid/Safavid/Qajar Persia are different empires across different centuries, not one continuous state).",
+      "10 empires tracked under a single stable name in the source dataset across multiple years: Ottoman Empire (14 eras, 1400-1914 — stops there because its 1920/1930 \"Ottoman Sultanate\" snapshots turned out to be an identical, already-reduced-to-central-Anatolia placeholder in the source data, not an accurate picture of the empire's actual final years), Byzantine Empire (8 eras, 800-1400), Russian Empire (6 eras, 1783-1914), Mongol Empire (only 2 eras, 1100 as \"Mongols\" and 1200 as \"Mongol Empire\" — the dataset doesn't track it as a single polity outside this narrow window, so this entry's coverage is deliberately thin rather than padded), Holy Roman Empire (13 eras, 1000-1715), Khmer Empire (7 eras, 900-1400), Mughal Empire (5 eras, 1530-1715), Safavid Empire (5 eras, 1530-1715), Srivijaya Empire (8 eras, 800-1400), and Manchu (Qing) Empire (8 eras, 1650-1900 — two of those, 1783 and 1800, are matched under the dataset's own \"Qing Empire\" rename before it reverts to \"Manchu Empire\"; stops at 1900 rather than the dataset's 1914 snapshot, whose \"Manchu Empire\"-named feature is real geometry but an anachronistic name three years after the Qing dynasty's actual 1911-12 fall, with no separate Republic-of-China feature in that year to use instead). Deliberately excludes empires this dataset only tracks as several separately-named constituent territories per year rather than one polity (e.g. the British Empire — no single \"British Empire\" feature exists in any year file, only holdings like \"British Raj\"/\"British Somaliland\"/\"British Guiana\" — stitching those together would mean this script inventing a classification the source data doesn't make), and chains of historically distinct empires that happen to share a region (e.g. Achaemenid/Sassanid/Safavid/Qajar Persia are different empires across different centuries, not one continuous state — Safavid alone, included above, is its own single-named polity in this dataset, not stitched to the others).",
     empires: empiresOut,
   };
 
