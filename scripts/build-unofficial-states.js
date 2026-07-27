@@ -131,12 +131,28 @@ function commonsFilePathUrl(filename) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}`;
 }
 
-function wikidataEntity(qid) {
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+// Wikidata occasionally serves an HTML (rate-limit/maintenance) page instead
+// of JSON when this script's ~50 sequential requests (no delay between them,
+// unlike the Nominatim path in build-unofficial-states-borders.js) come in
+// too fast — confirmed transient by retrying a failed qid in isolation
+// seconds later. Retried with backoff rather than adding a fixed delay
+// before every request, since most requests succeed first try.
+function wikidataEntity(qid, attempt = 1) {
   const text = execFileSync("curl", ["-s", "-A", "GeoQuizzesDataBuild/1.0", `https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`], {
     encoding: "utf8",
     maxBuffer: 1024 * 1024 * 20,
   });
-  return JSON.parse(text).entities[qid];
+  try {
+    return JSON.parse(text).entities[qid];
+  } catch (e) {
+    if (attempt >= 5) throw new Error(`${qid}: Wikidata returned non-JSON after ${attempt} attempts (rate-limited?): ${e.message}`);
+    sleepSync(500 * attempt);
+    return wikidataEntity(qid, attempt + 1);
+  }
 }
 
 function wikidataLabel(qid) {
@@ -174,6 +190,18 @@ const ENTITIES = [
   { id: "american-samoa", name: "American Samoa", category: "autonomous-territories", qid: "Q16641", flagcdnCode: "as" },
   { id: "guam", name: "Guam", category: "autonomous-territories", qid: "Q16635", flagcdnCode: "gu" },
   { id: "kurdistan-region", name: "Kurdistan Region", category: "autonomous-territories", qid: "Q205047" },
+  // GitHub issue #22 additions (research done separately as issue #21's
+  // sibling investigation into gaps across all 6 categories):
+  { id: "zanzibar", name: "Zanzibar", category: "autonomous-territories", qid: "Q1774" },
+  { id: "gagauzia", name: "Gagauzia", category: "autonomous-territories", qid: "Q164819" },
+  // Wikidata's P36 carries two normal-rank capitals for Republika Srpska:
+  // Sarajevo (qualified "de jure" — the entity's original, never-functional
+  // 1992 constitutional designation) and Banja Luka (qualified "de facto" —
+  // its actual, internationally-covered seat of government since 1992).
+  // Banja Luka is used here since it's both the real answer and the one
+  // that won't read as a typo of Bosnia and Herzegovina's own well-known
+  // capital (also Sarajevo) to a player.
+  { id: "republika-srpska", name: "Republika Srpska", category: "autonomous-territories", qid: "Q11196", capitalOverride: "Banja Luka" },
 
   // --- Disputed territories (deliberately small — see header) ---
   { id: "western-sahara", name: "Western Sahara", category: "disputed-territories", qid: "Q40362", capitalOverride: "Laayoune" },

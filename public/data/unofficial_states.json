@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (25), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
   "features": [
     {
       "type": "Feature",
@@ -492,6 +492,57 @@
         "coordinates": [
           44,
           36.183333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Zanzibar",
+        "iso2": "ZAN",
+        "capital": "Zanzibar City",
+        "category": "autonomous-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Zanzibar.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.3,
+          -5.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gagauzia",
+        "iso2": "GAG",
+        "capital": "Comrat",
+        "category": "autonomous-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Gagauzia.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.666389,
+          46.316389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Republika Srpska",
+        "iso2": "REP",
+        "capital": "Banja Luka",
+        "category": "autonomous-territories",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Republika%20Srpska.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.316666666667,
+          44.75
         ]
       }
     },
