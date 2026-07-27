@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (5), separatist-movements (5), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
   "features": [
     {
       "type": "Feature",
@@ -594,6 +594,23 @@
         "coordinates": [
           1.5666666666666667,
           41.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Flanders",
+        "iso2": "FLA",
+        "capital": "Brussels",
+        "category": "separatist-movements",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/VlaamseStrijdvlag.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5,
+          51
         ]
       }
     },

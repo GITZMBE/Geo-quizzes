@@ -354,9 +354,13 @@ shape.
       remained Ukrainian-held throughout, so Russia's occupation
       administration is actually seated in Melitopol instead — an accurate
       reflection of the claim, not a data error).
-    - **Separatist Movements** (4): Catalonia (shown with the Estelada —
+    - **Separatist Movements** (5): Catalonia (shown with the Estelada —
       the movement's own flag, distinct from Catalonia's official flag),
-      Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
+      Flanders (shown with the Vlaamse Strijdvlag/"Flemish battle flag" — a
+      completely black lion with no red claws/tongue, flown by Vlaams
+      Belang and the broader Flemish Movement, distinct from Flanders'
+      official flag which has red claws and tongue; added per GitHub issue
+      #23), Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
       Padania. Screened to movements represented by a real, distinct flag
       used by a *legitimate political* movement/party — explicitly
       excludes militant/currently-designated-terrorist organizations (e.g.
@@ -396,7 +400,7 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 45 of 49
+`world_countries.json`. It only has a feature for the 46 of 50
 non-Micronation entities a real public boundary source actually exists for
 — De Facto States (all 7, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
@@ -406,8 +410,11 @@ Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
 (Russian-administered), and Zaporizhzhia Oblast (Russian-administered) all
 via Natural Earth's Admin-1 States/Provinces layer instead, matched to each
 entity's underlying pre-war Ukrainian oblast by name — see below), Separatist
-Movements (3 of 4 — Padania was never formally bounded by any administrative
-act), Historical States (8 of 11 — via `aourednik/historical-basemaps`, one
+Movements (4 of 5 — Padania was never formally bounded by any administrative
+act; Flanders, added per issue #23, uses the same Admin-1 layer, merging
+Belgium's 5 constituent Flemish provinces via their shared `region: "Flemish"`
+grouping field, the same technique already used for Catalonia's 4 Catalan
+provinces above), Historical States (8 of 11 — via `aourednik/historical-basemaps`, one
 representative year per entity rather than a multi-era slider; United Arab
 Republic/South Vietnam/Republic of Artsakh excluded, see `scripts/
 build-unofficial-states-borders.js`'s header for why each specifically

@@ -131,12 +131,28 @@ function commonsFilePathUrl(filename) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}`;
 }
 
-function wikidataEntity(qid) {
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+
+// Wikidata rate-limits rapid back-to-back requests (this script makes
+// ~50-90 of them with no delay) with a 429 — observed as an HTML error page
+// returned in place of JSON. Throttled to roughly 1 req/sec, same policy
+// this file's Nominatim fetches already follow, plus a short exponential
+// backoff retry for any 429 that still gets through.
+function wikidataEntity(qid, attempt = 1) {
+  sleepSync(1000);
   const text = execFileSync("curl", ["-s", "-A", "GeoQuizzesDataBuild/1.0", `https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`], {
     encoding: "utf8",
     maxBuffer: 1024 * 1024 * 20,
   });
-  return JSON.parse(text).entities[qid];
+  try {
+    return JSON.parse(text).entities[qid];
+  } catch (e) {
+    if (attempt >= 5) throw e;
+    sleepSync(1000 * attempt);
+    return wikidataEntity(qid, attempt + 1);
+  }
 }
 
 function wikidataLabel(qid) {
@@ -203,6 +219,18 @@ const ENTITIES = [
   // flag (the Senyera) which already effectively represents the region as
   // a whole, not the movement.
   { id: "catalonia", name: "Catalonia", category: "separatist-movements", qid: "Q5705", flagFile: "Estelada blava.svg" },
+  // Flanders (Q234) has neither a P41 (flag) nor P36 (capital) claim on
+  // Wikidata — both are overridden. flagFile is the Vlaamse Strijdvlag
+  // ("Flemish battle flag"), a completely-black lion with no red
+  // claws/tongue, flown by Vlaams Belang and the broader Flemish Movement
+  // specifically — distinct from Flanders' own official flag (a black
+  // lion with red claws and tongue), same "movement flag vs. official
+  // flag" distinction already drawn for Catalonia's Estelada above. Added
+  // per GitHub issue #23. capitalOverride is Brussels: the seat of the
+  // Flemish Parliament/Government (the Flemish Community's de facto
+  // capital), even though Brussels-Capital Region is institutionally
+  // separate from, and not part of, the Flemish Region itself.
+  { id: "flanders", name: "Flanders", category: "separatist-movements", qid: "Q234", flagFile: "VlaamseStrijdvlag.svg", capitalOverride: "Brussels" },
   { id: "bougainville", name: "Bougainville", category: "separatist-movements", qid: "Q18826" },
   // New Caledonia's own official flag is French; the flag shown here is
   // the FLNKS (Kanak and Socialist National Liberation Front) flag flown by
