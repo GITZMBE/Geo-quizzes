@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (8), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (8), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (8). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
   "features": [
     {
       "type": "Feature",
@@ -934,6 +934,57 @@
         "coordinates": [
           16.395555555556,
           48.215277777778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kingdom of Talossa",
+        "iso2": "TAL",
+        "capital": "Talossa",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Kingdom%20of%20Talossa.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9024,
+          43.0481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Principality of Seborga",
+        "iso2": "SEB",
+        "capital": "Seborga",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Principality%20of%20Seborga%20(current).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6944444444444,
+          43.826111111111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Conch Republic",
+        "iso2": "CON",
+        "capital": "Key West",
+        "category": "micronations",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Key%20West%2C%20Florida.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.784166666667,
+          24.559166666667
         ]
       }
     }

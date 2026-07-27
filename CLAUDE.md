@@ -382,8 +382,18 @@ shape.
       Zaire, Prussia, Republic of Artsakh (Nagorno-Karabakh's de facto
       government, dissolved 2024 — belongs here now rather than Disputed
       Territories since it no longer exists as an active claim).
-    - **Micronations** (5, lowest sensitivity): Sealand, Molossia,
-      Liberland, Ladonia, Kugelmugel.
+    - **Micronations** (8, lowest sensitivity): Sealand, Molossia,
+      Liberland, Ladonia, Kugelmugel, Kingdom of Talossa, Principality of
+      Seborga, Conch Republic. The latter 3 were added per issue #25 — same
+      "small, well-documented" bar as the original 5. Talossa has no P36
+      (capital) claim on Wikidata, so `capitalOverride: "Talossa"` is used —
+      the nation's name and its claimed capital neighborhood (within
+      Milwaukee, WI) are the same word, same convention already used for
+      Molossia/Liberland/Ladonia/Kugelmugel above. Conch Republic's P41
+      (flag) value is literally named "Flag of Key West, Florida.svg" — not
+      a mismatch like Czechoslovakia's Czech-Republic-named flag file below,
+      since the 1982 Conch Republic secession *was* Key West itself, so the
+      city's own flag doubles as the micronation's.
 
 `public/data/unofficial_states.json` (Flags mode data, shared read-only
 across all 6 games) is plain GeoJSON (`Point` geometry per entity, a
