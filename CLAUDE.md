@@ -320,8 +320,19 @@ shape.
     wording, deliberately curated rather than exhaustive — same "small
     well-documented set, note what's excluded" approach as every other
     data-filtering decision in this codebase:
-    - **De Facto States** (7): Kosovo, Northern Cyprus, Transnistria, South
-      Ossetia, Abkhazia, Taiwan, Somaliland.
+    - **De Facto States** (8): Kosovo, Northern Cyprus, Transnistria, South
+      Ossetia, Abkhazia, Taiwan, Somaliland, Sahrawi Arab Democratic
+      Republic. The last was added per GitHub issue #21 alongside (not
+      instead of) the pre-existing "Western Sahara" Disputed Territories
+      entry below — Wikidata has no separate item for the SADR government
+      distinct from the territory itself (Q40362 is both), so this entry
+      reuses that same qid but resolves to a different capital/coordinate:
+      Tifariti (actually within Polisario-controlled territory east of the
+      Moroccan Wall/berm, where SADR's institutions are actually seated),
+      not Laâyoune (SADR's constitutionally-claimed but Moroccan-held
+      capital, used by the Disputed Territories entry) — see
+      `scripts/build-unofficial-states.js` for the two Wikidata P36 claims
+      this is resolved from.
     - **Autonomous Territories** (22): recognized as part of a sovereign
       state but with their own flag and real self-government — Greenland,
       Faroe Islands, Hong Kong, Macau, Scotland, Wales, Northern Ireland,
@@ -396,11 +407,16 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 45 of 49
+`world_countries.json`. It only has a feature for the 45 of 50
 non-Micronation entities a real public boundary source actually exists for
-— De Facto States (all 7, via Natural Earth's Admin-0 Map Subunits layer for
+— De Facto States (7 of 8, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
-which aren't in Natural Earth), Autonomous Territories (all 22, Map
+which aren't in Natural Earth; Sahrawi Arab Democratic Republic, added per
+issue #21, has no border here — both Natural Earth and Nominatim's boundary
+for it are the same whole-claimed-territory shape already used below for
+the Disputed Territories "Western Sahara" entry, not the Polisario-
+controlled "Free Zone" this entity is meant to represent, so reusing it
+would make the two entries indistinguishable on the map), Autonomous Territories (all 22, Map
 Subunits), Disputed Territories (all 5 — Western Sahara via Map Subunits;
 Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
 (Russian-administered), and Zaporizhzhia Oblast (Russian-administered) all

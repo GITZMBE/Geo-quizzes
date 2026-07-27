@@ -21,7 +21,11 @@
 //
 // Category scope, decided with the project owner before building this (see
 // the plan this shipped from):
-// - De facto states: worldwide, not just Europe.
+// - De facto states: worldwide, not just Europe. Sahrawi Arab Democratic
+//   Republic (SADR) added per GitHub issue #21, alongside (not instead of)
+//   the pre-existing "Western Sahara" Disputed Territories entry — see the
+//   ENTITIES comment above SADR's entry for why they share a Wikidata qid
+//   but resolve to different capitals/coordinates.
 // - Autonomous territories: recognized as part of a sovereign state, own
 //   flag, real self-government.
 // - Disputed territories: kept deliberately small (5) — includes active,
@@ -148,6 +152,34 @@ const ENTITIES = [
   // --- De facto states (worldwide) ---
   { id: "taiwan", name: "Taiwan", category: "de-facto-states", qid: "Q865" },
   { id: "somaliland", name: "Somaliland", category: "de-facto-states", qid: "Q34754" },
+  // Added per GitHub issue #21. Wikidata has no separate item for the SADR
+  // government distinct from "Western Sahara" (Q40362 is literally both —
+  // unlike Donetsk/Luhansk, which do have their own dedicated items apart
+  // from the Ukrainian oblasts they claim), so this reuses the same qid as
+  // the "Western Sahara" Disputed Territories entry below, but represents a
+  // deliberately different aspect of it: this entry is the Polisario's own
+  // de facto self-governing zone/government, not the disputed claim as a
+  // whole. Q40362's P36 (capital) carries two claims — Laâyoune (Q47837,
+  // the coastal city SADR's constitution nominally names as capital, but
+  // which has been under Moroccan control throughout) and Tifariti
+  // (Q2360337, qualified "since 2008", actually within Polisario-controlled
+  // territory east of the Moroccan Wall/berm and where SADR institutions
+  // and celebrations are actually held) — Tifariti is used here since it's
+  // the seat that's actually real/de facto, the same "use what's actually
+  // true, not the nominal/constitutional claim" reasoning already applied
+  // to Kherson/Zaporizhzhia's occupation-administration capitals above.
+  // coordOverride likewise points at Tifariti rather than Q40362's own
+  // P625 (a generic Western-Sahara-wide centroid, already used as-is by
+  // the Disputed Territories entry) so the two entries plot at genuinely
+  // different points on the map.
+  {
+    id: "sadr",
+    name: "Sahrawi Arab Democratic Republic",
+    category: "de-facto-states",
+    qid: "Q40362",
+    capitalOverride: "Tifariti",
+    coordOverride: { lng: -10.567, lat: 26.158 },
+  },
 
   // --- Autonomous territories ---
   { id: "greenland", name: "Greenland", category: "autonomous-territories", qid: "Q223", flagcdnCode: "gl" },
