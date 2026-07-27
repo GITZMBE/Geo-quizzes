@@ -12,6 +12,7 @@ const CoatOfArmsMode = dynamic(
   () => import("@/components/games/CoatOfArmsMode").then((m) => m.CoatOfArmsMode),
   { ssr: false }
 );
+import { PracticeMode } from "@/components/games/PracticeMode";
 
 const game = getGame("national-coat-of-arms")!;
 
@@ -28,7 +29,22 @@ export default function NationalCoatOfArmsPage() {
       <p className="text-muted-foreground">{game.description}</p>
 
       <GameShell game={game} ready={countries !== null}>
-        {() => <CoatOfArmsMode gameSlug={game.slug} countries={countries!} />}
+        {(mode) =>
+          mode.slug === "practice" ? (
+            <PracticeMode
+              items={countries!}
+              renderQuestion={(c: CountryCoatOfArms) => (
+                <div className="flex h-full w-full items-center justify-center bg-white p-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- external Wikimedia images, not worth Next/Image config for a fixed-size image */}
+                  <img src={c.coatOfArmsUrl} alt="" className="h-48 w-48 object-contain" />
+                </div>
+              )}
+              renderAnswer={(c: CountryCoatOfArms) => c.name}
+            />
+          ) : (
+            <CoatOfArmsMode gameSlug={game.slug} countries={countries!} />
+          )
+        }
       </GameShell>
     </main>
   );

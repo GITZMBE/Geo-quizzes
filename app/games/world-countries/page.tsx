@@ -11,6 +11,7 @@ import { GameShell } from "@/components/games/GameShell";
 const TypeAllMode = dynamic(() => import("./TypeAllMode").then((m) => m.TypeAllMode), {
   ssr: false,
 });
+import { PracticeMode } from "@/components/games/PracticeMode";
 
 const game = getGame("world-countries")!;
 
@@ -27,7 +28,33 @@ export default function WorldCountriesPage() {
       <p className="text-muted-foreground">{game.description}</p>
 
       <GameShell game={game} ready={countries !== null}>
-        {() => <TypeAllMode countries={countries!} />}
+        {(mode) =>
+          mode.slug === "practice" ? (
+            <PracticeMode
+              items={countries!}
+              renderQuestion={(c: WorldCountry) => (
+                <div className="flex h-full w-full items-center justify-center bg-surface p-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- external flagcdn.com images, not worth Next/Image config for a fixed-size flag */}
+                  <img
+                    src={c.flagUrl}
+                    alt=""
+                    className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+                  />
+                </div>
+              )}
+              renderAnswer={(c: WorldCountry) => (
+                <>
+                  {c.name}
+                  <span className="ml-2 text-sm font-normal text-muted-foreground">
+                    {c.continent} · capital: {c.capital}
+                  </span>
+                </>
+              )}
+            />
+          ) : (
+            <TypeAllMode countries={countries!} />
+          )
+        }
       </GameShell>
     </main>
   );

@@ -19,6 +19,7 @@ const MapGuessMode = dynamic(
   () => import("@/components/games/MapGuessMode").then((m) => m.MapGuessMode),
   { ssr: false }
 );
+import { PracticeMode } from "@/components/games/PracticeMode";
 
 const FLAGS_DATA_FILE = "/data/unofficial_states.json";
 const BORDERS_DATA_FILE = "/data/unofficial_states_borders.json";
@@ -73,6 +74,30 @@ export function UnofficialStatesGamePage({ gameSlug }: { gameSlug: string }) {
           <>
             {mode.slug === "flags" && <FlagsMode key="flags" gameSlug={game.slug} countries={countries!} />}
             {mode.slug === "map" && <MapGuessMode key="map" gameSlug={game.slug} entities={borders!} />}
+            {mode.slug === "practice" && (
+              <PracticeMode
+                key="practice"
+                items={countries!}
+                renderQuestion={(c) => (
+                  <div className="flex h-full w-full items-center justify-center bg-surface p-6">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- external flagcdn.com/Wikidata images, not worth Next/Image config for a fixed-size flag */}
+                    <img
+                      src={c.properties.flagUrl}
+                      alt=""
+                      className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+                    />
+                  </div>
+                )}
+                renderAnswer={(c) => (
+                  <>
+                    {c.properties.name}
+                    <span className="ml-2 text-sm font-normal text-muted-foreground">
+                      capital: {c.properties.capital}
+                    </span>
+                  </>
+                )}
+              />
+            )}
           </>
         )}
       </GameShell>
