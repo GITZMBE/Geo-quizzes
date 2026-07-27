@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  typecheck-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # `prisma generate` only needs DATABASE_URL to be *present* (prisma.config.ts
+      # validates that at load time) — it doesn't connect to a real database to
+      # generate the client, so a dummy value is enough here.
+      - name: Generate Prisma client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://user:password@localhost:5432/dummy"
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      # Once issue #35 (initial automated test suite) lands and a `test` script
+      # exists in package.json, add an `npm test` step here.
