@@ -2,7 +2,18 @@ export type GameMode = {
   slug: string;
   name: string;
   scoreType: "POINTS" | "TIME_MS";
+  // Set on the shared "Practice" mode every game gets (issue #12) — browse
+  // every question and reveal its answer at your own pace. No score is ever
+  // submitted for it, so `scoreType` is otherwise meaningless here (kept
+  // "POINTS" rather than making it optional, since GameMode.scoreType is
+  // relied on elsewhere as always-present); `practice: true` is what
+  // Leaderboard/GameShell-adjacent code should actually check.
+  practice?: boolean;
 };
+
+// Appended to every game's `modes` array below — see the PracticeMode
+// component for why one generic mode works regardless of question type.
+const PRACTICE_MODE: GameMode = { slug: "practice", name: "Practice", scoreType: "POINTS", practice: true };
 
 export type GameDefinition = {
   slug: string;
@@ -19,7 +30,7 @@ export const GAMES: GameDefinition[] = [
     description:
       "A district is named — click its outline on the map of Stockholm.",
     dataFile: "/data/stockholm_stadsdelar.json",
-    modes: [{ slug: "click-district", name: "Click the district", scoreType: "POINTS" }],
+    modes: [{ slug: "click-district", name: "Click the district", scoreType: "POINTS" }, PRACTICE_MODE],
   },
   {
     slug: "sweden-cities",
@@ -31,6 +42,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "type-all", name: "Type them all", scoreType: "TIME_MS" },
       { slug: "click-dot", name: "Click the city", scoreType: "POINTS" },
       { slug: "proximity", name: "Guess the location", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -39,21 +51,21 @@ export const GAMES: GameDefinition[] = [
     description:
       "Five of the world's biggest cities, one at a time — click where on the globe you think each one is.",
     dataFile: "/data/world_largest_cities.json",
-    modes: [{ slug: "proximity", name: "Guess the location", scoreType: "POINTS" }],
+    modes: [{ slug: "proximity", name: "Guess the location", scoreType: "POINTS" }, PRACTICE_MODE],
   },
   {
     slug: "us-states",
     name: "US States",
     description: "A state is named — click its outline on the map.",
     dataFile: "/data/us_states.json",
-    modes: [{ slug: "click-state", name: "Click the state", scoreType: "POINTS" }],
+    modes: [{ slug: "click-state", name: "Click the state", scoreType: "POINTS" }, PRACTICE_MODE],
   },
   {
     slug: "world-countries",
     name: "List All Countries",
     description: "Type the name of every country in the world.",
     dataFile: "/data/world_countries.json",
-    modes: [{ slug: "type-all", name: "Type them all", scoreType: "TIME_MS" }],
+    modes: [{ slug: "type-all", name: "Type them all", scoreType: "TIME_MS" }, PRACTICE_MODE],
   },
   {
     slug: "countries-africa",
@@ -64,6 +76,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -75,6 +88,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -86,6 +100,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -97,6 +112,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -108,6 +124,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -119,6 +136,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "countries", name: "Countries", scoreType: "POINTS" },
       { slug: "capitals", name: "Capitals", scoreType: "POINTS" },
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -132,6 +150,7 @@ export const GAMES: GameDefinition[] = [
       { slug: "national-roads", name: "National roads", scoreType: "POINTS" },
       { slug: "county-roads", name: "County roads", scoreType: "POINTS" },
       { slug: "county-roads-secondary", name: "Secondary county roads", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -140,7 +159,7 @@ export const GAMES: GameDefinition[] = [
     description:
       "Only a major city's street network is shown — no labels, no borders. Type which city it is.",
     dataFile: "/data/city_streets.json",
-    modes: [{ slug: "streets", name: "Street pattern", scoreType: "POINTS" }],
+    modes: [{ slug: "streets", name: "Street pattern", scoreType: "POINTS" }, PRACTICE_MODE],
   },
   {
     slug: "higher-or-lower",
@@ -148,6 +167,10 @@ export const GAMES: GameDefinition[] = [
     description:
       "A reference country is shown with its value — is the next country's higher or lower?",
     dataFile: "/data/country_stats.json",
+    // No PRACTICE_MODE here (issue #12): this game's round shape is an
+    // open-ended streak comparing two countries at a time, not a fixed set
+    // of "question, answer" pairs — there's no single per-item answer to
+    // browse to/reveal, unlike every other game's modes.
     modes: [
       { slug: "population", name: "Population", scoreType: "POINTS" },
       { slug: "area", name: "Area", scoreType: "POINTS" },
@@ -172,6 +195,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -183,6 +207,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -193,6 +218,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -204,6 +230,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -215,6 +242,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -226,6 +254,7 @@ export const GAMES: GameDefinition[] = [
     modes: [
       { slug: "flags", name: "Flags", scoreType: "POINTS" },
       { slug: "map", name: "Map", scoreType: "POINTS" },
+      PRACTICE_MODE,
     ],
   },
   {
@@ -234,7 +263,7 @@ export const GAMES: GameDefinition[] = [
     description:
       "A country's coat of arms is shown — type which country it belongs to.",
     dataFile: "/data/country_coat_of_arms.json",
-    modes: [{ slug: "coat-of-arms", name: "Coat of Arms", scoreType: "POINTS" }],
+    modes: [{ slug: "coat-of-arms", name: "Coat of Arms", scoreType: "POINTS" }, PRACTICE_MODE],
   },
 ];
 
