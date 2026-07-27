@@ -398,12 +398,25 @@ shape.
       active disputes; that's a distinction between "politically sensitive
       but peaceful" and "armed conflict/terror designation," not a
       contradiction.
-    - **Historical States** (11, 20th-century-dissolved cutoff — otherwise
+    - **Historical States** (18, 20th-century-dissolved cutoff — otherwise
       unbounded): Soviet Union, Yugoslavia, Czechoslovakia, East Germany,
       Austria-Hungary, Ottoman Empire, United Arab Republic, South Vietnam,
       Zaire, Prussia, Republic of Artsakh (Nagorno-Karabakh's de facto
       government, dissolved 2024 — belongs here now rather than Disputed
-      Territories since it no longer exists as an active claim).
+      Territories since it no longer exists as an active claim). Added per
+      GitHub issue #24 (research prompted by a broader "what's missing"
+      sweep, not any single Wikipedia article this time): **South Yemen**
+      (People's Democratic Republic of Yemen, 1967-1990, unified with North
+      Yemen), **Manchukuo** (1932-1945, Japanese puppet state in
+      Manchuria), **Tannu Tuva** (Tuvan People's Republic, 1921-1944,
+      absorbed into the USSR), and South Africa's four 1976-1994
+      "independent" bantustans — **Bophuthatswana**, **Transkei**,
+      **Ciskei**, **Venda** — each internationally unrecognized except by
+      South Africa and each other, each with its own distinct flag.
+      Deliberately left out pending explicit sign-off (more politically
+      loaded than every other entry here): Rhodesia, the Khmer Republic/
+      Democratic Kampuchea, and Tibet (unlike the rest of this list, still
+      an actively live/contested dispute, not settled history).
     - **Micronations** (8, lowest sensitivity): Sealand, Molossia,
       Liberland, Ladonia, Kugelmugel, Kingdom of Talossa, Principality of
       Seborga, Conch Republic. The latter 3 were added per issue #25 — same
@@ -439,7 +452,7 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 49 of 54
+`world_countries.json`. It only has a feature for the 49 of 61
 non-Micronation entities a real public boundary source actually exists for
 — De Facto States (7 of 8, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
@@ -467,11 +480,18 @@ Movements (4 of 5 — Padania was never formally bounded by any administrative
 act; Flanders, added per issue #23, uses the same Admin-1 layer, merging
 Belgium's 5 constituent Flemish provinces via their shared `region: "Flemish"`
 grouping field, the same technique already used for Catalonia's 4 Catalan
-provinces above), Historical States (8 of 11 — via `aourednik/historical-basemaps`, one
+provinces above), Historical States (8 of 18 — via `aourednik/historical-basemaps`, one
 representative year per entity rather than a multi-era slider; United Arab
 Republic/South Vietnam/Republic of Artsakh excluded, see `scripts/
 build-unofficial-states-borders.js`'s header for why each specifically
-doesn't have a trustworthy match). All 5 Micronations are excluded
+doesn't have a trustworthy match; the 7 entities added per issue #24 — South
+Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei, Venda — are
+excluded too, none has any usable border source at all, not even an
+approximate one: no historical-basemaps feature by name in any year, no
+Natural Earth Admin-1 subdivision for South Africa predating its current 9
+provinces, and Nominatim resolves only unrelated present-day places that
+happen to share the name, not an administrative boundary — see that
+script's header for the full reasoning). All 5 Micronations are excluded
 entirely — no real administrative boundary exists at any usable scale for
 an offshore platform, a family's yard, or a single house. Per explicit
 product direction, this is meant to be additive, not a hardcoded exclusion
