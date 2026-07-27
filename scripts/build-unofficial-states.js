@@ -55,7 +55,10 @@
 //   bounded (otherwise unbounded — every defunct kingdom in history would
 //   qualify).
 // - Micronations: lowest sensitivity, self-declared entities with no real
-//   recognition.
+//   recognition. Kingdom of Talossa, Principality of Seborga, and Conch
+//   Republic were added per GitHub issue #25 — same "small, well-documented"
+//   bar as the original 5, each with real Wikidata coverage and a distinct
+//   flag.
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
@@ -247,6 +250,19 @@ const ENTITIES = [
   { id: "liberland", name: "Liberland", category: "micronations", qid: "Q19801186", capitalOverride: "Liberland" },
   { id: "ladonia", name: "Ladonia", category: "micronations", qid: "Q968430", capitalOverride: "Ladonia" },
   { id: "kugelmugel", name: "Kugelmugel", category: "micronations", qid: "Q877579", flagFile: "Flag of Kugelmugel in Austria.png", capitalOverride: "Kugelmugel" },
+  // Added per GitHub issue #25. Talossa's Wikidata item has no P36 (capital)
+  // claim — "Talossa" is both the nation's own name and the name of its
+  // claimed capital neighborhood (within Milwaukee, WI), same
+  // same-name-as-capital convention as Molossia/Liberland/Ladonia/Kugelmugel
+  // above, none of which have a separate distinct capital place either.
+  { id: "talossa", name: "Kingdom of Talossa", category: "micronations", qid: "Q2353425", capitalOverride: "Talossa" },
+  { id: "seborga", name: "Principality of Seborga", category: "micronations", qid: "Q1549254" },
+  // Conch Republic's own P41 (flag) value on Wikidata is literally named
+  // "Flag of Key West, Florida.svg" — that file is both Key West's
+  // unofficial municipal flag and the Conch Republic's flag (the 1982
+  // secession was of Key West itself), not a mismatch/placeholder like
+  // Czechoslovakia's Czech-Republic-named flag file elsewhere in this list.
+  { id: "conch-republic", name: "Conch Republic", category: "micronations", qid: "Q1123960" },
 ];
 
 function resolveEntity(spec) {
