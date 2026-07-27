@@ -108,6 +108,12 @@ export function UnofficialStatesGamePage({ gameSlug }: { gameSlug: string }) {
                         src={c.properties.flagUrl}
                         alt=""
                         className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+                        // flagcdn.com/Wikidata-hosted images are generally
+                        // reliable, but a brief outage shouldn't leave a
+                        // broken-image icon on screen in Practice mode.
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
                       />
                     </div>
                   )}

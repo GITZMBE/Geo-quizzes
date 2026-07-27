@@ -92,6 +92,12 @@ export function CoatOfArmsMode({
               // background, so cropping to fill a wide rectangle chops off
               // real content in a way that never happens with a flag.
               className="h-40 w-64 rounded-md border border-border bg-white object-contain p-2 shadow-sm"
+              // Wikimedia Commons is generally reliable, but a brief outage
+              // shouldn't leave a broken-image icon on screen — hide it and
+              // let the question text/score above still carry the round.
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
           )}
 
