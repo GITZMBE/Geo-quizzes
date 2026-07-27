@@ -56,6 +56,16 @@ const MAX_SCALE = 10;
 const WHEEL_ZOOM_FACTOR = 1.2;
 const BUTTON_ZOOM_FACTOR = 1.5;
 
+// fitSize (used before this) fits content edge-to-edge with zero margin, so
+// a shape whose bounding box aspect ratio happens to match the container's
+// touches all 4 sides exactly — combined with the 1px+ stroke width, that
+// reads as the fill bleeding past the container's own visible border,
+// reported for the Unofficial States "Map" mode in issue #11 (a single
+// entity zoomed to fit its own bounding box, no other content to keep it
+// from touching the edges). fitExtent with an inset box fixes this for
+// every MapView caller, not just that one.
+const FIT_PADDING_PX = 24;
+
 // Below this projected area (px², computed once per projection/container
 // size, not on every zoom/pan), a region is too small to click reliably at
 // the default zoom level — Vatican City, Singapore, Rhode Island, etc.
@@ -196,7 +206,14 @@ export function MapView<T extends RegionFeature>({
         : projection === "pacific"
           ? geoMercator().rotate([180, 0])
           : geoMercator();
-    p.fitSize([size.width, size.height], featureCollection as unknown as GeoPermissibleObjects);
+    const pad = Math.min(FIT_PADDING_PX, size.width / 4, size.height / 4);
+    p.fitExtent(
+      [
+        [pad, pad],
+        [size.width - pad, size.height - pad],
+      ],
+      featureCollection as unknown as GeoPermissibleObjects
+    );
     return p;
   }, [regionsData, size.width, size.height, projection]);
 

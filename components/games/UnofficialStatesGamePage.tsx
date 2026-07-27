@@ -6,7 +6,9 @@ import { getGame } from "@/lib/games/registry";
 import {
   fetchCountryRegions,
   fetchUnofficialBorders,
+  fetchWorldBackdrop,
   type CountryFeature,
+  type RegionFeature,
   type UnofficialBorderFeature,
 } from "@/lib/games/data";
 import { GameShell } from "@/components/games/GameShell";
@@ -43,17 +45,23 @@ export function UnofficialStatesGamePage({ gameSlug }: { gameSlug: string }) {
     null
   );
   const [borderStates, setBorderStates] = useState<UnofficialBorderFeature[] | null>(null);
+  // World backdrop for Map mode's geographic reference (issue #11) — fetched
+  // alongside the other two rather than gated behind picking "map" mode,
+  // same as every other data fetch on this page, since GameShell's `ready`
+  // already isn't mode-specific.
+  const [backdrop, setBackdrop] = useState<RegionFeature[] | null>(null);
 
   useEffect(() => {
     fetchCountryRegions(FLAGS_DATA_FILE).then((features) =>
       setFlagStates(features as (CountryFeature & { properties: { category: string } })[])
     );
     fetchUnofficialBorders(BORDERS_DATA_FILE).then(setBorderStates);
+    fetchWorldBackdrop().then(setBackdrop);
   }, []);
 
   const countries = flagStates?.filter((s) => s.properties.category === category) ?? null;
   const borders = borderStates?.filter((s) => s.properties.category === category) ?? null;
-  const ready = countries !== null && borders !== null;
+  const ready = countries !== null && borders !== null && backdrop !== null;
 
   // "map" mode stays registered in lib/games/registry.ts for every game
   // (including ones with zero border entities today, like Micronations) so
@@ -73,7 +81,9 @@ export function UnofficialStatesGamePage({ gameSlug }: { gameSlug: string }) {
         {(mode) => (
           <>
             {mode.slug === "flags" && <FlagsMode key="flags" gameSlug={game.slug} countries={countries!} />}
-            {mode.slug === "map" && <MapGuessMode key="map" gameSlug={game.slug} entities={borders!} />}
+            {mode.slug === "map" && (
+              <MapGuessMode key="map" gameSlug={game.slug} entities={borders!} backdrop={backdrop!} />
+            )}
             {mode.slug === "practice" && (
               <PracticeMode
                 key="practice"
