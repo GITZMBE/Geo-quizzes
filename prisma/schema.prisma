@@ -74,6 +74,18 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// Simple counter for rate-limiting register/login attempts (issue #33) — a
+// DB-backed counter rather than an in-memory Map, since Netlify Functions
+// are stateless and don't guarantee the same instance across invocations.
+model RateLimitAttempt {
+  id         String   @id @default(cuid())
+  identifier String // IP for register, email for login
+  action     String // "register" | "login"
+  createdAt  DateTime @default(now())
+
+  @@index([identifier, action, createdAt])
+}
+
 // --- Quiz domain models ---
 
 enum ScoreType {

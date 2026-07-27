@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "@/lib/auth.config";
+import { isRateLimited } from "@/lib/rateLimit";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -19,6 +20,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const password =
           typeof credentials?.password === "string" ? credentials.password : undefined;
         if (!email || !password) return null;
+
+        // Keyed by email (not IP) — the goal is stopping credential
+        // stuffing against a single account, not throttling one client.
+        if (await isRateLimited(email, "login")) return null;
 
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user?.password) return null;
