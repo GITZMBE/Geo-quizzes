@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (11), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (7), autonomous-territories (22), disputed-territories (5), separatist-movements (4), historical-states (18), micronations (5). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
   "features": [
     {
       "type": "Feature",
@@ -832,6 +832,125 @@
         "coordinates": [
           46.75055555555556,
           39.81722222222222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "South Yemen",
+        "iso2": "PDR",
+        "capital": "Aden",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20South%20Yemen.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.03,
+          12.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Manchukuo",
+        "iso2": "MAN",
+        "capital": "Hsinking",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Manchukuo.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.31666666667,
+          43.883333333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tannu Tuva",
+        "iso2": "TAN",
+        "capital": "Kyzyl",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20the%20Tuvan%20People's%20Republic%20(1943-1944).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.39,
+          51.698
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bophuthatswana",
+        "iso2": "BOP",
+        "capital": "Mmabatho",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Bophuthatswana%20(1972%E2%80%931994).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.55,
+          -25.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Transkei",
+        "iso2": "TRA",
+        "capital": "Umtata",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Transkei.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29,
+          -31
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ciskei",
+        "iso2": "CIS",
+        "capital": "Bhisho",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Ciskei.svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.438056,
+          -32.849444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Venda",
+        "iso2": "VEN",
+        "capital": "Thohoyandou",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag%20of%20Venda%20(1973%E2%80%931994).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.483333333333334,
+          -22.95
         ]
       }
     },

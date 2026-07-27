@@ -131,11 +131,22 @@ function commonsFilePathUrl(filename) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}`;
 }
 
-function wikidataEntity(qid) {
+// Retries with backoff on Wikidata's rate-limit response (an HTML error
+// page, not JSON, when too many requests land close together — this
+// script's own sequential calls are normally well within limits, but
+// concurrent unrelated build runs against the same API can trip it) —
+// added per issue #24, where a hostile-neighbor rate limit surfaced as a
+// `JSON.parse` crash on `<!DOCTYPE html>...`.
+function wikidataEntity(qid, attempt = 1) {
   const text = execFileSync("curl", ["-s", "-A", "GeoQuizzesDataBuild/1.0", `https://www.wikidata.org/wiki/Special:EntityData/${qid}.json`], {
     encoding: "utf8",
     maxBuffer: 1024 * 1024 * 20,
   });
+  if (text.trimStart().startsWith("<")) {
+    if (attempt >= 5) throw new Error(`${qid}: still rate-limited after ${attempt} attempts`);
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, attempt * 3000);
+    return wikidataEntity(qid, attempt + 1);
+  }
   return JSON.parse(text).entities[qid];
 }
 
@@ -240,6 +251,29 @@ const ENTITIES = [
   // facto government (which no longer exists) itself called its capital
   // throughout its 1991-2024 existence.
   { id: "artsakh", name: "Republic of Artsakh", category: "historical-states", qid: "Q244165", capitalOverride: "Stepanakert" },
+  // "South Yemen" (the common name) to keep parity with how every other
+  // entity here is named informally rather than by full official title —
+  // id is "pdr-yemen" rather than "south-yemen" purely to avoid an iso2
+  // collision with the existing "south-vietnam" entry (iso2 is a locally-
+  // invented id, not a real code, so this is cosmetic only).
+  { id: "pdr-yemen", name: "South Yemen", category: "historical-states", qid: "Q199841" },
+  { id: "manchukuo", name: "Manchukuo", category: "historical-states", qid: "Q30623" },
+  { id: "tannu-tuva", name: "Tannu Tuva", category: "historical-states", qid: "Q816709" },
+  // Bophuthatswana/Transkei/Ciskei/Venda: South Africa's four "independent"
+  // bantustans (1976-1994), each internationally unrecognized (except by
+  // South Africa and each other) and each with its own distinct flag,
+  // dissolved into post-apartheid South Africa in 1994 — added per GitHub
+  // issue #24, same multi-entity-from-one-topic shape this category
+  // already has for Yugoslavia/Czechoslovakia.
+  { id: "bophuthatswana", name: "Bophuthatswana", category: "historical-states", qid: "Q158236" },
+  // Wikidata's current P36 capital label is "Mthatha" — the city's modern
+  // name since a 2004 renaming. "Umtata" (the name actually used throughout
+  // Transkei's own 1976-1994 existence) is used here instead, same "name it
+  // was known by at the time" reasoning as the Ottoman Empire/Republic of
+  // Artsakh capital overrides above.
+  { id: "transkei", name: "Transkei", category: "historical-states", qid: "Q466551", capitalOverride: "Umtata" },
+  { id: "ciskei", name: "Ciskei", category: "historical-states", qid: "Q379042" },
+  { id: "venda", name: "Venda", category: "historical-states", qid: "Q848668" },
 
   // --- Micronations ---
   { id: "sealand", name: "Sealand", category: "micronations", qid: "Q13706", capitalOverride: "HM Fort Roughs" },

@@ -106,6 +106,34 @@
 //    single 1100 AD snapshot — the medieval Armenian principality, not the
 //    same entity as the 1991-2024 self-declared republic. Using it would
 //    show the wrong polity's territory under the modern entity's name.
+//  - South Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei,
+//    Venda (added to unofficial_states.json per GitHub issue #24) — none
+//    has a usable border source, checked against all three sources this
+//    file already uses plus a fresh Nominatim spot-check:
+//     - historical-basemaps has no "South Yemen"/"Tannu Tuva"/any Bantustan
+//       feature in any year file — the region is tracked only as one
+//       unsplit "Yemen"/"Union of South Africa"/"South Africa" blob across
+//       every year checked (1930-1994), i.e. the dataset never represents
+//       these as their own polity at all, unlike e.g. East Germany.
+//     - historical-basemaps' 1930 and 1945 "Manchuria" features looked
+//       promising for Manchukuo at first, but both years share the exact
+//       same static bounding box (115.6-134.7°E, 38.8-53.5°N) — it's one
+//       fixed geographic-region shape reused across years, not a tracked
+//       snapshot of Manchukuo's actual 1932-1945 political borders (and
+//       there's no "Manchuria"/"Manchukuo" feature at all in 1938, a year
+//       within Manchukuo's real existence). Using it would misrepresent a
+//       generic region as this specific puppet state's borders, the same
+//       problem South Vietnam's exclusion above already describes.
+//     - Natural Earth's Admin-1 layer only carries South Africa's current
+//       9 provinces (Eastern Cape, Free State, Gauteng, KwaZulu-Natal,
+//       Limpopo, Mpumalanga, North West, Northern Cape, Western Cape) —
+//       no apartheid-era Bantustan subdivision at all.
+//     - Nominatim returns only unrelated present-day places named after
+//       these defunct polities (a South African street/road for
+//       Transkei/Bophuthatswana, a Russian mountain range for Tannu Tuva),
+//       not an administrative boundary for the historical state itself.
+//    Flags mode still covers all 7 (see unofficial_states.json); only
+//    Map mode is affected, same as every other exclusion in this list.
 //
 // Requires @turf/simplify and @turf/kinks, not project dependencies since
 // this only runs offline as a data-prep step:
@@ -357,7 +385,7 @@ async function main() {
     source:
       "Border polygons from three sources, mixed per-entity: Natural Earth 1:10m Admin-0 Map Subunits and Admin-1 States/Provinces (public domain), aourednik/historical-basemaps (GPL-3.0, same source/license as the Empires Through History info page), and OpenStreetMap via Nominatim (ODbL) for Transnistria/South Ossetia/Abkhazia. Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast (Russian-administered) all use their pre-war Ukrainian oblast's own Natural Earth Admin-1 boundary (the claimed/administrative extent, not the current front line — see scripts/build-unofficial-states-borders.js's header, added for GitHub issue #15). See that script for exactly which source backs each entity.",
     note:
-      "Covers 45 of the 49 non-micronation entities in unofficial_states.json (all 7 De Facto States, all 22 Autonomous Territories, all 5 Disputed Territories, 3 of 4 Separatist Movements, 8 of 11 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), and Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic). See scripts/build-unofficial-states-borders.js's header for the full per-exclusion reasoning.",
+      "Covers 45 of the 56 non-micronation entities in unofficial_states.json (all 7 De Facto States, all 22 Autonomous Territories, all 5 Disputed Territories, 3 of 4 Separatist Movements, 8 of 18 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic), and — added per GitHub issue #24 — South Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei, and Venda (none has a usable border source in any of this file's three source types, or in a fresh Nominatim spot-check — see scripts/build-unofficial-states-borders.js's header for the full per-entity reasoning). See that script for the full per-exclusion reasoning.",
     features,
   };
 
