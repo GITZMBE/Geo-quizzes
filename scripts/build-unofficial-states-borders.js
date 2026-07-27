@@ -34,6 +34,9 @@
 //    via `admin: "Ukraine"` + `name_en`), see the "Disputed Territories" note
 //    below for why this layer specifically (the oblast's own official
 //    boundary, not a separatist/occupation one) is what's used for those 4.
+//    Also used for Flanders (issue #23, matched via `region: "Flemish"` —
+//    Belgium's 5 constituent Flemish provinces, same multi-feature merge
+//    as Catalonia above; confirmed globally unique before trusting it).
 //    Public domain. Source file (not checked in):
 //    https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson
 //  - "historical-basemaps": the same aourednik/historical-basemaps source
@@ -106,6 +109,20 @@
 //    single 1100 AD snapshot — the medieval Armenian principality, not the
 //    same entity as the 1991-2024 self-declared republic. Using it would
 //    show the wrong polity's territory under the modern entity's name.
+//  - Sahrawi Arab Democratic Republic (added to unofficial_states.json per
+//    GitHub issue #21): checked both sources this file already uses for
+//    Western Sahara. Nominatim's own "Sahrawi Arab Democratic Republic"
+//    relation (5441968) and Natural Earth's "W. Sahara" Map Subunits
+//    feature (already used below for the Disputed Territories "Western
+//    Sahara" entry) have essentially the same bounding box — both
+//    represent SADR's/Western Sahara's *claimed* territory as a whole, not
+//    the Polisario-controlled "Free Zone" east of the Moroccan Wall/berm
+//    this entity is specifically meant to represent. No Overpass search for
+//    a distinct "Free Zone"-tagged administrative boundary turned up
+//    anything either. Reusing the whole-territory shape here would make
+//    this entry's Map mode indistinguishable from Disputed Territories'
+//    Western Sahara entry, defeating the reason the two are separate
+//    entities in the first place — left out rather than fabricated.
 //  - South Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei,
 //    Venda (added to unofficial_states.json per GitHub issue #24) — none
 //    has a usable border source, checked against all three sources this
@@ -161,7 +178,8 @@ function sleep(ms) {
 }
 
 // De Facto States — all 7 have a real source.
-// Autonomous Territories — all 22 have a real source.
+// Autonomous Territories — all 25 have a real source (22 original + 3 added
+// per GitHub issue #22: Zanzibar, Gagauzia, Republika Srpska).
 // Disputed Territories — all 5 (Western Sahara, Donetsk/Luhansk People's
 //   Republics, Kherson/Zaporizhzhia Oblast — see the issue #15 note above
 //   for why Donetsk/Luhansk/Kherson/Zaporizhzhia all use their underlying
@@ -206,6 +224,36 @@ const ENTITIES = [
   { name: "American Samoa", category: "autonomous-territories", source: "ne-subunits", matchName: "American Samoa" },
   { name: "Guam", category: "autonomous-territories", source: "ne-subunits", matchName: "Guam" },
   { name: "Kurdistan Region", category: "autonomous-territories", source: "ne-subunits", matchName: "Iraqi Kurdistan" },
+  // GitHub issue #22 additions — Natural Earth has no single "Zanzibar"
+  // Admin-1 feature, only its 5 constituent regions (2 on Unguja, 2 on
+  // Pemba, plus Zanzibar West/Mjini Magharibi) — merged the same way
+  // Catalonia's 4 provinces already are, just matched by an explicit name
+  // list instead of a shared `region` tag (Tanzania's Admin-1 features
+  // don't carry one).
+  {
+    name: "Zanzibar",
+    category: "autonomous-territories",
+    source: "ne-admin1",
+    matchNames: ["Zanzibar South and Central", "Kaskazini-Unguja", "Zanzibar West", "Kusini-Pemba", "Kaskazini-Pemba"],
+    matchAdmin: "United Republic of Tanzania",
+  },
+  // Natural Earth carries all of Gagauzia (Comrat + its 2 non-contiguous
+  // exclaves, Ceadîr-Lunga and Vulcănești) as a single "Comrat" feature
+  // (type_en: "Autonomous Territory"), named after its capital.
+  { name: "Gagauzia", category: "autonomous-territories", source: "ne-admin1", matchNameEn: "Comrat", matchAdmin: "Moldova" },
+  // Natural Earth has no single "Republika Srpska" feature either — its
+  // `region` property groups 8 Bosnian Admin-1 features under "Repuplika
+  // Srpska" (sic, a typo in the source data), but one of those 8 (Brčko
+  // Distrikt) is tagged `type_en: "Condominium"` — a special district
+  // jointly administered by both Bosnian entities, not RS's own exclusive
+  // territory — so it's excluded from the merge via `excludeCondominium`.
+  {
+    name: "Republika Srpska",
+    category: "autonomous-territories",
+    source: "ne-admin1",
+    matchRegion: "Repuplika Srpska",
+    excludeCondominium: true,
+  },
 
   { name: "Western Sahara", category: "disputed-territories", source: "ne-subunits", matchName: "W. Sahara" },
   // Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast
@@ -222,6 +270,15 @@ const ENTITIES = [
   { name: "Zaporizhzhia Oblast (Russian-administered)", category: "disputed-territories", source: "ne-admin1", matchNameEn: "Zaporizhzhia", matchAdmin: "Ukraine" },
 
   { name: "Catalonia", category: "separatist-movements", source: "ne-admin1", matchRegion: "Cataluña" },
+  // Flanders (issue #23): Natural Earth has no single "Flanders" feature,
+  // only Belgium's 5 constituent provinces (West Flanders, East Flanders,
+  // Antwerp, Limburg, Flemish Brabant) — merged here the same way
+  // Catalonia's 4 provinces are merged above, via the shared `region`
+  // grouping field ("Flemish", globally unique to exactly these 5 —
+  // confirmed by checking every `region` value in the file before trusting
+  // the match). This is the real Flemish Region boundary and correctly
+  // excludes Brussels-Capital Region, which is institutionally separate.
+  { name: "Flanders", category: "separatist-movements", source: "ne-admin1", matchRegion: "Flemish" },
   { name: "Bougainville", category: "separatist-movements", source: "ne-subunits", matchName: "Bougainville" },
   // Shown with the FLNKS flag (per unofficial_states.json), but the
   // territory the movement claims is New Caledonia itself — Natural Earth
@@ -247,10 +304,8 @@ const ENTITIES = [
   { name: "Prussia", category: "historical-states", source: "historical-basemaps", year: 1815, matchName: "Prussia" },
 ];
 
-function mergeByName(features, propKey, propValue, extraFilter) {
-  const matches = features.filter(
-    (f) => f.properties?.[propKey] === propValue && (!extraFilter || extraFilter(f))
-  );
+function mergeFeatures(features, predicate) {
+  const matches = features.filter(predicate);
   if (matches.length === 0) return null;
   const polygons = [];
   for (const f of matches) {
@@ -259,6 +314,10 @@ function mergeByName(features, propKey, propValue, extraFilter) {
   }
   if (polygons.length === 0) return null;
   return { type: "MultiPolygon", coordinates: polygons };
+}
+
+function mergeByName(features, propKey, propValue, extraFilter) {
+  return mergeFeatures(features, (f) => f.properties?.[propKey] === propValue && (!extraFilter || extraFilter(f)));
 }
 
 function fetchHistoricalYear(year, cache) {
@@ -348,14 +407,26 @@ async function main() {
     if (entity.source === "ne-subunits") {
       geometry = mergeByName(neSubunits.features, "NAME", entity.matchName);
     } else if (entity.source === "ne-admin1") {
-      geometry = entity.matchRegion
-        ? mergeByName(neAdmin1.features, "region", entity.matchRegion)
-        : mergeByName(
-            neAdmin1.features,
-            "name_en",
-            entity.matchNameEn,
-            (f) => f.properties?.admin === entity.matchAdmin
-          );
+      if (entity.matchNames) {
+        geometry = mergeFeatures(
+          neAdmin1.features,
+          (f) => entity.matchNames.includes(f.properties?.name) && f.properties?.admin === entity.matchAdmin
+        );
+      } else if (entity.matchRegion) {
+        geometry = mergeByName(
+          neAdmin1.features,
+          "region",
+          entity.matchRegion,
+          entity.excludeCondominium ? (f) => f.properties?.type_en !== "Condominium" : undefined
+        );
+      } else {
+        geometry = mergeByName(
+          neAdmin1.features,
+          "name_en",
+          entity.matchNameEn,
+          (f) => f.properties?.admin === entity.matchAdmin
+        );
+      }
     } else if (entity.source === "historical-basemaps") {
       const geojson = fetchHistoricalYear(entity.year, hbmCache);
       geometry = mergeByName(geojson.features, "NAME", entity.matchName);
@@ -383,9 +454,9 @@ async function main() {
   const out = {
     type: "FeatureCollection",
     source:
-      "Border polygons from three sources, mixed per-entity: Natural Earth 1:10m Admin-0 Map Subunits and Admin-1 States/Provinces (public domain), aourednik/historical-basemaps (GPL-3.0, same source/license as the Empires Through History info page), and OpenStreetMap via Nominatim (ODbL) for Transnistria/South Ossetia/Abkhazia. Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast (Russian-administered) all use their pre-war Ukrainian oblast's own Natural Earth Admin-1 boundary (the claimed/administrative extent, not the current front line — see scripts/build-unofficial-states-borders.js's header, added for GitHub issue #15). See that script for exactly which source backs each entity.",
+      "Border polygons from three sources, mixed per-entity: Natural Earth 1:10m Admin-0 Map Subunits and Admin-1 States/Provinces (public domain), aourednik/historical-basemaps (GPL-3.0, same source/license as the Empires Through History info page), and OpenStreetMap via Nominatim (ODbL) for Transnistria/South Ossetia/Abkhazia. Donetsk/Luhansk People's Republics and Kherson/Zaporizhzhia Oblast (Russian-administered) all use their pre-war Ukrainian oblast's own Natural Earth Admin-1 boundary (the claimed/administrative extent, not the current front line — see scripts/build-unofficial-states-borders.js's header, added for GitHub issue #15). Zanzibar, Gagauzia, and Republika Srpska (added per issue #22) also use the Admin-1 layer. See that script for exactly which source backs each entity.",
     note:
-      "Covers 45 of the 56 non-micronation entities in unofficial_states.json (all 7 De Facto States, all 22 Autonomous Territories, all 5 Disputed Territories, 3 of 4 Separatist Movements, 8 of 18 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic), and — added per GitHub issue #24 — South Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei, and Venda (none has a usable border source in any of this file's three source types, or in a fresh Nominatim spot-check — see scripts/build-unofficial-states-borders.js's header for the full per-entity reasoning). See that script for the full per-exclusion reasoning.",
+      "Covers 49 of the 61 non-micronation entities in unofficial_states.json (7 of 8 De Facto States, all 25 Autonomous Territories, all 5 Disputed Territories, 4 of 5 Separatist Movements, 8 of 18 Historical States); all 5 Micronations are excluded entirely (no real administrative boundary exists at any usable scale for an offshore platform, a family's yard, or a single house). Also excluded: Sahrawi Arab Democratic Republic (added per GitHub issue #21 — both Natural Earth and Nominatim's boundary for it are the same whole-claimed-territory shape already used for the Disputed Territories \"Western Sahara\" entry, not the Polisario-controlled \"Free Zone\" this entity is meant to represent; reusing it would make the two entries indistinguishable on the map), Padania (never formally bounded by any administrative act), United Arab Republic (no matching name in the historical-basemaps dataset), South Vietnam (the dataset's 1960 \"Vietnam\" feature is unified Vietnam, not just the south — using it would misrepresent South Vietnam's actual territory), Republic of Artsakh (the dataset's only \"Artsakh\" is a 1100 AD medieval principality, a different entity from the 1991-2024 self-declared republic), and — added per GitHub issue #24 — South Yemen, Manchukuo, Tannu Tuva, Bophuthatswana, Transkei, Ciskei, and Venda (none has a usable border source in any of this file's three source types, or in a fresh Nominatim spot-check — see scripts/build-unofficial-states-borders.js's header for the full per-entity reasoning). See that script for the full per-exclusion reasoning.",
     features,
   };
 

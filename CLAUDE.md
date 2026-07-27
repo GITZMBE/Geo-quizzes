@@ -320,14 +320,43 @@ shape.
     wording, deliberately curated rather than exhaustive — same "small
     well-documented set, note what's excluded" approach as every other
     data-filtering decision in this codebase:
-    - **De Facto States** (7): Kosovo, Northern Cyprus, Transnistria, South
-      Ossetia, Abkhazia, Taiwan, Somaliland.
-    - **Autonomous Territories** (22): recognized as part of a sovereign
+    - **De Facto States** (8): Kosovo, Northern Cyprus, Transnistria, South
+      Ossetia, Abkhazia, Taiwan, Somaliland, Sahrawi Arab Democratic
+      Republic. The last was added per GitHub issue #21 alongside (not
+      instead of) the pre-existing "Western Sahara" Disputed Territories
+      entry below — Wikidata has no separate item for the SADR government
+      distinct from the territory itself (Q40362 is both), so this entry
+      reuses that same qid but resolves to a different capital/coordinate:
+      Tifariti (actually within Polisario-controlled territory east of the
+      Moroccan Wall/berm, where SADR's institutions are actually seated),
+      not Laâyoune (SADR's constitutionally-claimed but Moroccan-held
+      capital, used by the Disputed Territories entry) — see
+      `scripts/build-unofficial-states.js` for the two Wikidata P36 claims
+      this is resolved from.
+    - **Autonomous Territories** (25): recognized as part of a sovereign
       state but with their own flag and real self-government — Greenland,
       Faroe Islands, Hong Kong, Macau, Scotland, Wales, Northern Ireland,
       Åland Islands, Puerto Rico, Gibraltar, Isle of Man, Jersey, Guernsey,
       Aruba, Curaçao, Sint Maarten, Bermuda, Cook Islands, Niue, American
-      Samoa, Guam, Kurdistan Region.
+      Samoa, Guam, Kurdistan Region, Zanzibar, Gagauzia, Republika Srpska.
+      The last 3 were added per GitHub issue #22 (a follow-up research pass
+      across all 6 categories, issues #21-#25): Zanzibar and Gagauzia have
+      single-purpose Wikidata items with a real distinct flag/capital/
+      coordinate resolved the normal way; Republika Srpska's capital uses a
+      `capitalOverride` ("Banja Luka") since Wikidata's P36 carries two
+      normal-rank values (Sarajevo, qualified "de jure" — the 1992
+      constitutional designation that was never actually functional — and
+      Banja Luka, qualified "de facto" — its real, internationally-covered
+      seat of government) and using Sarajevo would read as a typo of Bosnia
+      and Herzegovina's own well-known capital, also Sarajevo, to a player.
+      Two related candidates from the same research were deliberately left
+      out pending an explicit product decision (see issue #22): Bougainville
+      already has its own flag under Separatist Movements below, and adding
+      its distinct official government flag here as a second entry is a
+      call on whether that duplication is worth it; Crimea has a real
+      pre-2014 flag but, since the 2014 annexation, fits Disputed
+      Territories' "active dispute" precedent (below) better than stable
+      autonomy.
     - **Disputed Territories** (5, deliberately small): Western Sahara,
       Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
       (Russian-administered), Zaporizhzhia Oblast (Russian-administered) —
@@ -354,9 +383,13 @@ shape.
       remained Ukrainian-held throughout, so Russia's occupation
       administration is actually seated in Melitopol instead — an accurate
       reflection of the claim, not a data error).
-    - **Separatist Movements** (4): Catalonia (shown with the Estelada —
+    - **Separatist Movements** (5): Catalonia (shown with the Estelada —
       the movement's own flag, distinct from Catalonia's official flag),
-      Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
+      Flanders (shown with the Vlaamse Strijdvlag/"Flemish battle flag" — a
+      completely black lion with no red claws/tongue, flown by Vlaams
+      Belang and the broader Flemish Movement, distinct from Flanders'
+      official flag which has red claws and tongue; added per GitHub issue
+      #23), Bougainville, Kanaky/New Caledonia (shown with the FLNKS flag),
       Padania. Screened to movements represented by a real, distinct flag
       used by a *legitimate political* movement/party — explicitly
       excludes militant/currently-designated-terrorist organizations (e.g.
@@ -384,8 +417,18 @@ shape.
       loaded than every other entry here): Rhodesia, the Khmer Republic/
       Democratic Kampuchea, and Tibet (unlike the rest of this list, still
       an actively live/contested dispute, not settled history).
-    - **Micronations** (5, lowest sensitivity): Sealand, Molossia,
-      Liberland, Ladonia, Kugelmugel.
+    - **Micronations** (8, lowest sensitivity): Sealand, Molossia,
+      Liberland, Ladonia, Kugelmugel, Kingdom of Talossa, Principality of
+      Seborga, Conch Republic. The latter 3 were added per issue #25 — same
+      "small, well-documented" bar as the original 5. Talossa has no P36
+      (capital) claim on Wikidata, so `capitalOverride: "Talossa"` is used —
+      the nation's name and its claimed capital neighborhood (within
+      Milwaukee, WI) are the same word, same convention already used for
+      Molossia/Liberland/Ladonia/Kugelmugel above. Conch Republic's P41
+      (flag) value is literally named "Flag of Key West, Florida.svg" — not
+      a mismatch like Czechoslovakia's Czech-Republic-named flag file below,
+      since the 1982 Conch Republic secession *was* Key West itself, so the
+      city's own flag doubles as the micronation's.
 
 `public/data/unofficial_states.json` (Flags mode data, shared read-only
 across all 6 games) is plain GeoJSON (`Point` geometry per entity, a
@@ -409,18 +452,35 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 45 of 56
+`world_countries.json`. It only has a feature for the 49 of 61
 non-Micronation entities a real public boundary source actually exists for
-— De Facto States (all 7, via Natural Earth's Admin-0 Map Subunits layer for
+— De Facto States (7 of 8, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
-which aren't in Natural Earth), Autonomous Territories (all 22, Map
-Subunits), Disputed Territories (all 5 — Western Sahara via Map Subunits;
+which aren't in Natural Earth; Sahrawi Arab Democratic Republic, added per
+issue #21, has no border here — both Natural Earth and Nominatim's boundary
+for it are the same whole-claimed-territory shape already used below for
+the Disputed Territories "Western Sahara" entry, not the Polisario-
+controlled "Free Zone" this entity is meant to represent, so reusing it
+would make the two entries indistinguishable on the map), Autonomous
+Territories (all 25 — the original 22 via Map Subunits, plus Zanzibar/
+Gagauzia/Republika Srpska added per issue #22 via the Admin-1 States/
+Provinces layer instead, since Natural Earth has no single feature for any
+of the three: Zanzibar is 5 separate Admin-1 regions merged by an explicit
+name list, Gagauzia is one Admin-1 feature already covering all 3 of its
+non-contiguous exclaves, and Republika Srpska is 7 of its 8 same-`region`-
+tagged Admin-1 features — Brčko Distrikt, the 8th, is excluded via
+`excludeCondominium` since Natural Earth tags it a jointly-administered
+special district, not RS's own exclusive territory), Disputed Territories
+(all 5 — Western Sahara via Map Subunits;
 Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
 (Russian-administered), and Zaporizhzhia Oblast (Russian-administered) all
 via Natural Earth's Admin-1 States/Provinces layer instead, matched to each
 entity's underlying pre-war Ukrainian oblast by name — see below), Separatist
-Movements (3 of 4 — Padania was never formally bounded by any administrative
-act), Historical States (8 of 18 — via `aourednik/historical-basemaps`, one
+Movements (4 of 5 — Padania was never formally bounded by any administrative
+act; Flanders, added per issue #23, uses the same Admin-1 layer, merging
+Belgium's 5 constituent Flemish provinces via their shared `region: "Flemish"`
+grouping field, the same technique already used for Catalonia's 4 Catalan
+provinces above), Historical States (8 of 18 — via `aourednik/historical-basemaps`, one
 representative year per entity rather than a multi-era slider; United Arab
 Republic/South Vietnam/Republic of Artsakh excluded, see `scripts/
 build-unofficial-states-borders.js`'s header for why each specifically
