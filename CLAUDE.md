@@ -333,12 +333,30 @@ shape.
       capital, used by the Disputed Territories entry) — see
       `scripts/build-unofficial-states.js` for the two Wikidata P36 claims
       this is resolved from.
-    - **Autonomous Territories** (22): recognized as part of a sovereign
+    - **Autonomous Territories** (25): recognized as part of a sovereign
       state but with their own flag and real self-government — Greenland,
       Faroe Islands, Hong Kong, Macau, Scotland, Wales, Northern Ireland,
       Åland Islands, Puerto Rico, Gibraltar, Isle of Man, Jersey, Guernsey,
       Aruba, Curaçao, Sint Maarten, Bermuda, Cook Islands, Niue, American
-      Samoa, Guam, Kurdistan Region.
+      Samoa, Guam, Kurdistan Region, Zanzibar, Gagauzia, Republika Srpska.
+      The last 3 were added per GitHub issue #22 (a follow-up research pass
+      across all 6 categories, issues #21-#25): Zanzibar and Gagauzia have
+      single-purpose Wikidata items with a real distinct flag/capital/
+      coordinate resolved the normal way; Republika Srpska's capital uses a
+      `capitalOverride` ("Banja Luka") since Wikidata's P36 carries two
+      normal-rank values (Sarajevo, qualified "de jure" — the 1992
+      constitutional designation that was never actually functional — and
+      Banja Luka, qualified "de facto" — its real, internationally-covered
+      seat of government) and using Sarajevo would read as a typo of Bosnia
+      and Herzegovina's own well-known capital, also Sarajevo, to a player.
+      Two related candidates from the same research were deliberately left
+      out pending an explicit product decision (see issue #22): Bougainville
+      already has its own flag under Separatist Movements below, and adding
+      its distinct official government flag here as a second entry is a
+      call on whether that duplication is worth it; Crimea has a real
+      pre-2014 flag but, since the 2014 annexation, fits Disputed
+      Territories' "active dispute" precedent (below) better than stable
+      autonomy.
     - **Disputed Territories** (5, deliberately small): Western Sahara,
       Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
       (Russian-administered), Zaporizhzhia Oblast (Russian-administered) —
@@ -417,7 +435,7 @@ kept only to satisfy the shared type.
 #7) is a *separate* file rather than repurposing `unofficial_states.json`'s
 own `Point` geometry — same "own file, join by name" precedent as
 `country_stats.json`/`country_coat_of_arms.json` not being bolted onto
-`world_countries.json`. It only has a feature for the 45 of 50
+`world_countries.json`. It only has a feature for the 48 of 53
 non-Micronation entities a real public boundary source actually exists for
 — De Facto States (7 of 8, via Natural Earth's Admin-0 Map Subunits layer for
 most + OpenStreetMap/Nominatim for Transnistria/South Ossetia/Abkhazia,
@@ -426,8 +444,17 @@ issue #21, has no border here — both Natural Earth and Nominatim's boundary
 for it are the same whole-claimed-territory shape already used below for
 the Disputed Territories "Western Sahara" entry, not the Polisario-
 controlled "Free Zone" this entity is meant to represent, so reusing it
-would make the two entries indistinguishable on the map), Autonomous Territories (all 22, Map
-Subunits), Disputed Territories (all 5 — Western Sahara via Map Subunits;
+would make the two entries indistinguishable on the map), Autonomous
+Territories (all 25 — the original 22 via Map Subunits, plus Zanzibar/
+Gagauzia/Republika Srpska added per issue #22 via the Admin-1 States/
+Provinces layer instead, since Natural Earth has no single feature for any
+of the three: Zanzibar is 5 separate Admin-1 regions merged by an explicit
+name list, Gagauzia is one Admin-1 feature already covering all 3 of its
+non-contiguous exclaves, and Republika Srpska is 7 of its 8 same-`region`-
+tagged Admin-1 features — Brčko Distrikt, the 8th, is excluded via
+`excludeCondominium` since Natural Earth tags it a jointly-administered
+special district, not RS's own exclusive territory), Disputed Territories
+(all 5 — Western Sahara via Map Subunits;
 Donetsk People's Republic, Luhansk People's Republic, Kherson Oblast
 (Russian-administered), and Zaporizhzhia Oblast (Russian-administered) all
 via Natural Earth's Admin-1 States/Provinces layer instead, matched to each
