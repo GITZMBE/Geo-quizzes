@@ -341,6 +341,27 @@ const ENTITIES = [
   { id: "transkei", name: "Transkei", category: "historical-states", qid: "Q466551", capitalOverride: "Umtata" },
   { id: "ciskei", name: "Ciskei", category: "historical-states", qid: "Q379042" },
   { id: "venda", name: "Venda", category: "historical-states", qid: "Q848668" },
+  // Added per GitHub issue #53 ("feat: Persian empire"), which asked whether
+  // any of ~19 candidate Persian dynasties/states could be added here or to
+  // Empires Through History (see scripts/build-empires-history.js for the
+  // 6 that fit there instead). Qajar Iran and Pahlavi Iran are the only two
+  // from that table with both a real, distinct, sourceable flag *and* a
+  // 20th-century dissolution fitting this category's cutoff (Qajar rule
+  // ended 1925, Pahlavi rule ended in the 1979 revolution) — every earlier
+  // dynasty in the table predates the 20th century regardless of its flag
+  // situation, and "Islamic Republic of Iran" (1979-present) isn't a
+  // dissolved historical state at all, just the modern country already
+  // covered by world_countries.json/country_stats.json's "Iran" entry. The
+  // table's "Imperial State of Iran" (1935-1979) is the same polity as
+  // "Pahlavi Iran" under its later official name (Reza Shah's 1935 renaming
+  // from Persia to Iran) — Wikidata's own "Pahlavi Iran" item already spans
+  // the full 1925-1979 range, so it isn't duplicated as a second entry here.
+  { id: "qajar-iran", name: "Qajar Iran", category: "historical-states", qid: "Q63158027" },
+  // Pahlavi Iran (Q107258515) has no P625 (coordinate) claim on Wikidata —
+  // coordOverride reuses Qajar Iran's own Tehran coordinate above (both
+  // dynasties' capital, confirmed via each entity's own P36), same
+  // documented-override pattern as Padania's Milan coordinate above.
+  { id: "pahlavi-iran", name: "Pahlavi Iran", category: "historical-states", qid: "Q107258515", coordOverride: { lng: 51.4167, lat: 35.7 } },
 
   // --- Micronations ---
   { id: "sealand", name: "Sealand", category: "micronations", qid: "Q13706", capitalOverride: "HM Fort Roughs" },

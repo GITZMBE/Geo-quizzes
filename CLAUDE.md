@@ -398,7 +398,7 @@ shape.
       active disputes; that's a distinction between "politically sensitive
       but peaceful" and "armed conflict/terror designation," not a
       contradiction.
-    - **Historical States** (18, 20th-century-dissolved cutoff — otherwise
+    - **Historical States** (20, 20th-century-dissolved cutoff — otherwise
       unbounded): Soviet Union, Yugoslavia, Czechoslovakia, East Germany,
       Austria-Hungary, Ottoman Empire, United Arab Republic, South Vietnam,
       Zaire, Prussia, Republic of Artsakh (Nagorno-Karabakh's de facto
@@ -416,7 +416,20 @@ shape.
       Deliberately left out pending explicit sign-off (more politically
       loaded than every other entry here): Rhodesia, the Khmer Republic/
       Democratic Kampuchea, and Tibet (unlike the rest of this list, still
-      an actively live/contested dispute, not settled history).
+      an actively live/contested dispute, not settled history). **Qajar
+      Iran** (1789-1925) and **Pahlavi Iran** (1925-1979, which also covers
+      the table's "Imperial State of Iran" sub-period — same polity under a
+      later official name, not a separate entry) were added per GitHub issue
+      #53 ("feat: Persian empire"), which asked whether any of ~19 candidate
+      Persian dynasties/states belonged here or in Empires Through History
+      (see that section below for the 6 that fit there instead). These two
+      are the only candidates from the issue's table with both a real,
+      distinct, sourceable flag *and* a 20th-century dissolution fitting
+      this category's cutoff — every earlier Persian dynasty in the table
+      predates the 20th century regardless of its flag situation, and the
+      table's "Islamic Republic of Iran" (1979-present) isn't a dissolved
+      historical state at all, just the modern country already covered by
+      `world_countries.json`/`country_stats.json`'s "Iran" entry.
     - **Micronations** (8, lowest sensitivity): Sealand, Molossia,
       Liberland, Ladonia, Kugelmugel, Kingdom of Talossa, Principality of
       Seborga, Conch Republic. The latter 3 were added per issue #25 — same
@@ -480,7 +493,7 @@ Movements (4 of 5 — Padania was never formally bounded by any administrative
 act; Flanders, added per issue #23, uses the same Admin-1 layer, merging
 Belgium's 5 constituent Flemish provinces via their shared `region: "Flemish"`
 grouping field, the same technique already used for Catalonia's 4 Catalan
-provinces above), Historical States (8 of 18 — via `aourednik/historical-basemaps`, one
+provinces above), Historical States (10 of 20 — via `aourednik/historical-basemaps`, one
 representative year per entity rather than a multi-era slider; United Arab
 Republic/South Vietnam/Republic of Artsakh excluded, see `scripts/
 build-unofficial-states-borders.js`'s header for why each specifically
@@ -491,7 +504,9 @@ approximate one: no historical-basemaps feature by name in any year, no
 Natural Earth Admin-1 subdivision for South Africa predating its current 9
 provinces, and Nominatim resolves only unrelated present-day places that
 happen to share the name, not an administrative boundary — see that
-script's header for the full reasoning). All 5 Micronations are excluded
+script's header for the full reasoning; Qajar Iran and Pahlavi Iran, added
+per issue #53, both use historical-basemaps — 1900 under its "Persia" name
+for Qajar Iran, 1960 under "Iran" for Pahlavi Iran). All 5 Micronations are excluded
 entirely — no real administrative boundary exists at any usable scale for
 an offshore platform, a family's yard, or a single house. Per explicit
 product direction, this is meant to be additive, not a hardcoded exclusion
@@ -622,24 +637,79 @@ no middleware changes were needed.
    flagged-and-accepted exception to every other geo source this project
    uses elsewhere (Natural Earth/GeoNames/geoBoundaries/OSM are all public-
    domain or permissively licensed) — `scripts/build-empires-history.js`.
-   Only 4 empires are covered, each one this dataset happens to track under
-   one *stable, single* name across many years: Ottoman Empire (14 eras,
+   16 empires are covered, each one this dataset happens to track under one
+   *stable, single* name across many years: Ottoman Empire (14 eras,
    1400-1914), Byzantine Empire (8 eras, 800-1400), Russian Empire (6 eras,
    1783-1914), Mongol Empire (only 2 eras, 1100 and 1200 — the dataset
-   doesn't track it as one polity outside that narrow window). Deliberately
-   excludes empires the dataset only tracks as several separately-named
-   constituent territories per year (e.g. no single "British Empire" feature
-   exists in any year — only holdings like "British Raj"/"British
-   Somaliland" — so stitching those together would mean the build script
-   inventing a classification the source data doesn't make), chains of
-   historically distinct empires that happen to share a region (Achaemenid/
-   Sassanid/Safavid/Qajar Persia are different empires across different
-   centuries, not one continuous state), and — caught by manually inspecting
-   bounding boxes before trusting the data, not assumed — the Ottoman
-   Empire's own 1920/1930 snapshots, which turned out to be an identical,
-   already-collapsed-to-central-Anatolia placeholder in the source dataset
-   rather than an accurate picture of its actual final years, so those two
-   were dropped rather than presented as real history.
+   doesn't track it as one polity outside that narrow window), Holy Roman
+   Empire (13 eras, 1000-1715), Khmer Empire (7 eras, 900-1400), Mughal
+   Empire (5 eras, 1530-1715), Safavid Empire (5 eras, 1530-1715), Srivijaya
+   Empire (8 eras, 800-1400), and Manchu (Qing) Empire (8 eras, 1650-1900).
+   Deliberately excludes empires the dataset only tracks as several
+   separately-named constituent territories per year (e.g. no single
+   "British Empire" feature exists in any year — only holdings like
+   "British Raj"/"British Somaliland" — so stitching those together would
+   mean the build script inventing a classification the source data doesn't
+   make), chains of historically distinct empires that happen to share a
+   region (Achaemenid/Sasanian/Safavid/Qajar Persia are different empires
+   across different centuries, not one continuous state — each gets its own
+   entry below rather than being stitched into one), and — caught by
+   manually inspecting bounding boxes before trusting the data, not assumed
+   — the Ottoman Empire's own 1920/1930 snapshots, which turned out to be an
+   identical, already-collapsed-to-central-Anatolia placeholder in the
+   source dataset rather than an accurate picture of its actual final years,
+   so those two were dropped rather than presented as real history.
+
+   6 more empires were added per GitHub issue #53 ("feat: Persian empire"),
+   which asked whether any of ~19 candidate Persian dynasties/states
+   (Achaemenid, Seleucid, Parthian, Sasanian, Tahirid, Saffarid, Samanid,
+   Ghaznavid, Great Seljuk, Khwarazmian, Ilkhanate, Timurid, Safavid,
+   Afsharid, Zand, Qajar, Pahlavi, Imperial State of Iran, Islamic Republic
+   of Iran) could be added here or to the Unofficial States "Historical
+   States" category (see issue #53 in that section above for the 2 that fit
+   there instead). Verified with the same empirical method as every empire
+   above — indexing every NAME property across all 54 year files, then
+   checking candidates for byte-identical geometry across years (the same
+   red flag that excluded Ottoman's 1920/1930 snapshots) and for names
+   persisting past a dynasty's well-documented real end date (the same
+   "anachronistic name" problem Manchu (Qing) Empire's dropped 1914 snapshot
+   already illustrates):
+   - **Achaemenid Empire** (2 eras, 500-400 BCE) — deliberately thin, like
+     Mongol Empire above.
+   - **Seleucid Empire** (3 eras, 300-100 BCE; dataset NAME "Seleucid
+     Kingdom").
+   - **Parthian Empire** (5 eras, 200 BCE-200 CE) — the dataset renames this
+     same continuous polity "Parthia" → "Parthian Empire" as it grew from a
+     regional kingdom into a full empire, matched under both names the same
+     way Manchu (Qing) Empire's "Qing Empire" rename is; its year-300
+     snapshot is dropped as anachronistic (the Parthian Empire fell to the
+     Sasanians in 224 CE, 76 years earlier).
+   - **Sasanian Empire** (4 eras, 400-700) — the dataset's year-400 snapshot
+     of this same polity is named plain "Persia" rather than "Sasanian
+     Empire" (confirmed by extent continuity into 500's "Sasanian Empire"),
+     matched via the same rename technique.
+   - **Ghaznavid Empire** (2 eras, 1000-1100; dataset NAME "Ghaznavid
+     Emirate") — stops at 1100, not the dataset's 1200 snapshot: the
+     Ghaznavids lost Ghazna itself in 1148 and the dynasty had ceased to
+     exist entirely by 1186, so a 1200 feature under this name is
+     anachronistic.
+   - **Persia** (5 eras, 1783-1914) — the dataset's own undivided name for
+     this state through the tail of the Zand dynasty and all of the Qajar
+     dynasty (1789-1925); kept under this plain name rather than inventing a
+     "Qajar Iran"/"Zand Iran" split the dataset itself doesn't make, same
+     "don't invent a classification the source data doesn't make" reasoning
+     as the excluded British Empire above. Its byte-identical-duplicate 1800
+     snapshot is dropped.
+
+   Also researched and excluded per issue #53: Tahirid, Saffarid, Samanid,
+   Great Seljuk, and Khwarazmian (no matching NAME, or only a single
+   non-multi-era year, in any file); Timurid Empire and Ilkhanate (their
+   only candidate years are either a single snapshot or byte-identical
+   duplicates across years — a static placeholder, not a tracked border
+   change); and Afsharid/Zand/Qajar/Pahlavi/Imperial State of Iran/Islamic
+   Republic of Iran (no matching NAME in this dataset at all — modern
+   "Iran", 1920 onward, is the current country already covered by
+   `world_countries.json`, not a historical empire to add here).
 
 ## Infra / deployment status
 
