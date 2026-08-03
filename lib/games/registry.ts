@@ -265,6 +265,22 @@ export const GAMES: GameDefinition[] = [
     dataFile: "/data/country_coat_of_arms.json",
     modes: [{ slug: "coat-of-arms", name: "Coat of Arms", scoreType: "POINTS" }, PRACTICE_MODE],
   },
+  {
+    slug: "sultanates",
+    name: "Sultanates",
+    description:
+      "Flag shown, type which sultanate it is — from present-day Oman and Brunei to historical sultanates like Zanzibar and Aceh.",
+    dataFile: "/data/sultanates.json",
+    // Flags-only (issue #52) — no "map" mode, unlike the 6 Unofficial
+    // States & Territories games: most of these entities have no reliable
+    // public boundary source (medieval/colonial-era polities), so a
+    // Map mode would only ever cover 2 of 8 entities (Oman/Brunei, already
+    // playable via the countries-asia game's own Map mode) — not worth a
+    // second, near-empty mode. Same "ship what's real, don't force a mode
+    // that isn't backed by data" reasoning as Micronations having no Map
+    // mode at all today.
+    modes: [{ slug: "flags", name: "Flags", scoreType: "POINTS" }, PRACTICE_MODE],
+  },
 ];
 
 export function getGame(slug: string): GameDefinition | undefined {

@@ -591,6 +591,66 @@ value is genuinely present but not yet indexed there (seen for Turkey as of
 this script's original run) is caught by a live per-entity fallback lookup
 rather than being silently dropped — see the script for both paths.
 
+12. **Sultanates** (`/games/sultanates`, issue #52) — one mode, *Flags*: a
+    flag is shown, type which sultanate it belongs to; POINTS. Reuses
+    `FlagsMode.tsx`/`PracticeMode.tsx` directly rather than a new mode
+    component — the data is `CountryFeature`-shaped (name/iso2/capital/
+    flagUrl), the exact type those components already consume. Flags-only,
+    no Map mode: unlike the Unofficial States games, most of these entities
+    are medieval/colonial-era polities with no reliable modern public
+    boundary source, so a Map mode would only ever cover 2 of 8 entities
+    (Oman/Brunei — both already have a Map-equivalent via the
+    countries-asia game's own Countries mode) — not worth a second,
+    near-empty mode, same reasoning as Micronations shipping with no Map
+    mode at all.
+
+    8 entities, deliberately curated (same "small, well-documented set,
+    note what's excluded" approach as Unofficial States & Territories):
+    2 current sovereign states — **Oman**, **Brunei** (id/name/lat/lng/
+    capital/flagUrl reused as-is from `world_countries.json`, same
+    precedent as `country_stats.json`) — plus 6 historical/traditional
+    sultanates, each with a real, distinct, Wikidata-sourced (P41) flag:
+    **Sultanate of Sulu** (based in the Sulu Archipelago/Palawan/NE Borneo,
+    formally ended 1915), **Sultanate of Zanzibar** (1856-1964, ended by
+    the 1964 revolution — this is the historical sultanate specifically,
+    a distinct Wikidata item/entity from the modern semi-autonomous
+    Zanzibar already in the Unofficial States "Autonomous Territories"
+    game; its own item has no P625 coordinate, so its capital Zanzibar
+    City's P625 is used as a documented `coordOverride` instead), **Aceh
+    Sultanate** (northern Sumatra, ended 1903/1904 by Dutch annexation),
+    **Johor Sultanate** and **Ternate Sultanate** (both, unlike every other
+    entry here, never actually dissolved — they continue today as
+    non-sovereign traditional/constitutional institutions within Malaysia
+    and Indonesia respectively, so their Wikidata flags are each
+    institution's own still-used banner, not a defunct historical one),
+    and **Adal Sultanate** (Horn of Africa, 1415-1577; its P41 flag is a
+    modern reconstruction used by present-day political/cultural movements
+    referencing the historical sultanate, the same "real, distinct,
+    sourceable flag" bar as everywhere else, not a contemporaneous artifact
+    — none exists for a state this old).
+
+    Explicitly researched and excluded for having **no real P41 (flag)
+    claim on Wikidata at all** — same "no fabricated flag" bar Unofficial
+    States' Disputed Territories already applies to Kashmir/Golan Heights:
+    Mamluk Sultanate of Egypt, Delhi Sultanate, Sultanate of Rum, Malacca
+    Sultanate, Kilwa Sultanate, Bahmani Sultanate, and Sokoto Caliphate
+    (which is also structurally a caliphate rather than a sultanate — its
+    head carries the ceremonial title "Sultan of Sokoto" within Nigeria
+    today, but the 19th-century polity itself was founded/organized as a
+    caliphate; moot either way since it also lacks a P41 flag and a P36
+    capital). Also deliberately excludes the **Ottoman Empire**: it's a
+    real, well-documented sultanate with its own flag, but it already has a
+    Flags-mode entry in Unofficial States' Historical States game
+    (`unofficial_states.json`) *and* its own "Empires Through History"
+    border viewer (`empires_history.json`) — a third near-identical entry
+    here would duplicate existing content rather than add anything.
+
+`public/data/sultanates.json` is plain GeoJSON (`Point` geometry,
+`CountryFeature`-compatible `properties.{name,iso2,capital,flagUrl}`) —
+`scripts/build-sultanates.js`. `iso2` is a real ISO 3166-1 code for
+Oman/Brunei only; the 6 historical entities use a locally-invented short id
+(not a real code), same convention as `unofficial_states.json`.
+
 ## Informational pages (`/info`)
 
 A second, non-game content section for read-only geography content (issue
