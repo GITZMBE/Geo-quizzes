@@ -59,7 +59,9 @@ export default function CountriesNorthAmericaPage() {
                     <img
                       src={c.properties.flagUrl}
                       alt=""
-                      className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+                      // object-contain within a max-width/max-height box,
+                      // not object-cover — see FlagsMode.tsx (issue #50).
+                      className="h-40 w-64 rounded-md border border-border bg-white object-contain p-2 shadow-sm"
                     />
                   </div>
                 )}
