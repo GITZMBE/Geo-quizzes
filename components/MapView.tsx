@@ -40,6 +40,15 @@ type MapViewProps<T extends RegionFeature> = {
   // type — e.g. a road's two endpoint places. Projected via the same
   // projection regionsData's paths use, so they always line up.
   markers?: { lat: number; lng: number; label: string }[];
+  // Optional distinct geometry to compute the initial fitExtent bounds
+  // against, decoupled from what's actually rendered (`regionsData`) —
+  // issue #51: MapGuessMode renders a light world backdrop together with
+  // the round's target so players get geographic context (issue #11), but
+  // fitting the view to that *entire* combined set left most targets tiny,
+  // since the backdrop is the whole world and almost every target is far
+  // smaller than that. Defaults to fitting `regionsData` itself (every
+  // other caller's existing behavior, unchanged) when omitted.
+  fitTo?: GeoPermissibleObjects;
   // What identity change should reset zoom/pan — defaults to regionsData
   // itself (every existing caller's behavior: a new round/shuffle gets a
   // fresh regionsData array, so this is a no-op for them). A caller whose
@@ -148,6 +157,7 @@ export function MapView<T extends RegionFeature>({
   onRegionClick,
   label,
   markers,
+  fitTo,
   resetViewKey = regionsData,
 }: MapViewProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -212,10 +222,10 @@ export function MapView<T extends RegionFeature>({
         [pad, pad],
         [size.width - pad, size.height - pad],
       ],
-      featureCollection as unknown as GeoPermissibleObjects
+      fitTo ?? (featureCollection as unknown as GeoPermissibleObjects)
     );
     return p;
-  }, [regionsData, size.width, size.height, projection]);
+  }, [regionsData, size.width, size.height, projection, fitTo]);
 
   const pathFor = useMemo(() => (proj ? geoPath(proj) : null), [proj]);
 

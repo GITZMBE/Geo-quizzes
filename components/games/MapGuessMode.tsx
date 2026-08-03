@@ -1,12 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { GeoPermissibleObjects } from "d3-geo";
 import { MapView } from "@/components/MapView";
 import { Leaderboard } from "@/components/Leaderboard";
 import { GameResultActions } from "@/components/games/GameResultActions";
 import type { RegionFeature, UnofficialBorderFeature } from "@/lib/games/data";
 import { useRoundGame } from "@/lib/games/useRoundGame";
 import { getAutocompleteMatch } from "@/lib/games/text";
+
+// How much headroom to add around the target's own bounding box when
+// deciding what to zoom to (issue #51) — a ratio of the target's own
+// width/height, so a huge target (Soviet Union) and a tiny one (Gibraltar)
+// both end up with the shape filling a similar, comfortable fraction of the
+// view rather than either edge-to-edge (no margin) or floating tiny in the
+// middle (fit to the whole world). FIT_MIN_PADDING_DEG is a floor on top of
+// that ratio so a very small entity — whose own bbox can be well under a
+// degree wide — still gets a meaningful amount of real surrounding
+// coastline/border, not just its own already-tiny bbox blown up to fill the
+// view with nothing around it.
+const FIT_MARGIN_RATIO = 0.6;
+const FIT_MIN_PADDING_DEG = 8;
 
 // A single region's outline is shown, filled in, drawn together with a
 // light-gray backdrop of every country in the world for geographic
@@ -86,6 +100,60 @@ export function MapGuessMode({
     return maxLng - minLng > 180 ? ("pacific" as const) : ("mercator" as const);
   }, [targetEntity]);
 
+  // What MapView actually fits/zooms its initial view to — a padded box
+  // around just the target's own bounding box, not the combined
+  // backdrop+target set `mapData` above (issue #51: fitting to the whole
+  // world backdrop left most targets tiny at the default zoom, even with a
+  // consistent zoom level round to round). The backdrop is still rendered
+  // underneath (via `mapData`/`regionsData`, unchanged) so the player keeps
+  // the "where in the world is this" context issue #11 added — this only
+  // changes what the initial camera frames, not what's drawn. Same
+  // min/max-longitude approach already used for the projection check above,
+  // including its same known simplification for an antimeridian-spanning
+  // target (only the Soviet Union's Chukotka peninsula today): that one
+  // target's raw longitude span reads as ~340° rather than its real ~20°,
+  // so its padded box ends up close to full world width — an acceptable
+  // outcome for a genuinely huge historical empire, not a new bug.
+  const fitBounds = useMemo<GeoPermissibleObjects | undefined>(() => {
+    if (!targetEntity) return undefined;
+    const polys =
+      targetEntity.geometry.type === "Polygon"
+        ? [targetEntity.geometry.coordinates]
+        : targetEntity.geometry.coordinates;
+    let minLng = Infinity;
+    let maxLng = -Infinity;
+    let minLat = Infinity;
+    let maxLat = -Infinity;
+    for (const poly of polys as unknown as number[][][][]) {
+      for (const ring of poly) {
+        for (const [lng, lat] of ring) {
+          if (lng < minLng) minLng = lng;
+          if (lng > maxLng) maxLng = lng;
+          if (lat < minLat) minLat = lat;
+          if (lat > maxLat) maxLat = lat;
+        }
+      }
+    }
+    const padLng = Math.max((maxLng - minLng) * FIT_MARGIN_RATIO, FIT_MIN_PADDING_DEG);
+    const padLat = Math.max((maxLat - minLat) * FIT_MARGIN_RATIO, FIT_MIN_PADDING_DEG);
+    return {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "MultiPoint",
+            coordinates: [
+              [Math.max(minLng - padLng, -180), Math.max(minLat - padLat, -85)],
+              [Math.min(maxLng + padLng, 180), Math.min(maxLat + padLat, 85)],
+            ],
+          },
+        },
+      ],
+    } as unknown as GeoPermissibleObjects;
+  }, [targetEntity]);
+
   useEffect(() => {
     if (!state.lastResult && !state.finished) {
       inputRef.current?.focus();
@@ -139,6 +207,7 @@ export function MapGuessMode({
               <MapView
                 regionsData={mapData}
                 projection={projection}
+                fitTo={fitBounds}
                 fill={(f) => {
                   // Backdrop land uses the same neutral fill as an
                   // unguessed US state (see USStatesMode.tsx) — issue #16:
