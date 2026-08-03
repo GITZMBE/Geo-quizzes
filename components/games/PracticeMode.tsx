@@ -43,26 +43,38 @@ export function PracticeMode<T>({
         {renderQuestion(item)}
       </div>
 
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={() => go(-1)}
-          disabled={index === 0}
-          className="rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-muted disabled:opacity-40"
-        >
-          ← Previous
-        </button>
-        <div className="flex-1 rounded-md border border-success bg-success/10 px-4 py-3 text-center text-lg font-bold text-success">
+      {/* Row on wider viewports (Previous — answer — Next), but a long
+          answer (e.g. "Bophuthatswana", "Sahrawi Arab Democratic Republic")
+          has no wrap opportunity wide enough to keep 2 fixed-width buttons
+          plus the flex-1 answer box on one line at mobile widths, pushing
+          Next off-screen (issue #49). Below `sm`, stack the answer full-width
+          on top and the two buttons in their own row underneath it instead
+          of shrinking/truncating anything — the buttons+answer wrapper uses
+          `sm:contents` so its two button children rejoin the parent flex row
+          at the `sm` breakpoint (ordered back to Previous/answer/Next via
+          `sm:order-*`) rather than needing separate mobile/desktop markup. */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="order-1 flex-1 break-words rounded-md border border-success bg-success/10 px-4 py-3 text-center text-lg font-bold text-success sm:order-2">
           {renderAnswer(item)}
         </div>
-        <button
-          type="button"
-          onClick={() => go(1)}
-          disabled={index === order.length - 1}
-          className="rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-muted disabled:opacity-40"
-        >
-          Next →
-        </button>
+        <div className="order-2 grid grid-cols-2 gap-3 sm:contents">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            disabled={index === 0}
+            className="rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-muted disabled:opacity-40 sm:order-1"
+          >
+            ← Previous
+          </button>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            disabled={index === order.length - 1}
+            className="rounded-md border border-border px-4 py-3 text-sm font-medium hover:bg-muted disabled:opacity-40 sm:order-3"
+          >
+            Next →
+          </button>
+        </div>
       </div>
 
       {index === order.length - 1 && (
