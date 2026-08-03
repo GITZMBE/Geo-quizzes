@@ -96,7 +96,13 @@ export function FlagsMode({
             <img
               src={targetCountry.properties.flagUrl}
               alt="Flag to guess"
-              className="h-40 w-64 rounded-md border border-border object-cover shadow-sm"
+              // object-contain within a max-width/max-height box, not
+              // object-cover — flags have widely varying aspect ratios
+              // (some, like Nepal's, aren't even rectangular), so cropping
+              // to fill a fixed 40x64 box chopped them off sideways (issue
+              // #50). Same bg-white + object-contain treatment
+              // CoatOfArmsMode already uses for the same reason.
+              className="h-40 w-64 rounded-md border border-border bg-white object-contain p-2 shadow-sm"
               // flagcdn.com is generally reliable, but a brief outage
               // shouldn't leave a broken-image icon on screen — hide it and
               // let the question text/score above still carry the round.

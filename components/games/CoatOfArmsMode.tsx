@@ -87,10 +87,12 @@ export function CoatOfArmsMode({
             <img
               src={targetCountry.coatOfArmsUrl}
               alt="Coat of arms to guess"
-              // object-contain (not FlagsMode's object-cover) — coats of
-              // arms are a mix of aspect ratios, often on a transparent
-              // background, so cropping to fill a wide rectangle chops off
-              // real content in a way that never happens with a flag.
+              // object-contain — coats of arms are a mix of aspect ratios,
+              // often on a transparent background, so cropping to fill a
+              // wide rectangle would chop off real content. FlagsMode uses
+              // the same object-contain/bg-white treatment now too (issue
+              // #50) since some flags (e.g. Nepal's non-rectangular one)
+              // hit the same problem.
               className="h-40 w-64 rounded-md border border-border bg-white object-contain p-2 shadow-sm"
               // Wikimedia Commons is generally reliable, but a brief outage
               // shouldn't leave a broken-image icon on screen — hide it and

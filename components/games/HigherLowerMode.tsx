@@ -209,7 +209,12 @@ function CountryCard({
       <img
         src={country.flagUrl}
         alt=""
-        className="h-20 w-32 rounded-md object-cover shadow-sm"
+        // object-contain within a max-width/max-height box, not
+        // object-cover — flags have widely varying aspect ratios and were
+        // overflowing sideways when cropped to fill a fixed box (issue
+        // #50); same bg-white + object-contain treatment used everywhere
+        // else flags render.
+        className="h-20 w-32 rounded-md bg-white object-contain p-1 shadow-sm"
         // flagcdn.com is generally reliable, but a brief outage shouldn't
         // leave a broken-image icon on screen — hide it and let the
         // country name/stat below still carry the round.
