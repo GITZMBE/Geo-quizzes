@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (8), autonomous-territories (25), disputed-territories (5), separatist-movements (5), historical-states (18), micronations (8). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
+  "note": "6 categories from GitHub issue #2's original ask, worldwide, each its own game mode via `properties.category`: de-facto-states (8), autonomous-territories (25), disputed-territories (5), separatist-movements (5), historical-states (20), micronations (8). Disputed territories deliberately excludes Kashmir/Golan Heights (no flag distinct from the states disputing them); Kherson Oblast/Zaporizhzhia Oblast entries are Russia's own federal-subject flags for the annexed oblasts (distinct Wikidata items from Ukraine's own same-named oblasts), added per GitHub issue #15. Separatist movements is screened to real political movements with their own distinct flag, excluding militant/terrorist-designated organizations (e.g. Tamil Eelam/LTTE, Balochistan insurgent groups, West Papua's OPM, Chechnya/Ichkeria) even though disputed-territories does include active disputes (Donetsk/Luhansk/Kherson/Zaporizhzhia) per explicit product direction. Historical states is cut off at 20th-century-dissolved states only, otherwise unbounded. `iso2` is a locally-invented short id (none of these entities have a real ISO 3166-1 code), kept only to satisfy CountryFeature's shared type shape. Flags from flagcdn.com (autonomous territories, matching world_countries.json's convention) or Wikidata property P41 (Commons Special:FilePath, the rest); capitals from P36, coordinates from P625 — all with documented per-entity overrides where the raw value would be misleading (see scripts/build-unofficial-states.js).",
   "features": [
     {
       "type": "Feature",
@@ -1036,6 +1036,40 @@
         "coordinates": [
           30.483333333333334,
           -22.95
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Qajar Iran",
+        "iso2": "QAJ",
+        "capital": "Tehran",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20flag%20of%20Persia%20(1907%E2%80%931933).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.416666944444,
+          35.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pahlavi Iran",
+        "iso2": "PAH",
+        "capital": "Tehran",
+        "category": "historical-states",
+        "flagUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/State%20flag%20of%20Iran%20(1964%E2%80%931980).svg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.4167,
+          35.7
         ]
       }
     },
